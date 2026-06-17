@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /blocks/
+
+Sitemap: https://sergey-nasyrov.ru/sitemap.xml
