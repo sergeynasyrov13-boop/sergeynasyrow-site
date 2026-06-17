@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Аудит</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #F9F9F9;
+      color: #333333;
+    }
+
+    .card { width: 100%; overflow: hidden; }
+
+    .audit {
+      background: #1A1A1A;
+      padding: 96px 64px;
+    }
+
+    .audit__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 45%;
+      gap: 64px;
+      align-items: center;
+    }
+
+    /* ── Left ── */
+    .audit__label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #F0902C;
+      margin-bottom: 20px;
+    }
+
+    .audit__title {
+      font-size: clamp(26px, 2.4vw, 38px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      margin-bottom: 20px;
+    }
+
+    .audit__desc {
+      font-size: clamp(15px, 1.3vw, 17px);
+      font-weight: 400;
+      line-height: 1.7;
+      color: #AAAAAA;
+      margin-bottom: 40px;
+    }
+
+    .audit__ctas {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .audit__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #F0902C;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .audit__cta:hover { background: #d97e20; transform: translateY(-1px); }
+
+    .audit__cta--ghost {
+      background: transparent;
+      color: #ffffff;
+      border: 1.5px solid rgba(255,255,255,0.3);
+    }
+
+    .audit__cta--ghost:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.6);
+      transform: translateY(-1px);
+    }
+
+    .audit__price-note {
+      margin-top: 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #666666;
+    }
+
+    /* ── Right: what's included ── */
+    .audit__items {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid #2E2E2E;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .audit-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 24px 28px;
+      border-bottom: 1px solid #2E2E2E;
+    }
+
+    .audit-item:last-child { border-bottom: none; }
+
+    .audit-item__check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #2A1F10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .audit-item__check svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .audit-item__text {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.55;
+      color: #CCCCCC;
+    }
+
+    .audit-item__text strong {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .audit { padding: 72px 32px; }
+      .audit__inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    @media (max-width: 480px) {
+      .audit { padding: 56px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <section class="audit">
+      <div class="audit__inner">
+
+        <div class="audit__left">
+          <h2 class="audit__title">Не знаете,<br>с чего начать?</h2>
+          <p class="audit__desc">
+            За 2 часа разберём весь маркетинг: что тормозит рост, куда уходит бюджет и&nbsp;что делать дальше. Получите конкретный план, а не&nbsp;общие рекомендации.
+          </p>
+          <div class="audit__ctas">
+            <a class="audit__cta" href="https://t.me/sergeynasyrov_bot">
+              Заказать аудит за 3 500 ₽
+            </a>
+            <a class="audit__cta audit__cta--ghost" href="#">
+              Посмотреть пример аудита
+            </a>
+          </div>
+        </div>
+
+        <div class="audit__right">
+          <div class="audit__items">
+
+            <div class="audit-item">
+              <div class="audit-item__check">
+                <svg viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6l3 3 5-5" stroke="#F0902C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="audit-item__text"><strong>Что тормозит рост</strong> — найдём узкое место, из-за которого бюджет тратится, а&nbsp;заявок нет</div>
+            </div>
+
+            <div class="audit-item">
+              <div class="audit-item__check">
+                <svg viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6l3 3 5-5" stroke="#F0902C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="audit-item__text"><strong>Куда уходит бюджет</strong> — разберём каждый канал и&nbsp;поймём, что работает, а&nbsp;что съедает деньги</div>
+            </div>
+
+            <div class="audit-item">
+              <div class="audit-item__check">
+                <svg viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6l3 3 5-5" stroke="#F0902C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="audit-item__text"><strong>Конкретный план</strong> — что запустить, в&nbsp;каком канале, с&nbsp;каким бюджетом и&nbsp;как измерить результат</div>
+            </div>
+
+            <div class="audit-item">
+              <div class="audit-item__check">
+                <svg viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6l3 3 5-5" stroke="#F0902C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="audit-item__text"><strong>Без обязательств</strong> — после аудита решаете сами, работать дальше или нет</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</body>
+</html>

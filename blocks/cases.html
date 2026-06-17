@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кейсы</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #F9F9F9;
+      color: #333333;
+    }
+
+    .card { width: 100%; overflow: hidden; }
+
+    .cases {
+      padding: 96px 0;
+    }
+
+    .cases__header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 64px;
+      margin-bottom: 48px;
+    }
+
+    .cases__title {
+      font-size: clamp(26px, 2.4vw, 38px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #1A1A1A;
+    }
+
+    /* ── Scroll track ── */
+    .cases__track-wrap {
+      overflow-x: auto;
+      padding: 8px 64px 24px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+    }
+
+    .cases__track-wrap::-webkit-scrollbar { display: none; }
+
+    .cases__track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+    }
+
+    /* ── Case card ── */
+    .case-card {
+      width: 360px;
+      flex-shrink: 0;
+      background: #FFFFFF;
+      border-radius: 20px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      scroll-snap-align: start;
+    }
+
+    .case-card__tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .case-card__tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #F0902C;
+      background: #FFF3E6;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+
+    .case-card__tag--niche {
+      color: #888888;
+      background: #F2F2F2;
+    }
+
+    .case-card__situation {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.6;
+      color: #999999;
+      margin-bottom: 24px;
+    }
+
+    .case-card__metric {
+      font-size: clamp(36px, 3.5vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #F0902C;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .case-card__metric-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1A1A1A;
+      margin-bottom: 8px;
+    }
+
+    .case-card__metric-desc {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #888888;
+    }
+
+    /* ── Dots ── */
+    .cases__dots {
+      display: flex;
+      gap: 8px;
+      padding: 0 64px;
+      margin-top: 8px;
+    }
+
+    .cases__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #DDDDDD;
+      cursor: pointer;
+      transition: background 0.2s, width 0.2s;
+    }
+
+    .cases__dot.active {
+      width: 20px;
+      border-radius: 3px;
+      background: #F0902C;
+    }
+
+    @media (max-width: 768px) {
+      .cases__header { padding: 0 20px; }
+      .cases__track-wrap { padding: 8px 20px 24px; }
+      .cases__dots { padding: 0 20px; }
+      .case-card { width: 300px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <section class="cases">
+
+      <div class="cases__header">
+        <h2 class="cases__title">Результаты клиентов</h2>
+      </div>
+
+      <div class="cases__track-wrap" id="casesTrack">
+        <div class="cases__track">
+
+          <!-- 1 -->
+          <div class="case-card">
+            <div class="case-card__tags">
+              <span class="case-card__tag">Email-маркетинг</span>
+              <span class="case-card__tag case-card__tag--niche">Онлайн-образование</span>
+            </div>
+            <div class="case-card__situation">Email-канал работал без системы: только продающие письма в окно продаж, без сегментации и онбординга</div>
+            <div class="case-card__metric">54%</div>
+            <div class="case-card__metric-label">открываемость писем</div>
+            <div class="case-card__metric-desc">При среднем по рынку 20%. Retention клиентов вырос до 85% — из десяти начавших занятия восемь-девять продолжали</div>
+          </div>
+
+          <!-- 2 -->
+          <div class="case-card">
+            <div class="case-card__tags">
+              <span class="case-card__tag">SMM</span>
+              <span class="case-card__tag case-card__tag--niche">HoReCa</span>
+            </div>
+            <div class="case-card__situation">Аккаунт вели без стратегии, охваты стагнировали на 20–45 тысяч в месяц, SMM-специалиста не было</div>
+            <div class="case-card__metric">×4</div>
+            <div class="case-card__metric-label">рост месячного охвата</div>
+            <div class="case-card__metric-desc">С 45 до 180 тысяч. ER 5,1% при среднем по рынку 0,67% — аудитория реагировала в&nbsp;7,6 раза активнее конкурентов</div>
+          </div>
+
+          <!-- 3 -->
+          <div class="case-card">
+            <div class="case-card__tags">
+              <span class="case-card__tag">Яндекс Директ</span>
+              <span class="case-card__tag case-card__tag--niche">HoReCa</span>
+            </div>
+            <div class="case-card__situation">Реклама работала, но стоимость привлечения гостя держалась на уровне 770 ₽ за бронирование</div>
+            <div class="case-card__metric">−42%</div>
+            <div class="case-card__metric-label">снижение стоимости заявки</div>
+            <div class="case-card__metric-desc">CPA упал с 770 до 450 ₽. Количество бронирований удвоилось при бюджете, который сократился на&nbsp;20%</div>
+          </div>
+
+          <!-- 4 -->
+          <div class="case-card">
+            <div class="case-card__tags">
+              <span class="case-card__tag">Конверсия сайта</span>
+              <span class="case-card__tag case-card__tag--niche">Онлайн-образование</span>
+            </div>
+            <div class="case-card__situation">Лендинг получал стабильный трафик, но конверсия держалась около 1% — люди уходили, не понимая ценности</div>
+            <div class="case-card__metric">×3</div>
+            <div class="case-card__metric-label">рост конверсии в заявку</div>
+            <div class="case-card__metric-desc">С 1% до 3% — втрое больше людей из тех, кто зашёл на сайт, оставляли заявку. Без увеличения бюджета на трафик</div>
+          </div>
+
+          <!-- 5 -->
+          <div class="case-card">
+            <div class="case-card__tags">
+              <span class="case-card__tag">VK Ads</span>
+              <span class="case-card__tag case-card__tag--niche">HoReCa</span>
+            </div>
+            <div class="case-card__situation">Реклама в VK работала только на подписчиков и анонсы афиш — конкретные продукты не продвигались</div>
+            <div class="case-card__metric">−64%</div>
+            <div class="case-card__metric-label">снижение стоимости клика</div>
+            <div class="case-card__metric-desc">При бюджете, который сократился на 53%. Количество кликов выросло на 31%, кликабельность объявлений удвоилась</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cases__dots">
+        <div class="cases__dot active"></div>
+        <div class="cases__dot"></div>
+        <div class="cases__dot"></div>
+        <div class="cases__dot"></div>
+        <div class="cases__dot"></div>
+      </div>
+
+    </section>
+  </div>
+
+  <script>
+    const track = document.getElementById('casesTrack');
+    const dots = document.querySelectorAll('.cases__dot');
+    const cardWidth = 360 + 20;
+
+    track.addEventListener('scroll', () => {
+      const idx = Math.round(track.scrollLeft / cardWidth);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        track.scrollTo({ left: i * cardWidth, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

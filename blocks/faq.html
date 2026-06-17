@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #F9F9F9;
+      color: #333333;
+    }
+
+    .card { width: 100%; overflow: hidden; }
+
+    .faq {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 64px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ── Left: sticky header ── */
+    .faq__left {
+      position: sticky;
+      top: 40px;
+    }
+
+    .faq__title {
+      font-size: clamp(26px, 2.4vw, 38px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #1A1A1A;
+      margin-bottom: 16px;
+    }
+
+    .faq__sub {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: #999999;
+    }
+
+    /* ── Right: accordion ── */
+    .faq__list {
+      border-top: 1px solid #E8E8E8;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #E8E8E8;
+    }
+
+    .faq-item__q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .faq-item__q-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A1A1A;
+      line-height: 1.4;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .faq-item__icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #F2F2F2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .faq-item.open .faq-item__icon {
+      background: #F0902C;
+    }
+
+    .faq-item__icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: #888888;
+      transition: transform 0.25s, stroke 0.2s;
+    }
+
+    .faq-item.open .faq-item__icon svg {
+      transform: rotate(45deg);
+      stroke: #FFFFFF;
+    }
+
+    .faq-item__a {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .faq-item.open .faq-item__a {
+      max-height: 400px;
+    }
+
+    .faq-item__a-inner {
+      padding-bottom: 24px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.75;
+      color: #666666;
+    }
+
+    @media (max-width: 900px) {
+      .faq {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 72px 32px;
+      }
+      .faq__left { position: static; }
+    }
+
+    @media (max-width: 480px) {
+      .faq { padding: 56px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <section class="faq">
+
+      <div class="faq__left">
+        <h2 class="faq__title">Частые вопросы</h2>
+        <p class="faq__sub">Если не нашли ответ — напишите в&nbsp;бот, отвечу лично.</p>
+      </div>
+
+      <div class="faq__list">
+
+        <div class="faq-item open">
+          <button class="faq-item__q">
+            <span class="faq-item__q-text">Боюсь получить красивый документ, который непонятно как применить</span>
+            <span class="faq-item__icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/>
+                <line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-item__a">
+            <div class="faq-item__a-inner">Стратегия без привязки к действиям — не стратегия, а презентация. У&nbsp;меня каждый вывод заканчивается конкретным шагом: что запустить, в&nbsp;каком канале, с&nbsp;каким бюджетом и&nbsp;как измерить результат. Если нет команды — могу сам всё реализовать.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__q">
+            <span class="faq-item__q-text">Планирую начать — но после сезона / после найма / после Нового года</span>
+            <span class="faq-item__icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/>
+                <line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-item__a">
+            <div class="faq-item__a-inner">Конкуренты не ждут удобного момента. Начните с&nbsp;аудита — 2 часа, 3&nbsp;500 ₽, никаких обязательств. Поймёте, что тормозит рост прямо сейчас, и&nbsp;решите, что делать дальше.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__q">
+            <span class="faq-item__q-text">Как понять, что деньги не сольются?</span>
+            <span class="faq-item__icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/>
+                <line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-item__a">
+            <div class="faq-item__a-inner">Начните с&nbsp;аудита — минимальный риск, конкретный результат на руках. После него будет понятно, подходим ли друг другу и&nbsp;что именно нужно делать. Дальше принять решение проще.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__q">
+            <span class="faq-item__q-text">У меня нет времени и команды на реализацию</span>
+            <span class="faq-item__icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/>
+                <line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-item__a">
+            <div class="faq-item__a-inner">Именно поэтому ко&nbsp;мне и&nbsp;обращаются. Всё делаю самостоятельно или с&nbsp;помощью надёжных подрядчиков. Расписываю задачи так, чтобы вы тратили минимум времени на контроль.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__q">
+            <span class="faq-item__q-text">Чем вы отличаетесь от агентства?</span>
+            <span class="faq-item__icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/>
+                <line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-item__a">
+            <div class="faq-item__a-inner">Работаю лично с&nbsp;каждым проектом — без передачи задач джунам и&nbsp;без испорченного телефона. Вы всегда общаетесь с&nbsp;тем, кто реально делает работу.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__q">
+            <span class="faq-item__q-text">Сколько стоит работа?</span>
+            <span class="faq-item__icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke-width="2" stroke-linecap="round">
+                <line x1="7" y1="1" x2="7" y2="13"/>
+                <line x1="1" y1="7" x2="13" y2="7"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-item__a">
+            <div class="faq-item__a-inner">Зависит от задачи и&nbsp;объёма. Стартовая точка — аудит за 3&nbsp;500 ₽, дальше обсуждаем индивидуально.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.querySelectorAll('.faq-item__q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Обо мне</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #FFFFFF;
+      color: #333333;
+    }
+
+    .card { width: 100%; overflow: hidden; }
+
+    .about {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ── Left: bio ── */
+    .about__left {}
+
+    .about__name {
+      font-size: clamp(24px, 2.2vw, 34px);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #1A1A1A;
+      margin-bottom: 8px;
+    }
+
+    .about__role {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #F0902C;
+      margin-bottom: 32px;
+    }
+
+    .about__text {
+      font-size: clamp(15px, 1.3vw, 17px);
+      font-weight: 400;
+      line-height: 1.7;
+      color: #444444;
+      margin-bottom: 20px;
+    }
+
+    .about__text:last-child { margin-bottom: 0; }
+
+    .about__text strong {
+      color: #1A1A1A;
+      font-weight: 600;
+    }
+
+    /* ── Right: differentiators ── */
+    .about__right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 8px;
+    }
+
+    .diff-card {
+      background: #F9F9F9;
+      border-radius: 14px;
+      padding: 24px 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .diff-card__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #FFF3E6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .diff-card__icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .diff-card__body {}
+
+    .diff-card__title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1A1A1A;
+      margin-bottom: 4px;
+    }
+
+    .diff-card__desc {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.55;
+      color: #888888;
+    }
+
+    @media (max-width: 900px) {
+      .about {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 72px 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .about { padding: 56px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <section class="about">
+
+      <div class="about__left">
+        <h2 class="about__name">Сергей Насыров</h2>
+        <div class="about__role">Маркетолог-практик</div>
+        <p class="about__text">
+          8 лет строю маркетинг для малого и&nbsp;среднего бизнеса — от&nbsp;стратегии до конкретных каналов. Работал руководителем отдела маркетинга, поэтому понимаю, как устроен бизнес изнутри.
+        </p>
+        <p class="about__text">
+          <strong>Работаю сам, без агентства.</strong> Получаете внимание опытного специалиста, а&nbsp;не шаблонные решения от стажёра.
+        </p>
+      </div>
+
+      <div class="about__right">
+
+        <div class="diff-card">
+          <div class="diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F0902C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="diff-card__body">
+            <div class="diff-card__title">8 лет в маркетинге МСБ</div>
+            <div class="diff-card__desc">Beauty, HoReCa, фитнес, FMCG — знаю специфику ниш изнутри</div>
+          </div>
+        </div>
+
+        <div class="diff-card">
+          <div class="diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F0902C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <div class="diff-card__body">
+            <div class="diff-card__title">Опыт Head of Marketing</div>
+            <div class="diff-card__desc">Принимаю решения исходя из выручки и&nbsp;юнит-экономики, а&nbsp;не охватов</div>
+          </div>
+        </div>
+
+        <div class="diff-card">
+          <div class="diff-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F0902C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="diff-card__body">
+            <div class="diff-card__title">Работаю лично, не через джунов</div>
+            <div class="diff-card__desc">Вы всегда общаетесь с&nbsp;тем, кто реально делает работу — без испорченного телефона</div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+  </div>
+</body>
+</html>

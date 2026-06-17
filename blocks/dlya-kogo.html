@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Для кого</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #F9F9F9;
+      color: #333333;
+    }
+
+    .card { width: 100%; overflow: hidden; }
+
+    .for-whom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 64px;
+    }
+
+    .for-whom__eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #F0902C;
+      margin-bottom: 16px;
+    }
+
+    .for-whom__title {
+      font-size: clamp(26px, 2.4vw, 38px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #1A1A1A;
+      margin-bottom: 56px;
+      max-width: 540px;
+    }
+
+    .for-whom__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .pain-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 36px 32px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pain-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #F0902C;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .pain-card__number {
+      font-size: 13px;
+      font-weight: 700;
+      color: #F0902C;
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
+    }
+
+    .pain-card__text {
+      font-size: clamp(15px, 1.3vw, 17px);
+      font-weight: 600;
+      line-height: 1.5;
+      color: #1A1A1A;
+      margin-bottom: 16px;
+    }
+
+    .pain-card__sub {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #888888;
+    }
+
+    @media (max-width: 900px) {
+      .for-whom { padding: 72px 32px; }
+      .for-whom__grid { grid-template-columns: 1fr; gap: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .for-whom { padding: 56px 20px; }
+      .pain-card { padding: 28px 24px 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <section class="for-whom">
+      <h2 class="for-whom__title">Узнаёте свою ситуацию?</h2>
+      <div class="for-whom__grid">
+
+        <div class="pain-card">
+          <div class="pain-card__number">01</div>
+          <p class="pain-card__text">Слили бюджет на&nbsp;рекламу, блогеров или агентство — а&nbsp;заявок больше не&nbsp;стало</p>
+          <p class="pain-card__sub">Деньги ушли, результата нет, и&nbsp;непонятно почему именно так вышло</p>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-card__number">02</div>
+          <p class="pain-card__text">Маркетингом занимаетесь сами — между другими задачами, без&nbsp;системы и&nbsp;понятной отдачи</p>
+          <p class="pain-card__sub">Контент выходит, реклама крутится, но&nbsp;связи между действиями и&nbsp;выручкой не&nbsp;видно</p>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-card__number">03</div>
+          <p class="pain-card__text">Бизнес растёт, но&nbsp;медленнее, чем хочется — и&nbsp;непонятно, что&nbsp;именно тормозит</p>
+          <p class="pain-card__sub">Всё работает, но&nbsp;ощущение, что&nbsp;конкуренты уходят вперёд, пока вы&nbsp;разбираетесь</p>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</body>
+</html>

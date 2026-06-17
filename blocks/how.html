@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Как работаем</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #FFFFFF;
+      color: #333333;
+    }
+
+    .card { width: 100%; overflow: hidden; }
+
+    .how {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 64px;
+    }
+
+    .how__title {
+      font-size: clamp(26px, 2.4vw, 38px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #1A1A1A;
+      margin-bottom: 64px;
+    }
+
+    .how__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    /* connecting line */
+    .how__steps::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: calc(20px + 3%);
+      right: calc(20px + 3%);
+      height: 1px;
+      background: linear-gradient(to right, #F0902C, #F0902C 25%, #E8E8E8 25%, #E8E8E8);
+      z-index: 0;
+    }
+
+    .step {
+      padding: 0 24px 0 0;
+      position: relative;
+    }
+
+    .step:last-child { padding-right: 0; }
+
+    .step__number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #F9F9F9;
+      border: 1.5px solid #E8E8E8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #AAAAAA;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .step:first-child .step__number {
+      background: #F0902C;
+      border-color: #F0902C;
+      color: #FFFFFF;
+    }
+
+    .step__title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1A1A1A;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .step__desc {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: #888888;
+    }
+
+    @media (max-width: 900px) {
+      .how { padding: 72px 32px; }
+      .how__steps {
+        grid-template-columns: 1fr 1fr;
+        gap: 48px 32px;
+      }
+      .how__steps::before { display: none; }
+    }
+
+    @media (max-width: 560px) {
+      .how { padding: 56px 20px; }
+      .how__steps { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <section class="how">
+      <h2 class="how__title">Как строится работа</h2>
+
+      <div class="how__steps">
+
+        <div class="step">
+          <div class="step__number">01</div>
+          <div class="step__title">Разбираюсь в&nbsp;ситуации</div>
+          <div class="step__desc">Изучаю бизнес, продукт, аудиторию и&nbsp;текущий маркетинг. Смотрю на&nbsp;цифры, задаю неудобные вопросы — это быстрее, чем месяц работы в&nbsp;неправильном направлении.</div>
+        </div>
+
+        <div class="step">
+          <div class="step__number">02</div>
+          <div class="step__title">Выстраиваю систему</div>
+          <div class="step__desc">Стратегия, каналы, аналитика, процессы — всё связано между собой. Каждое действие привязано к&nbsp;метрике, каждая метрика — к&nbsp;деньгам.</div>
+        </div>
+
+        <div class="step">
+          <div class="step__number">03</div>
+          <div class="step__title">Запускаю и&nbsp;проверяю</div>
+          <div class="step__desc">Не жду идеальных условий. Запускаю, смотрю на&nbsp;данные, корректирую. Вы видите что работает, а&nbsp;что съедает бюджет.</div>
+        </div>
+
+        <div class="step">
+          <div class="step__number">04</div>
+          <div class="step__title">Масштабирую</div>
+          <div class="step__desc">Когда система работает — усиливаю то, что даёт результат: бюджеты, каналы, точки роста.</div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</body>
+</html>
