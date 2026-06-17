@@ -75,10 +75,26 @@
       flex-shrink: 0;
     }
 
-    .step:first-child .step__number {
-      background: #F0902C;
-      border-color: #F0902C;
-      color: #FFFFFF;
+    @keyframes spotlight-pass {
+      0%, 24.9% { background: #F0902C; border-color: #F0902C; color: #fff; box-shadow: 0 0 0 4px rgba(240,144,44,0.25); }
+      25%, 100%  { background: #F9F9F9; border-color: #E8E8E8; color: #AAA; box-shadow: none; }
+    }
+
+    @keyframes spotlight-stay {
+      0%, 100% { background: #F0902C; border-color: #F0902C; color: #fff; box-shadow: 0 0 0 4px rgba(240,144,44,0.25); }
+    }
+
+    .step:nth-child(1) .step__number {
+      animation: spotlight-pass 8s 0s 1 forwards;
+    }
+    .step:nth-child(2) .step__number {
+      animation: spotlight-pass 8s 2s 1 forwards;
+    }
+    .step:nth-child(3) .step__number {
+      animation: spotlight-pass 8s 4s 1 forwards;
+    }
+    .step:nth-child(4) .step__number {
+      animation: spotlight-stay 8s 6s 1 forwards;
     }
 
     .step__title {
