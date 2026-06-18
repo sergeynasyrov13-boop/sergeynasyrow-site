@@ -876,7 +876,7 @@
     .services {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 96px 64px;
+      padding: 96px 64px 48px;
     }
 
     .services__title {
@@ -975,7 +975,7 @@
     .svc--accent .svc__tag { background: #2A1F10; }
 
     @media (max-width: 900px) {
-      .services { padding: 72px 32px; }
+      .services { padding: 72px 32px 36px; }
       .services__grid { grid-template-columns: 1fr 1fr; }
       .svc--wide { grid-column: span 2; }
       .svc--tall { grid-row: span 1; }
@@ -987,13 +987,13 @@
     }
 
     @media (max-width: 480px) {
-      .services { padding: 56px 20px; }
+      .services { padding: 56px 20px 28px; }
     }
 
     /* ════════════════════════════════════════
        CASES
     ════════════════════════════════════════ */
-    .cases { padding: 96px 0; }
+    .cases { padding: 48px 0 96px; }
 
     .cases__header {
       max-width: 1200px;
@@ -1131,7 +1131,7 @@
     }
 
     @media (max-width: 900px) {
-      .cases { padding: 72px 0; }
+      .cases { padding: 36px 0 72px; }
     }
 
     @media (max-width: 768px) {
@@ -1143,7 +1143,7 @@
     }
 
     @media (max-width: 480px) {
-      .cases { padding: 56px 0; }
+      .cases { padding: 28px 0 56px; }
     }
 
     /* ════════════════════════════════════════
@@ -1584,7 +1584,8 @@
     /* ════════════════════════════════════════
        CONTACT FORM
     ════════════════════════════════════════ */
-    .contact { max-width: 1200px; margin: 0 auto; padding: 96px 64px; }
+    .contact { max-width: 100%; background: #1A1A1A; padding: 96px 64px; }
+    .contact__inner { max-width: 1200px; margin: 0 auto; }
     .contact__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: start; }
     .contact__left { position: sticky; top: 96px; }
     .contact__eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #F0902C; margin-bottom: 20px; }
@@ -1613,6 +1614,26 @@
     .form-checkbox-text { font-size: 12px; font-weight: 400; line-height: 1.6; color: #666666; }
     .form-checkbox-text a { color: #F0902C; text-decoration: none; }
     .form-checkbox-text a:hover { text-decoration: underline; }
+    .contact__eyebrow { color: #F0902C; }
+    .contact__title { color: #ffffff; }
+    .contact__note { color: rgba(255,255,255,0.6); }
+    .contact .form-label { color: rgba(255,255,255,0.85); }
+    .contact .form-input,
+    .contact .form-textarea {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.18);
+      color: #ffffff;
+    }
+    .contact .form-input:focus,
+    .contact .form-textarea:focus {
+      border-color: #F0902C;
+      background: rgba(255,255,255,0.12);
+    }
+    .contact .form-input::placeholder,
+    .contact .form-textarea::placeholder { color: rgba(255,255,255,0.35); }
+    .contact .form-checkbox-box { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.25); }
+    .contact .form-checkbox-text { color: rgba(255,255,255,0.55); }
+    .contact .form-checkbox-text a { color: #F0902C; }
     .btn-submit {
       display: inline-block; width: 100%; background: #F0902C; color: #fff; border: none;
       border-radius: 100px; padding: 16px 36px; font-family: 'Montserrat', sans-serif;
@@ -1888,6 +1909,7 @@
         <p class="about__text">
           <strong>Работаю сам, без агентства.</strong> Получаете внимание опытного специалиста, а&nbsp;не шаблонные решения от стажёра.
         </p>
+        <a class="section-cta__btn" href="#contact" style="margin-top: 32px; display: inline-flex; align-items: center; gap: 10px; background: #F0902C; color: #fff; font-family: inherit; font-size: 15px; font-weight: 600; padding: 16px 32px; border-radius: 100px; text-decoration: none; transition: background 0.2s;">Обсудить задачу</a>
       </div>
 
       <div class="about__right reveal-stagger">
@@ -1931,9 +1953,6 @@
             <div class="diff-card__desc">Вы всегда общаетесь с&nbsp;тем, кто реально делает работу — без испорченного телефона</div>
           </div>
         </div>
-      </div>
-      <div class="section-cta" style="padding: 0 64px 0; justify-content: flex-start;">
-        <a class="section-cta__btn" href="#contact">Обсудить задачу</a>
       </div>
     </section>
   </div>
@@ -2128,7 +2147,7 @@
   <div class="card" id="cases">
     <section class="cases">
       <div class="cases__header">
-        <h2 class="cases__title">Результаты клиентов</h2>
+        <h2 class="cases__title">Что уже делал</h2>
       </div>
 
       <div class="cases__carousel">
@@ -2288,7 +2307,8 @@
   <!-- ── Contact ── -->
   <div class="card" id="contact">
     <section class="contact">
-      <div class="contact__grid">
+      <div class="contact__inner">
+        <div class="contact__grid">
         <div class="contact__left">
           <p class="contact__eyebrow">Написать Сергею</p>
           <h2 class="contact__title">Давайте обсудим вашу задачу</h2>
@@ -2306,7 +2326,7 @@
             </div>
             <div class="form-group">
               <label class="form-label" for="inline-contact">Как с вами связаться?</label>
-              <input class="form-input" type="text" id="inline-contact" name="contact" placeholder="Телефон или email" required>
+              <input class="form-input" type="text" id="inline-contact" name="contact" placeholder="Телефон, email или ссылка на соцсеть" required>
             </div>
             <div class="form-group">
               <label class="form-checkbox-wrap">
@@ -2328,6 +2348,7 @@
             <h3>Заявка отправлена</h3>
             <p>Отвечу в течение рабочего дня</p>
           </div>
+        </div>
         </div>
       </div>
     </section>
@@ -2675,7 +2696,7 @@
         </div>
         <div class="form-group">
           <label class="form-label" for="modal-contact-field">Как с вами связаться?</label>
-          <input class="form-input" type="text" id="modal-contact-field" name="contact" placeholder="Телефон или email" required>
+          <input class="form-input" type="text" id="modal-contact-field" name="contact" placeholder="Телефон, email или ссылка на соцсеть" required>
         </div>
         <div class="form-group">
           <label class="form-checkbox-wrap">
