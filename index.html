@@ -409,6 +409,7 @@
     .hero {
       display: grid;
       grid-template-columns: 1fr 50%;
+      grid-template-rows: 1fr auto;
       min-height: 620px;
       max-width: 1200px;
       margin: 0 auto;
@@ -418,7 +419,9 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 72px 56px 72px 64px;
+      padding: 72px 56px 40px 64px;
+      grid-column: 1;
+      grid-row: 1;
     }
 
     .hero__eyebrow {
@@ -476,8 +479,10 @@
     .hero__trust {
       display: flex;
       gap: 0;
-      padding-top: 28px;
+      padding: 28px 56px 48px 64px;
       border-top: 1px solid #E8E8E8;
+      grid-column: 1;
+      grid-row: 2;
     }
 
     .trust-item {
@@ -514,6 +519,8 @@
       background: #F9F9F9;
       overflow: hidden;
       min-height: 620px;
+      grid-column: 2;
+      grid-row: 1 / 3;
     }
 
     .hero__photo img {
@@ -529,16 +536,21 @@
     }
 
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero__photo { order: 2; min-height: 380px; height: 380px; }
+      .hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        min-height: auto;
+      }
+      .hero__content { grid-column: 1; grid-row: 1; padding: 48px 32px 32px; }
+      .hero__photo { grid-column: 1; grid-row: 2; order: unset; min-height: 380px; height: 380px; }
       .hero__photo img { left: 50%; transform: translateX(-50%); height: 100%; width: auto; }
-      .hero__content { padding: 48px 32px 56px; }
+      .hero__trust { grid-column: 1; grid-row: 3; padding: 28px 32px 40px; }
     }
 
     @media (max-width: 480px) {
       .hero__photo { min-height: 340px; height: 340px; }
-      .hero__content { padding: 40px 20px 48px; }
-      .hero__trust { flex-direction: column; gap: 16px; }
+      .hero__content { padding: 40px 20px 32px; }
+      .hero__trust { padding: 24px 20px 36px; flex-direction: column; gap: 16px; }
       .trust-item {
         flex-direction: row;
         align-items: center;
@@ -1649,24 +1661,25 @@
             Обсудить задачу
           </a>
         </div>
-        <div class="hero__trust">
-          <div class="trust-item">
-            <span class="trust-item__value" id="cnt-years">8 лет</span>
-            <span class="trust-item__label">в маркетинге МСБ</span>
-          </div>
-          <div class="trust-item">
-            <span class="trust-item__value" id="cnt-romi">ROMI 120%+</span>
-            <span class="trust-item__label">у клиентов</span>
-          </div>
-          <div class="trust-item">
-            <span class="trust-item__value" id="cnt-projects">20+</span>
-            <span class="trust-item__label">реализованных<br>проектов</span>
-          </div>
-        </div>
       </div>
 
       <div class="hero__photo">
         <img src="assets/avatar.png" alt="Сергей Насыров — маркетолог">
+      </div>
+
+      <div class="hero__trust">
+        <div class="trust-item">
+          <span class="trust-item__value" id="cnt-years">8 лет</span>
+          <span class="trust-item__label">в маркетинге МСБ</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-item__value" id="cnt-romi">ROMI 120%+</span>
+          <span class="trust-item__label">у клиентов</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-item__value" id="cnt-projects">20+</span>
+          <span class="trust-item__label">реализованных<br>проектов</span>
+        </div>
       </div>
     </section>
   </div>
@@ -2410,12 +2423,12 @@
     // ── Number counters (slower) ──
     function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 
-    function animateCount(el, from, to, suffix, duration) {
+    function animateCount(el, from, to, prefix, suffix, duration) {
       const start = performance.now();
       function tick(now) {
         const p = Math.min((now - start) / duration, 1);
         const val = Math.round(from + (to - from) * easeOutCubic(p));
-        el.textContent = val + suffix;
+        el.textContent = prefix + val + suffix;
         if (p < 1) requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
@@ -2427,9 +2440,9 @@
       new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && !countsDone) {
           countsDone = true;
-          animateCount(document.getElementById('cnt-years'),    0,  8,   ' лет', 2000);
-          animateCount(document.getElementById('cnt-romi'),     0,  120, '%+',   2400);
-          animateCount(document.getElementById('cnt-projects'), 0,  20,  '+',    1800);
+          animateCount(document.getElementById('cnt-years'),    0,  8,   '',      ' лет', 2000);
+          animateCount(document.getElementById('cnt-romi'),     0,  120, 'ROMI ', '%+',   2400);
+          animateCount(document.getElementById('cnt-projects'), 0,  20,  '',      '+',    1800);
         }
       }, { threshold: 0.6 }).observe(trustEl);
     }
