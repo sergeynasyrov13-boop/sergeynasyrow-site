@@ -75,27 +75,29 @@
       flex-shrink: 0;
     }
 
-    @keyframes spotlight-pass {
-      0%, 24.9% { background: #F0902C; border-color: #F0902C; color: #fff; box-shadow: 0 0 0 4px rgba(240,144,44,0.25); }
-      25%, 100%  { background: #F9F9F9; border-color: #E8E8E8; color: #AAA; box-shadow: none; }
+    @keyframes spotlight-1 {
+      0%, 24.9%   { background:#F0902C; border-color:#F0902C; color:#fff; box-shadow:0 0 0 4px rgba(240,144,44,0.25); }
+      25%, 100%   { background:#F9F9F9; border-color:#E8E8E8; color:#AAA; box-shadow:none; }
+    }
+    @keyframes spotlight-2 {
+      0%, 24.9%   { background:#F9F9F9; border-color:#E8E8E8; color:#AAA; box-shadow:none; }
+      25%, 49.9%  { background:#F0902C; border-color:#F0902C; color:#fff; box-shadow:0 0 0 4px rgba(240,144,44,0.25); }
+      50%, 100%   { background:#F9F9F9; border-color:#E8E8E8; color:#AAA; box-shadow:none; }
+    }
+    @keyframes spotlight-3 {
+      0%, 49.9%   { background:#F9F9F9; border-color:#E8E8E8; color:#AAA; box-shadow:none; }
+      50%, 74.9%  { background:#F0902C; border-color:#F0902C; color:#fff; box-shadow:0 0 0 4px rgba(240,144,44,0.25); }
+      75%, 100%   { background:#F9F9F9; border-color:#E8E8E8; color:#AAA; box-shadow:none; }
+    }
+    @keyframes spotlight-4 {
+      0%, 74.9%   { background:#F9F9F9; border-color:#E8E8E8; color:#AAA; box-shadow:none; }
+      75%, 100%   { background:#F0902C; border-color:#F0902C; color:#fff; box-shadow:0 0 0 4px rgba(240,144,44,0.25); }
     }
 
-    @keyframes spotlight-stay {
-      0%, 100% { background: #F0902C; border-color: #F0902C; color: #fff; box-shadow: 0 0 0 4px rgba(240,144,44,0.25); }
-    }
-
-    .step:nth-child(1) .step__number {
-      animation: spotlight-pass 8s 0s 1 forwards;
-    }
-    .step:nth-child(2) .step__number {
-      animation: spotlight-pass 8s 2s 1 forwards;
-    }
-    .step:nth-child(3) .step__number {
-      animation: spotlight-pass 8s 4s 1 forwards;
-    }
-    .step:nth-child(4) .step__number {
-      animation: spotlight-stay 8s 6s 1 forwards;
-    }
+    .step:nth-child(1) .step__number { animation: spotlight-1 8s 0s infinite; }
+    .step:nth-child(2) .step__number { animation: spotlight-2 8s 0s infinite; }
+    .step:nth-child(3) .step__number { animation: spotlight-3 8s 0s infinite; }
+    .step:nth-child(4) .step__number { animation: spotlight-4 8s 0s infinite; }
 
     .step__title {
       font-size: 16px;
