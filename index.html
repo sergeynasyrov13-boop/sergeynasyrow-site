@@ -2746,7 +2746,18 @@
       document.getElementById(successId).style.display = 'block';
     }
     async function submitContactForm(formEl) {
-      // TODO: отправить в Telegram Bot API (токен будет добавлен позже)
+      const data = new FormData(formEl);
+      const name = data.get('name') || '—';
+      const task = data.get('task') || '—';
+      const contact = data.get('contact') || '—';
+      const text = `📩 <b>Новая заявка с сайта</b>\n\n👤 <b>Имя:</b> ${name}\n📋 <b>Задача:</b> ${task}\n📞 <b>Контакт:</b> ${contact}`;
+      try {
+        await fetch('https://api.telegram.org/bot8993668666:AAGVeb0KBZ0ryB0CDtzkT3VH095Vi2sAcPg/sendMessage', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({chat_id: '242534716', text, parse_mode: 'HTML'})
+        });
+      } catch (e) {}
       showFormSuccess(formEl);
     }
     function handleSubmit(e, formEl) {
