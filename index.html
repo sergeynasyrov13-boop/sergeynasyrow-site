@@ -982,9 +982,12 @@
     }
 
     @media (max-width: 560px) {
-      .services { padding: 56px 20px; }
       .services__grid { grid-template-columns: 1fr; }
       .svc--wide { grid-column: span 1; }
+    }
+
+    @media (max-width: 480px) {
+      .services { padding: 56px 20px; }
     }
 
     /* ════════════════════════════════════════
@@ -1127,12 +1130,20 @@
       background: #F0902C;
     }
 
+    @media (max-width: 900px) {
+      .cases { padding: 72px 0; }
+    }
+
     @media (max-width: 768px) {
       .cases__header { padding: 0 20px; }
       .cases__carousel { padding: 8px 20px 24px; gap: 10px; }
       .cases__arrow { display: none; }
       .case-card { flex: 0 0 calc(100vw - 60px); }
       .cases__dots { padding: 0 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .cases { padding: 56px 0; }
     }
 
     /* ════════════════════════════════════════
@@ -1218,8 +1229,11 @@
     }
 
     @media (max-width: 560px) {
-      .how { padding: 56px 20px; }
       .how__steps { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 480px) {
+      .how { padding: 56px 20px; }
     }
 
     /* ════════════════════════════════════════
@@ -1538,6 +1552,113 @@
     @media (max-width: 480px) {
       .footer { padding: 40px 20px 28px; }
     }
+
+    /* ════════════════════════════════════════
+       SECTION CTA
+    ════════════════════════════════════════ */
+    .section-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: 48px;
+    }
+    .section-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #F0902C;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 16px 36px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .section-cta__btn:hover { background: #d97e20; transform: translateY(-1px); }
+
+    @media (max-width: 480px) {
+      .section-cta { padding: 0 20px 0 !important; }
+    }
+
+    /* ════════════════════════════════════════
+       CONTACT FORM
+    ════════════════════════════════════════ */
+    .contact { max-width: 1200px; margin: 0 auto; padding: 96px 64px; }
+    .contact__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: start; }
+    .contact__left { position: sticky; top: 96px; }
+    .contact__eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #F0902C; margin-bottom: 20px; }
+    .contact__title { font-size: clamp(28px, 2.8vw, 44px); font-weight: 800; line-height: 1.13; letter-spacing: -0.025em; color: #1A1A1A; margin-bottom: 28px; }
+    .contact__note { font-size: 15px; font-weight: 400; line-height: 1.7; color: #666666; max-width: 320px; }
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-size: 13px; font-weight: 600; color: #1A1A1A; margin-bottom: 8px; display: block; }
+    .form-input, .form-textarea {
+      width: 100%; padding: 14px 18px; border: 1.5px solid #E8E8E8; border-radius: 12px;
+      font-family: 'Montserrat', sans-serif; font-size: 14px; color: #1A1A1A;
+      background: #F9F9F9; outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: #F0902C; background: #fff; }
+    .form-input::placeholder, .form-textarea::placeholder { color: #AAAAAA; }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-checkbox-wrap { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 28px; cursor: pointer; user-select: none; }
+    .form-checkbox-wrap input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .form-checkbox-box {
+      flex-shrink: 0; width: 18px; height: 18px; border: 1.5px solid #E8E8E8; border-radius: 4px;
+      background: #F9F9F9; display: flex; align-items: center; justify-content: center;
+      margin-top: 1px; transition: border-color 0.2s, background 0.2s;
+    }
+    .form-checkbox-box svg { opacity: 0; transition: opacity 0.15s; }
+    .form-checkbox-wrap input[type="checkbox"]:checked + .form-checkbox-box { background: #F0902C; border-color: #F0902C; }
+    .form-checkbox-wrap input[type="checkbox"]:checked + .form-checkbox-box svg { opacity: 1; }
+    .form-checkbox-text { font-size: 12px; font-weight: 400; line-height: 1.6; color: #666666; }
+    .form-checkbox-text a { color: #F0902C; text-decoration: none; }
+    .form-checkbox-text a:hover { text-decoration: underline; }
+    .btn-submit {
+      display: inline-block; width: 100%; background: #F0902C; color: #fff; border: none;
+      border-radius: 100px; padding: 16px 36px; font-family: 'Montserrat', sans-serif;
+      font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; text-align: center;
+    }
+    .btn-submit:hover { background: #d97d1e; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+    .form-success { display: none; text-align: center; padding: 40px 20px; }
+    .form-success__icon {
+      width: 64px; height: 64px; background: #F0902C; color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 28px;
+      font-weight: 700; margin: 0 auto 20px;
+    }
+    .form-success h3 { font-size: 22px; font-weight: 700; color: #1A1A1A; margin-bottom: 10px; }
+    .form-success p { font-size: 15px; color: #666666; }
+
+    /* ── Modal ── */
+    .modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal.open { display: flex; }
+    .modal__inner {
+      background: #fff; border-radius: 20px; padding: 48px; max-width: 560px;
+      width: 100%; position: relative; max-height: 90vh; overflow-y: auto;
+    }
+    .modal__close {
+      position: absolute; top: 20px; right: 20px; width: 36px; height: 36px;
+      border: none; background: #F9F9F9; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #666666; transition: background 0.2s, color 0.2s;
+    }
+    .modal__close:hover { background: #E8E8E8; color: #1A1A1A; }
+    .modal__title { font-size: clamp(20px, 2vw, 26px); font-weight: 800; letter-spacing: -0.02em; color: #1A1A1A; margin-bottom: 8px; }
+    .modal__sub { font-size: 14px; color: #666666; margin-bottom: 32px; line-height: 1.6; }
+
+    @media (max-width: 900px) {
+      .contact { padding: 72px 32px; }
+      .contact__grid { grid-template-columns: 1fr; gap: 40px; }
+      .contact__left { position: static; }
+      .contact__note { max-width: 100%; }
+      .modal__inner { padding: 32px 24px; }
+    }
+    @media (max-width: 480px) {
+      .contact { padding: 56px 20px; }
+    }
   </style>
   <script type="application/ld+json">
   {
@@ -1665,7 +1786,7 @@
           Беру хаотичный маркетинг — отдаю понятную систему&nbsp;с конкретными каналами и метриками.
         </p>
         <div class="hero__cta-wrap">
-          <a class="hero__cta" href="https://t.me/sergeynasyrov_bot">
+          <a class="hero__cta" href="#contact" data-modal="contact">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" fill="currentColor"/>
             </svg>
@@ -1810,6 +1931,9 @@
             <div class="diff-card__desc">Вы всегда общаетесь с&nbsp;тем, кто реально делает работу — без испорченного телефона</div>
           </div>
         </div>
+      </div>
+      <div class="section-cta" style="padding: 0 64px 0; justify-content: flex-start;">
+        <a class="section-cta__btn" href="#contact">Обсудить задачу</a>
       </div>
     </section>
   </div>
@@ -1994,6 +2118,9 @@
         </div>
 
       </div>
+      <div class="section-cta">
+        <a class="section-cta__btn" href="#contact">Обсудить задачу</a>
+      </div>
     </section>
   </div>
 
@@ -2153,6 +2280,54 @@
           <div class="step__number">04</div>
           <div class="step__title">Масштабирую</div>
           <div class="step__desc">Когда система работает — усиливаю то, что даёт результат: бюджеты, каналы, точки роста.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Contact ── -->
+  <div class="card" id="contact">
+    <section class="contact">
+      <div class="contact__grid">
+        <div class="contact__left">
+          <p class="contact__eyebrow">Написать Сергею</p>
+          <h2 class="contact__title">Давайте обсудим вашу задачу</h2>
+          <p class="contact__note">Напишите, даже если вам нужно что-то совсем другое. Возможно, я и с этим смогу помочь. Или посоветую того, кто сможет.</p>
+        </div>
+        <div class="contact__right">
+          <form id="form-contact-inline" onsubmit="handleSubmit(event, this)">
+            <div class="form-group">
+              <label class="form-label" for="inline-name">Как вас зовут?</label>
+              <input class="form-input" type="text" id="inline-name" name="name" placeholder="Иван Петров" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inline-task">Какая у вас задача?</label>
+              <textarea class="form-textarea" id="inline-task" name="task" rows="4" placeholder="Расскажите в двух словах…" required></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inline-contact">Как с вами связаться?</label>
+              <input class="form-input" type="text" id="inline-contact" name="contact" placeholder="Телефон или email" required>
+            </div>
+            <div class="form-group">
+              <label class="form-checkbox-wrap">
+                <input type="checkbox" required>
+                <span class="form-checkbox-box">
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                    <path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="form-checkbox-text">
+                  Соглашаюсь на сбор и обработку персональных данных по <a href="/privacy">политике конфиденциальности</a>
+                </span>
+              </label>
+            </div>
+            <button class="btn-submit" type="submit">Отправить</button>
+          </form>
+          <div class="form-success" id="success-inline">
+            <div class="form-success__icon">✓</div>
+            <h3>Заявка отправлена</h3>
+            <p>Отвечу в течение рабочего дня</p>
+          </div>
         </div>
       </div>
     </section>
@@ -2478,6 +2653,87 @@
       const el = document.getElementById(id);
       if (el) sectionObserver.observe(el);
     });
+  </script>
+
+  <div class="modal" id="modal-contact">
+    <div class="modal__inner">
+      <button class="modal__close" onclick="closeContactModal()" aria-label="Закрыть">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <h2 class="modal__title">Давайте обсудим вашу задачу</h2>
+      <p class="modal__sub">Напишите — отвечу в течение рабочего дня</p>
+      <form id="form-contact-modal" onsubmit="handleSubmit(event, this)">
+        <div class="form-group">
+          <label class="form-label" for="modal-name">Как вас зовут?</label>
+          <input class="form-input" type="text" id="modal-name" name="name" placeholder="Иван Петров" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modal-task">Какая у вас задача?</label>
+          <textarea class="form-textarea" id="modal-task" name="task" rows="4" placeholder="Расскажите в двух словах…" required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modal-contact-field">Как с вами связаться?</label>
+          <input class="form-input" type="text" id="modal-contact-field" name="contact" placeholder="Телефон или email" required>
+        </div>
+        <div class="form-group">
+          <label class="form-checkbox-wrap">
+            <input type="checkbox" required>
+            <span class="form-checkbox-box">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                <path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="form-checkbox-text">
+              Соглашаюсь на сбор и обработку персональных данных по <a href="/privacy">политике конфиденциальности</a>
+            </span>
+          </label>
+        </div>
+        <button class="btn-submit" type="submit">Отправить</button>
+      </form>
+      <div class="form-success" id="success-modal">
+        <div class="form-success__icon">✓</div>
+        <h3>Заявка отправлена</h3>
+        <p>Отвечу в течение рабочего дня</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openContactModal() {
+      document.getElementById('modal-contact').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeContactModal() {
+      document.getElementById('modal-contact').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('modal-contact').addEventListener('click', function(e) {
+      if (e.target === this) closeContactModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeContactModal();
+    });
+    document.querySelectorAll('[data-modal="contact"]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        openContactModal();
+      });
+    });
+    function showFormSuccess(formEl) {
+      formEl.style.display = 'none';
+      const successId = formEl.id === 'form-contact-inline' ? 'success-inline' : 'success-modal';
+      document.getElementById(successId).style.display = 'block';
+    }
+    async function submitContactForm(formEl) {
+      // TODO: отправить в Telegram Bot API (токен будет добавлен позже)
+      showFormSuccess(formEl);
+    }
+    function handleSubmit(e, formEl) {
+      e.preventDefault();
+      submitContactForm(formEl);
+    }
   </script>
 </body>
 </html>
