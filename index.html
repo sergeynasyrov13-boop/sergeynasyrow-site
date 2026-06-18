@@ -2316,15 +2316,15 @@
           <form id="form-contact-inline" onsubmit="handleSubmit(event, this)" novalidate>
             <div class="form-group">
               <label class="form-label" for="inline-name">Как вас зовут?</label>
-              <input class="form-input" type="text" id="inline-name" name="name" placeholder="Иван Петров" required>
+              <input class="form-input" type="text" id="inline-name" name="name" placeholder="Иван Петров">
             </div>
             <div class="form-group">
               <label class="form-label" for="inline-task">Какая у вас задача?</label>
-              <textarea class="form-textarea" id="inline-task" name="task" rows="4" placeholder="Расскажите в двух словах…" required></textarea>
+              <textarea class="form-textarea" id="inline-task" name="task" rows="4" placeholder="Расскажите в двух словах…"></textarea>
             </div>
             <div class="form-group">
               <label class="form-label" for="inline-contact">Как с вами связаться?</label>
-              <input class="form-input" type="text" id="inline-contact" name="contact" placeholder="Телефон, email или ссылка на соцсеть" required>
+              <input class="form-input" type="text" id="inline-contact" name="contact" placeholder="Телефон, email или ссылка на соцсеть">
             </div>
             <div class="form-group">
               <label class="form-checkbox-wrap">
@@ -2686,19 +2686,19 @@
       <form id="form-contact-modal" onsubmit="handleSubmit(event, this)" novalidate>
         <div class="form-group">
           <label class="form-label" for="modal-name">Как вас зовут?</label>
-          <input class="form-input" type="text" id="modal-name" name="name" placeholder="Иван Петров" required>
+          <input class="form-input" type="text" id="modal-name" name="name" placeholder="Иван Петров">
         </div>
         <div class="form-group">
           <label class="form-label" for="modal-task">Какая у вас задача?</label>
-          <textarea class="form-textarea" id="modal-task" name="task" rows="4" placeholder="Расскажите в двух словах…" required></textarea>
+          <textarea class="form-textarea" id="modal-task" name="task" rows="4" placeholder="Расскажите в двух словах…"></textarea>
         </div>
         <div class="form-group">
           <label class="form-label" for="modal-contact-field">Как с вами связаться?</label>
-          <input class="form-input" type="text" id="modal-contact-field" name="contact" placeholder="Телефон, email или ссылка на соцсеть" required>
+          <input class="form-input" type="text" id="modal-contact-field" name="contact" placeholder="Телефон, email или ссылка на соцсеть">
         </div>
         <div class="form-group">
           <label class="form-checkbox-wrap">
-            <input type="checkbox" required>
+            <input type="checkbox" class="consent-checkbox">
             <span class="form-checkbox-box">
               <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
                 <path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2765,13 +2765,22 @@
       const data = new FormData(formEl);
       const empty = ['name','task','contact'].some(f => !(data.get(f)||'').trim());
       const consent = formEl.querySelector('.consent-checkbox').checked;
+      let errEl = formEl.querySelector('.form-error');
+      if (!errEl) {
+        errEl = document.createElement('p');
+        errEl.className = 'form-error';
+        errEl.style.cssText = 'color:#e53935;font-size:13px;margin-bottom:12px;margin-top:-8px;font-weight:600;';
+        formEl.querySelector('.btn-submit').before(errEl);
+      }
       if (empty || !consent) {
         formEl.querySelectorAll('.form-input,.form-textarea').forEach(el => {
-          el.style.borderColor = (el.value.trim() ? '' : '#e53935');
+          el.style.borderColor = el.value.trim() ? '' : '#e53935';
         });
         if (!consent) formEl.querySelector('.form-checkbox-box').style.borderColor = '#e53935';
+        errEl.textContent = !consent ? 'Подтвердите согласие на обработку данных' : 'Заполните все поля';
         return;
       }
+      errEl.textContent = '';
       submitContactForm(formEl);
     }
   </script>
