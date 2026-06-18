@@ -2313,7 +2313,7 @@
           <p class="contact__note">Напишите, даже если вам нужно что-то совсем другое. Возможно, я и с этим смогу помочь. Или посоветую того, кто сможет.</p>
         </div>
         <div class="contact__right">
-          <form id="form-contact-inline" onsubmit="handleSubmit(event, this)">
+          <form id="form-contact-inline" onsubmit="handleSubmit(event, this)" novalidate>
             <div class="form-group">
               <label class="form-label" for="inline-name">Как вас зовут?</label>
               <input class="form-input" type="text" id="inline-name" name="name" placeholder="Иван Петров" required>
@@ -2328,7 +2328,7 @@
             </div>
             <div class="form-group">
               <label class="form-checkbox-wrap">
-                <input type="checkbox" required>
+                <input type="checkbox" class="consent-checkbox">
                 <span class="form-checkbox-box">
                   <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
                     <path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2683,7 +2683,7 @@
       </button>
       <h2 class="modal__title">Давайте обсудим вашу задачу</h2>
       <p class="modal__sub">Напишите — отвечу в течение рабочего дня</p>
-      <form id="form-contact-modal" onsubmit="handleSubmit(event, this)">
+      <form id="form-contact-modal" onsubmit="handleSubmit(event, this)" novalidate>
         <div class="form-group">
           <label class="form-label" for="modal-name">Как вас зовут?</label>
           <input class="form-input" type="text" id="modal-name" name="name" placeholder="Иван Петров" required>
@@ -2762,6 +2762,16 @@
     }
     function handleSubmit(e, formEl) {
       e.preventDefault();
+      const data = new FormData(formEl);
+      const empty = ['name','task','contact'].some(f => !(data.get(f)||'').trim());
+      const consent = formEl.querySelector('.consent-checkbox').checked;
+      if (empty || !consent) {
+        formEl.querySelectorAll('.form-input,.form-textarea').forEach(el => {
+          el.style.borderColor = (el.value.trim() ? '' : '#e53935');
+        });
+        if (!consent) formEl.querySelector('.form-checkbox-box').style.borderColor = '#e53935';
+        return;
+      }
       submitContactForm(formEl);
     }
   </script>
