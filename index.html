@@ -2305,7 +2305,7 @@
 
   <!-- ── Contact ── -->
   <div class="card" id="contact">
-    <section class="contact">
+    <section class="contact" id="contact-section" style="display:none">
       <div class="contact__inner">
         <div class="contact__grid">
         <div class="contact__left">
@@ -2721,7 +2721,11 @@
   </div>
 
   <script>
+    // FORM_ENABLED: true = форма активна, false = форма скрыта (ждём оферту и политику)
+    var FORM_ENABLED = false;
+
     function openContactModal() {
+      if (!FORM_ENABLED) return;
       document.getElementById('modal-contact').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
