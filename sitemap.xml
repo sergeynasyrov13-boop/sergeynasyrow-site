@@ -6,4 +6,16 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://sergey-nasyrov.ru/offer</loc>
+    <lastmod>2026-07-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://sergey-nasyrov.ru/privacy</loc>
+    <lastmod>2026-07-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
 </urlset>
