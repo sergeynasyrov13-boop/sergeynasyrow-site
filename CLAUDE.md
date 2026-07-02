@@ -2,8 +2,11 @@
 
 ## What this is
 Personal consulting website for Sergey Nasyrov (marketing practitioner, SMB niche).
-Published at sergeynasyrow.ru via Tilda CMS (Zero-blocks). The repo is also used as a
-standalone single-page preview: `index.html` assembles all 11 blocks into one page.
+Published at sergeynasyrow.ru via Netlify, auto-deployed from this GitHub repo
+(https://github.com/sergeynasyrov13-boop/sergeynasyrow-site). `index.html` is the live
+production page — it assembles all 11 blocks into one page. `blocks/*.html` are the
+original Tilda Zero-block exports, kept as design reference only; they are not deployed
+and not part of the live build.
 
 ## File structure
 ```
