@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Сергей Насыров — Маркетолог-практик для МСБ</title>
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <meta name="description" content="Маркетолог-практик с 8-летним опытом в МСБ. Помогаю выстроить систему маркетинга: аудит, стратегия, performance, email, SMM. ROMI 120%+ у клиентов. 20+ проектов. Аудит от 3 500 ₽.">
   <link rel="canonical" href="https://sergey-nasyrov.ru/">
   <meta property="og:title" content="Сергей Насыров — Маркетолог-практик для МСБ">
@@ -643,6 +647,16 @@
       padding: 36px 32px 40px;
       position: relative;
       overflow: hidden;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pain-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
     }
 
     .pain-card::before {
@@ -940,6 +954,7 @@
       gap: 0;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       cursor: default;
+      position: relative;
     }
 
     .svc:hover {
@@ -1009,6 +1024,27 @@
     }
 
     .svc--accent .svc__tag { background: #2A1F10; }
+
+    .svc__example {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #F0902C;
+      background: #FFF3E6;
+      padding: 7px 13px;
+      border-radius: 100px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .svc__example:hover { background: #FFE0B8; }
+    .svc--accent .svc__example { background: #2A1F10; color: #FFFFFF; }
+    .svc--accent .svc__example:hover { background: #3A2A16; }
 
     @media (max-width: 900px) {
       .services { padding: 72px 32px 36px; }
@@ -1455,8 +1491,9 @@
       border-radius: 100px;
       text-decoration: none;
       transition: background 0.2s, transform 0.15s;
-      margin-bottom: 24px;
     }
+
+    .cta-final .pulse-wrap { margin-bottom: 24px; }
 
     .cta-final__btn:hover { background: #d97e20; transform: translateY(-2px); }
 
@@ -1877,7 +1914,6 @@
   <div class="card">
     <section class="hero">
       <div class="hero__content">
-        <span class="hero__eyebrow">Маркетолог-практик · МСБ</span>
         <h1 class="hero__title">
           Вложили в&nbsp;маркетинг,<br>а&nbsp;заявок <em>больше не&nbsp;стало?</em>
         </h1>
@@ -1953,23 +1989,23 @@
       <h2 class="for-whom__title reveal">Узнаёте свою ситуацию?</h2>
       <div class="for-whom__grid reveal-stagger">
 
-        <div class="pain-card">
+        <a class="pain-card" href="#contact" data-modal="contact">
           <div class="pain-card__number">01</div>
           <p class="pain-card__text">Слили бюджет на&nbsp;рекламу, блогеров или агентство — а&nbsp;заявок больше не&nbsp;стало</p>
           <p class="pain-card__sub">Деньги ушли, результата нет, и&nbsp;непонятно почему именно так вышло</p>
-        </div>
+        </a>
 
-        <div class="pain-card pain-card--featured">
+        <a class="pain-card pain-card--featured" href="#contact" data-modal="contact">
           <div class="pain-card__number">02</div>
           <p class="pain-card__text">Маркетингом занимаетесь сами — между другими задачами, без&nbsp;системы и&nbsp;понятной отдачи</p>
           <p class="pain-card__sub">Контент выходит, реклама крутится, но&nbsp;связи между действиями и&nbsp;выручкой не&nbsp;видно</p>
-        </div>
+        </a>
 
-        <div class="pain-card">
+        <a class="pain-card" href="#contact" data-modal="contact">
           <div class="pain-card__number">03</div>
           <p class="pain-card__text">Бизнес растёт, но&nbsp;медленнее, чем хочется — и&nbsp;непонятно, что&nbsp;именно тормозит</p>
           <p class="pain-card__sub">Всё работает, но&nbsp;ощущение, что&nbsp;конкуренты уходят вперёд, пока вы&nbsp;разбираетесь</p>
-        </div>
+        </a>
 
       </div>
     </section>
@@ -1985,7 +2021,7 @@
           8 лет строю маркетинг для малого и&nbsp;среднего бизнеса — от&nbsp;стратегии до конкретных каналов. Работал руководителем отдела маркетинга, поэтому понимаю, как устроен бизнес изнутри.
         </p>
         <p class="about__text">
-          <strong>Работаю сам, без агентства.</strong> Получаете внимание опытного специалиста, а&nbsp;не шаблонные решения от стажёра.
+          <strong>Работаю сам, без агентства.</strong> Получаете внимание опытного специалиста, а&nbsp;не шаблонные решения от&nbsp;стажёра.
         </p>
         <a class="section-cta__btn" href="#contact" data-modal="contact" style="margin-top: 32px; display: inline-flex; align-items: center; gap: 10px; background: #F0902C; color: #fff; font-family: inherit; font-size: 15px; font-weight: 600; padding: 16px 32px; border-radius: 100px; text-decoration: none; transition: background 0.2s;">Обсудить задачу</a>
       </div>
@@ -2001,7 +2037,7 @@
           </div>
           <div class="diff-card__body">
             <div class="diff-card__title">8 лет в маркетинге МСБ</div>
-            <div class="diff-card__desc">Beauty, HoReCa, фитнес, FMCG — знаю специфику ниш изнутри</div>
+            <div class="diff-card__desc">EdTech SaaS, HoReCa, фитнес, FMCG — знаю специфику ниш&nbsp;изнутри</div>
           </div>
         </div>
 
@@ -2042,7 +2078,7 @@
         <div class="audit__left reveal">
           <h2 class="audit__title">Не знаете,<br>с чего начать?</h2>
           <p class="audit__desc">
-            Разберём весь маркетинг: что тормозит рост, куда уходит бюджет и&nbsp;что делать дальше. Получите конкретный план, а&nbsp;не общие рекомендации.
+            Разберём весь маркетинг: что тормозит рост, куда уходит бюджет и&nbsp;что делать дальше. Получите конкретный план, а&nbsp;не&nbsp;общие рекомендации.
           </p>
           <div class="audit__ctas">
             <div class="pulse-wrap">
@@ -2050,7 +2086,7 @@
                 Заказать аудит за 3 500 ₽
               </a>
             </div>
-            <a class="audit__cta audit__cta--ghost" href="#">
+            <a class="audit__cta audit__cta--ghost" href="https://drive.google.com/file/d/1d76JShwB13yiBBSio0RYESrUTLEUCy3H/view?usp=sharing" target="_blank" rel="noopener">
               Посмотреть пример аудита
             </a>
           </div>
@@ -2118,6 +2154,7 @@
             <span class="svc__tag">Медиаплан</span>
             <span class="svc__tag">Каналы роста</span>
           </div>
+          <a class="svc__example" href="https://drive.google.com/file/d/1suuxM84XRBjmsQntkjUE7nipCRe4pzrh/view?usp=sharing" target="_blank" rel="noopener">Пример →</a>
         </div>
 
         <div class="svc svc--tall svc--accent">
@@ -2149,7 +2186,9 @@
             <span class="svc__tag">Telegram</span>
             <span class="svc__tag">VK</span>
             <span class="svc__tag">Instagram</span>
+            <span class="svc__tag">MAX</span>
           </div>
+          <a class="svc__example" href="https://drive.google.com/file/d/1HxasSp1AjrD01cddBIUAdge03VEn5GoK/view?usp=sharing" target="_blank" rel="noopener">Пример →</a>
         </div>
 
         <div class="svc">
@@ -2165,6 +2204,7 @@
             <span class="svc__tag">Воронки</span>
             <span class="svc__tag">Сегментация</span>
           </div>
+          <a class="svc__example" href="https://drive.google.com/drive/folders/1eH1-8_2xjED6cnqJ0uBf21Ec2_Etv6Sl?usp=sharing" target="_blank" rel="noopener">Пример →</a>
         </div>
 
         <div class="svc">
@@ -2203,15 +2243,18 @@
         <div class="svc">
           <div class="svc__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="#F0902C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+              <line x1="7" y1="7" x2="7.01" y2="7"/>
             </svg>
           </div>
-          <h3 class="svc__title">Программа лояльности</h3>
-          <div class="svc__desc">Сценарии удержания, автоматические коммуникации, сбор гостевой базы из нескольких источников.</div>
+          <h3 class="svc__title">Карточки для маркетплейсов</h3>
+          <div class="svc__desc">SEO-заголовки, инфографика и описания под алгоритмы Wildberries и Ozon. Карточки, которые продают с первого экрана.</div>
           <div class="svc__tags">
-            <span class="svc__tag">CRM</span>
-            <span class="svc__tag">Retention</span>
+            <span class="svc__tag">Wildberries</span>
+            <span class="svc__tag">Ozon</span>
+            <span class="svc__tag">SEO</span>
           </div>
+          <a class="svc__example" href="https://drive.google.com/drive/folders/104fbKKIlDCOXpo_ujGsBCxb_WS_QDN10?usp=sharing" target="_blank" rel="noopener">Пример →</a>
         </div>
 
       </div>
@@ -2378,6 +2421,10 @@
           <div class="step__title">Масштабирую</div>
           <div class="step__desc">Когда система работает — усиливаю то, что даёт результат: бюджеты, каналы, точки роста.</div>
         </div>
+      </div>
+
+      <div class="section-cta">
+        <a class="section-cta__btn" href="#contact" data-modal="contact">Обсудить задачу</a>
       </div>
     </section>
   </div>
@@ -2547,7 +2594,7 @@
       <h2 class="cta-final__title reveal">Готовы разобраться в&nbsp;ситуации?</h2>
 
       <p class="cta-final__desc reveal">
-        Напишите, что происходит у&nbsp;вас с&nbsp;маркетингом — отвечу, подходит ли вам мой формат работы и&nbsp;с&nbsp;чего лучше начать.
+        Напишите, что происходит у&nbsp;вас с&nbsp;маркетингом — отвечу, подходит ли вам мой формат работы и&nbsp;с&nbsp;чего&nbsp;лучше начать.
       </p>
 
       <div class="pulse-wrap reveal">
@@ -2558,8 +2605,6 @@
         Обсудить задачу
       </a>
       </div>
-
-      <div class="cta-final__note reveal">Одновременно работаю не более чем с&nbsp;4 проектами</div>
     </section>
   </div>
 
@@ -2590,7 +2635,7 @@
         </div>
 
         <div class="footer__bottom">
-          <div class="footer__copy">© 2025 Сергей Насыров. Все права защищены. · <a class="footer__nav-link" href="/offer">Оферта</a> · <a class="footer__nav-link" href="/privacy">Политика конфиденциальности</a></div>
+          <div class="footer__copy">© 2026 ИП Насыров С.Д. · ОГРНИП 326366800063559 · <a class="footer__nav-link" href="/offer">Оферта</a> · <a class="footer__nav-link" href="/privacy">Политика конфиденциальности</a></div>
           <a class="footer__tg" href="https://t.me/sergeynasyrov_bot">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
