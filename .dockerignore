@@ -1,0 +1,11 @@
+.git
+.gitignore
+.DS_Store
+.env
+.env.*
+node_modules
+blocks/
+px-*.png
+px2-*.png
+preview-*.png
+container/README.md
