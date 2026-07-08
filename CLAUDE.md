@@ -206,6 +206,35 @@ Asked the user whether to rewrite history to scrub it — they declined (force-p
 main risk not worth it for a token that no longer works). **Don't rewrite history for
 this on your own initiative** — it's a settled decision, not an oversight.
 
+### Design/copy polish round — deployed 2026-07-08 (commit `3f7ffb3`)
+- Favicon added: cropped from the hero photo, orange brand circle for browser tabs
+  (`favicon.ico`, `favicon-32x32.png`, `favicon-16x16.png` — transparent corners, real
+  circle), but `apple-touch-icon.png` is a plain **square** on purpose — iOS applies its
+  own rounding and handles alpha transparency on touch icons poorly. If it still looks
+  square in someone's tab, it's almost always favicon caching (very sticky, browser-level,
+  separate from normal page cache) — check in an incognito window before assuming the
+  files are wrong.
+- Hero: no longer has the "Маркетолог-практик · МСБ" eyebrow label.
+- `.pain-card` (the "Узнаёте свою ситуацию?" cards) are now `<a href="#contact"
+  data-modal="contact">`, not `<div>` — they were visually card-like but did nothing
+  when clicked. Has a hover lift now too.
+- `.how` section has a `.section-cta` button after the steps (same pattern as after
+  `#services`).
+- `.cta-final__note` ("Одновременно работаю не более чем с 4 проектами") was removed
+  entirely, not just hidden.
+- Footer copyright line now includes "ИП Насыров С.Д. · ОГРНИП 326366800063559" next to
+  the `/offer` link — required by ЗоЗПП to have operator info near the public offer,
+  no strict rule on exact placement (footer/header/offer page all satisfy it).
+- `.svc__example` ("Пример →" links on 4 service cards) moved from inline after the tag
+  row to `position: absolute; top: 20px; right: 20px` — a corner badge. It used to blend
+  into the orange `.svc__tag` pills right above it and effectively disappeared visually.
+  `.svc` needed `position: relative` added for this to anchor correctly.
+- Niches list copy: "Beauty" → "EdTech SaaS". SMM card tags gained "MAX".
+- Several hanging prepositions/conjunctions (висячие предлоги) fixed with `&nbsp;` per
+  user request — this is an ongoing site convention, already used extensively; when
+  adding new copy, glue short prepositions/conjunctions (а, и, с, от, не, etc.) forward
+  to the next word rather than leaving them to risk dangling at a line end.
+
 ### Open items
 - [ ] RKN "уведомление об изменении сведений" for the analytics data category — deadline
       2026-07-23, blocked on the base notification leaving "на рассмотрении" status.
