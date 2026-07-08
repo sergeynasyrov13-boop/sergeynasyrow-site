@@ -92,45 +92,74 @@ automatically — no `_redirects`/`netlify.toml` needed for this.
   session mixed this up with `sergeynasyrow.ru`; if you see that spelling anywhere, it's
   a leftover mistake, not a second domain.
 
-## Status (as of 2026-07-08)
+## Status (as of 2026-07-08, end of day)
+
+Huge single-day session. Everything below is prepared locally and **not yet pushed** —
+the user asked to batch everything into one push/deploy to conserve Netlify's monthly
+build-minute quota, so don't push until explicitly told to. Ask before pushing.
 
 ### Security incident — resolved
 Commit `0aab8be` (predates this session) hardcoded a live Telegram bot token directly in
 client-side JS in `index.html`, in this **public** repo. Confirmed exposed. User revoked
-it via @BotFather and generated a new one same day. Fixed in commit `dc79d1b`:
-- New token lives **only** in the Netlify env var `TELEGRAM_BOT_TOKEN` — never in code.
-- Old token string still exists in earlier git history (harmless now that it's revoked,
-  but if anyone asks, history rewrite is the cleanup — not done yet, low priority).
-- If you ever touch `netlify/functions/send-lead.js` or the form's `submitContactForm`,
-  do **not** reintroduce a hardcoded token/chat_id — always `process.env.*`.
+it via @BotFather and generated a new one. Old token string still exists in earlier git
+history (harmless now that it's revoked; history rewrite would be the cosmetic cleanup,
+not done, low priority). If you ever touch `netlify/functions/send-lead.js`, do **not**
+reintroduce a hardcoded token — always `process.env.*`.
 
-### Lead form backend — rebuilt for 152-ФЗ data localization
-The form (still `FORM_ENABLED = false`, still hidden — do not flip without the user
-explicitly asking) now posts to `/.netlify/functions/send-lead` instead of calling
-Telegram directly from the browser. That function:
-1. Writes the lead first to a **Yandex Object Storage** bucket (`nasyrov-leads`,
-   RF-hosted) via hand-rolled AWS SigV4 signing in `send-lead.js` — zero npm
-   dependencies, don't add the AWS SDK, it's unnecessary.
-2. Only then sends a Telegram notification, best-effort (failure there doesn't fail
-   the request — the RF write is the record of truth).
+### Lead form backend — RF-only data flow (Telegram fully removed from this path)
+The form (still `FORM_ENABLED = false` in `index.html`, still hidden — do not flip
+without the user explicitly asking) posts to `/.netlify/functions/send-lead`. Current
+architecture, after several iterations:
+1. Full lead record (name/task/contact) written to a **Yandex Object Storage** bucket
+   (`nasyrov-leads`, RF-hosted) via hand-rolled AWS SigV4 signing in `send-lead.js` —
+   zero npm dependencies, don't add the AWS SDK.
+2. Full record also sent as a **MAX messenger** notification (RF-jurisdiction, replaced
+   Telegram for this specific internal-notification purpose) via `platform-api2.max.ru`.
+   MAX's API serves a Mintsifry-issued TLS cert that Node doesn't trust by default — the
+   two "Russian Trusted Root/Sub CA" PEM certs are pinned directly in `send-lead.js`.
+   **The sub CA expires 2027-03-06** — if MAX notifications silently stop working after
+   that date, refresh both PEM blocks from gu-st.ru (see comment in the file for exact
+   URLs).
 
-Required Netlify env vars (all set by the user on 2026-07-08, confirmed working via a
-direct `curl` test to the function returning 200): `TELEGRAM_BOT_TOKEN`,
-`TELEGRAM_CHAT_ID`, `YC_ACCESS_KEY_ID`, `YC_SECRET_ACCESS_KEY`, `YC_BUCKET`.
+Required Netlify env vars: `YC_ACCESS_KEY_ID`, `YC_SECRET_ACCESS_KEY`, `YC_BUCKET` (set
+2026-07-08, confirmed working) + `MAX_BOT_TOKEN`, `MAX_USER_ID` (bot: `zayavki_site` /
+`id360206536641_2_bot`, recipient user_id `5010870` — Sergey's own MAX account; both
+confirmed working via a direct round-trip test, message delivered). `TELEGRAM_BOT_TOKEN`
+/ `TELEGRAM_CHAT_ID` are no longer read by any code — vestigial, safe to leave set or
+delete in Netlify, doesn't matter.
 
-Why this exists: the site's data flow was flagged as likely non-compliant with the
-152-ФЗ art. 18 ч.5 requirement that personal data of RF citizens be primarily recorded
-in an RF-located database — Telegram-only (foreign infra) didn't satisfy that. This fix
-is a prerequisite for filing the Roskomnadzor notification (see next item) — the
-notification should describe the corrected architecture, not the old one.
+Why MAX instead of just anonymizing the Telegram ping: the user wants the whole pipeline
+on RF infrastructure, not just PII-stripped. Telegram is still used elsewhere on the site
+(footer/hero "message me" CTA linking to `@sergeynasyrov_bot`) — that's a separate,
+user-initiated direct-contact channel, unrelated to the automated lead pipeline, and
+was intentionally left alone.
 
-### Roskomnadzor notification — still not filed
-Full field-by-field guide for pd.rkn.gov.ru was researched and saved to
-`~/Downloads/РКН-чек-лист и заполнение уведомления.md` (user reads it in Obsidian).
-Covers: what purposes/legal-basis/data-category checkboxes to select, and the
-cross-border-transfer field (now answerable more favorably since primary storage is
-RF-based, Telegram is just a secondary notification copy). Not yet confirmed submitted —
-ask before assuming it's done.
+### Roskomnadzor notification — filed, but needs a follow-up amendment
+Base notification filed 2026-07-08, confirmation **№ 100345764**. Field-by-field guide
+(with the values actually used) is saved to
+`~/Downloads/РКН-чек-лист и заполнение уведомления.md` (user reads it in Obsidian) —
+keep that file in sync if anything here changes again.
+
+**Follow-up required:** Yandex.Metrika + Webvisor were added to the site *after* the
+notification was filed, introducing a data category (IP address, cookies, behavioral/
+session data) not covered in the original filing. An **«Уведомление об изменении
+сведений»** (amendment, not a new filing — `pd.rkn.gov.ru/operators-registry/notification/updateform/`)
+is needed, deadline **2026-07-23** (15 working days from 2026-07-08). As of end of
+session the original notification is still "на рассмотрении" (under review) — the
+amendment form likely won't accept edits until that review completes; the 15-day
+deadline runs from when the new data started being collected, not from registration, so
+there's slack. Check with the user whether this has been filed before assuming so.
+
+### Cookie consent + Yandex.Metrika — added 2026-07-08
+`index.html` now has a cookie-banner (`#cookieBanner`, bottom-fixed, dark card matching
+site design system) that gates Metrika behind explicit accept/decline, stored in
+`localStorage['cookie_consent']`. Counter ID `110507843`, `webvisor: true` (session
+recording — user explicitly requested it after being told what it does). Deliberately
+**no `<noscript>` pixel fallback** — that path would fire unconditionally for no-JS
+visitors, bypassing the consent banner (which itself needs JS to render). `privacy.html`
+was updated to disclose Webvisor explicitly and to correctly describe the split between
+Telegram (public contact channel) and MAX (internal lead notifications) — see the
+`#analytics` section. `privacy.html`'s publish date bumped to 2026-07-08 to match.
 
 ### Domain/hosting confusion — resolved, was never a real problem
 Spent a long thread debugging why `nasyrov.pro` seemed unreachable/slow. Root cause had
@@ -143,17 +172,23 @@ ends in "w") is a **separate, unrelated old Tilda-hosted site** — different AS
 part of this repo, don't touch it or assume it needs to match.
 
 ### Performance
-`avatar.png` (2.4MB) → `avatar.webp` (94KB) shipped in `dc79d1b`, all references
-(`<img>`, og:image, twitter:image, schema.org) updated. `avatar.png` kept in repo as the
-rembg source for future re-edits, just no longer referenced by the live page.
+`avatar.png` (2.4MB) → `avatar.webp` (94KB), all references (`<img>`, og:image,
+twitter:image, schema.org) updated. `avatar.png` kept in repo as the rembg source for
+future re-edits, just no longer referenced by the live page.
 
 ### Open items
-- [ ] Roskomnadzor notification — not filed
+- [ ] **Not yet pushed** — everything in this Status section is local only, batched for
+      one deploy. Confirm with the user before running `git push`.
+- [ ] Add `MAX_BOT_TOKEN` / `MAX_USER_ID` to Netlify env vars (user's action, values are
+      in this session's transcript, not repeated here) — doesn't trigger a deploy by
+      itself, can be done anytime before or after the push.
+- [ ] RKN "уведомление об изменении сведений" for the analytics data category — deadline
+      2026-07-23, blocked on the base notification leaving "на рассмотрении" status
 - [ ] Form still disabled — needs explicit user go-ahead to flip `FORM_ENABLED`
 - [ ] Google Fonts loads from fonts.googleapis.com (foreign resource / minor cross-border
-      exposure) — self-hosting the woff2 files would close this, not done
-- [ ] Cookie banner — not needed yet (no analytics installed), will be needed if Яндекс.Метрика
-      or similar gets added later
+      exposure) — self-hosting attempted 2026-07-08 but Google served suspiciously
+      identical woff2 hashes across all 5 weights for one fetch attempt; didn't trust it
+      enough to ship without re-verification, deferred
 - [ ] Old exposed Telegram token still sits in git history — cosmetic cleanup, not urgent
       since it's revoked
 
