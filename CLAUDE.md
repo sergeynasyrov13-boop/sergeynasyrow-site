@@ -123,10 +123,12 @@ architecture, after several iterations:
 
 Required Netlify env vars: `YC_ACCESS_KEY_ID`, `YC_SECRET_ACCESS_KEY`, `YC_BUCKET` (set
 2026-07-08, confirmed working) + `MAX_BOT_TOKEN`, `MAX_USER_ID` (bot: `zayavki_site` /
-`id360206536641_2_bot`, recipient user_id `5010870` — Sergey's own MAX account; both
-confirmed working via a direct round-trip test, message delivered). `TELEGRAM_BOT_TOKEN`
-/ `TELEGRAM_CHAT_ID` are no longer read by any code — vestigial, safe to leave set or
-delete in Netlify, doesn't matter.
+`id360206536641_2_bot`, recipient is Sergey's own MAX account — see Netlify env var for
+the actual ID, deliberately not repeated here since Netlify's build-time secret scanner
+flags env var values found anywhere in repo files; both confirmed working via a direct
+round-trip test, message delivered). `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` are no
+longer read by any code — vestigial, safe to leave set or delete in Netlify, doesn't
+matter.
 
 Why MAX instead of just anonymizing the Telegram ping: the user wants the whole pipeline
 on RF infrastructure, not just PII-stripped. Telegram is still used elsewhere on the site
