@@ -8,14 +8,14 @@
   <link rel="canonical" href="https://sergey-nasyrov.ru/">
   <meta property="og:title" content="Сергей Насыров — Маркетолог-практик для МСБ">
   <meta property="og:description" content="Беру хаотичный маркетинг — отдаю понятную систему с конкретными каналами и метриками. 8 лет в МСБ, ROMI 120%+.">
-  <meta property="og:image" content="https://sergey-nasyrov.ru/assets/avatar.png">
+  <meta property="og:image" content="https://sergey-nasyrov.ru/assets/avatar.webp">
   <meta property="og:url" content="https://sergey-nasyrov.ru/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Сергей Насыров — Маркетолог-практик для МСБ">
   <meta name="twitter:description" content="Аудит маркетинга, стратегия, performance. ROMI 120%+ у клиентов.">
-  <meta name="twitter:image" content="https://sergey-nasyrov.ru/assets/avatar.png">
+  <meta name="twitter:image" content="https://sergey-nasyrov.ru/assets/avatar.webp">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ── Reset ── */
@@ -1689,7 +1689,7 @@
     "name": "Сергей Насыров",
     "jobTitle": "Маркетолог-практик",
     "description": "8 лет строю маркетинг для малого и среднего бизнеса — от стратегии до конкретных каналов.",
-    "image": "https://sergey-nasyrov.ru/assets/avatar.png",
+    "image": "https://sergey-nasyrov.ru/assets/avatar.webp",
     "url": "https://sergey-nasyrov.ru",
     "sameAs": ["https://t.me/sergeynasyrov_bot"],
     "knowsAbout": ["маркетинговая стратегия", "performance-маркетинг", "email-маркетинг", "SMM", "маркетинг МСБ"]
@@ -1816,7 +1816,7 @@
       </div>
 
       <div class="hero__photo">
-        <img src="assets/avatar.png" alt="Сергей Насыров — маркетолог">
+        <img src="assets/avatar.webp" alt="Сергей Насыров — маркетолог" width="1323" height="1300" fetchpriority="high">
       </div>
 
       <div class="hero__trust">
@@ -2755,12 +2755,11 @@
       const name = data.get('name') || '—';
       const task = data.get('task') || '—';
       const contact = data.get('contact') || '—';
-      const text = `📩 <b>Новая заявка с сайта</b>\n\n👤 <b>Имя:</b> ${name}\n📋 <b>Задача:</b> ${task}\n📞 <b>Контакт:</b> ${contact}`;
       try {
-        await fetch('https://api.telegram.org/bot8993668666:AAGVeb0KBZ0ryB0CDtzkT3VH095Vi2sAcPg/sendMessage', {
+        await fetch('/.netlify/functions/send-lead', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({chat_id: '242534716', text, parse_mode: 'HTML'})
+          body: JSON.stringify({name, task, contact})
         });
       } catch (e) {}
       showFormSuccess(formEl);

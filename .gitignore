@@ -3,3 +3,6 @@ px-*.png
 px2-*.png
 preview-*.png
 /tmp/
+.env
+.env.*
+netlify/functions/node_modules/
