@@ -94,9 +94,13 @@ automatically — no `_redirects`/`netlify.toml` needed for this.
 
 ## Status (as of 2026-07-08, end of day)
 
-Huge single-day session. Everything below is prepared locally and **not yet pushed** —
-the user asked to batch everything into one push/deploy to conserve Netlify's monthly
-build-minute quota, so don't push until explicitly told to. Ask before pushing.
+Huge single-day session. The MAX/analytics work was already pushed (commits `82e169a`,
+`103d6a6` — the latter fixed a Netlify secrets-scan build failure caused by an env var
+value being written literally into this file; **never paste actual secret/ID values into
+CLAUDE.md**, describe them instead). The form-enable + self-hosted-fonts work below is a
+second batch, prepared locally, not yet pushed as of this writing — the user asked to
+batch changes to conserve Netlify's monthly build-minute quota rather than pushing after
+every small edit. Ask before pushing if it's unclear whether this batch already went out.
 
 ### Security incident — resolved
 Commit `0aab8be` (predates this session) hardcoded a live Telegram bot token directly in
@@ -178,21 +182,34 @@ part of this repo, don't touch it or assume it needs to match.
 twitter:image, schema.org) updated. `avatar.png` kept in repo as the rembg source for
 future re-edits, just no longer referenced by the live page.
 
+### Fonts — self-hosted, Google Fonts fully removed
+Earlier in the session, self-hosting was deferred because a fetch of the Google Fonts
+CSS looked wrong (identical woff2 URL across all 5 weight declarations). Turned out that
+was correct, not a bug: Montserrat v31 on Google Fonts is served as a **variable font**
+(has `fvar`/`gvar`/`avar`/`STAT` tables — verified with `fonttools ttx -l`), so one file
+legitimately covers the whole 400-800 weight range via the `wght` axis. Downloaded the 4
+subsets actually needed (cyrillic, cyrillic-ext, latin, latin-ext — skipped vietnamese)
+into `assets/fonts/*.woff2` (~145KB total) and replaced the `<link
+href="fonts.googleapis.com/...">` in all three HTML files with local `@font-face`
+declarations using `font-weight: 400 800` (a range, not a single value — that's what
+makes one file serve every weight). Verified via a local `python3 -m http.server` (not
+`file://`, which breaks absolute `/assets/...` paths) that fonts load with 200s and no
+Google network calls happen at all anymore.
+
+### Form — enabled
+`FORM_ENABLED` flipped to `true` in commit after this Status section was last written.
+Backend (Yandex Object Storage + MAX) was already verified end-to-end before flipping.
+
+### Git history — user declined cleanup, leave it
+Old (revoked, dead) Telegram token is still visible in early commits of the public repo.
+Asked the user whether to rewrite history to scrub it — they declined (force-push to
+main risk not worth it for a token that no longer works). **Don't rewrite history for
+this on your own initiative** — it's a settled decision, not an oversight.
+
 ### Open items
-- [ ] **Not yet pushed** — everything in this Status section is local only, batched for
-      one deploy. Confirm with the user before running `git push`.
-- [ ] Add `MAX_BOT_TOKEN` / `MAX_USER_ID` to Netlify env vars (user's action, values are
-      in this session's transcript, not repeated here) — doesn't trigger a deploy by
-      itself, can be done anytime before or after the push.
 - [ ] RKN "уведомление об изменении сведений" for the analytics data category — deadline
-      2026-07-23, blocked on the base notification leaving "на рассмотрении" status
-- [ ] Form still disabled — needs explicit user go-ahead to flip `FORM_ENABLED`
-- [ ] Google Fonts loads from fonts.googleapis.com (foreign resource / minor cross-border
-      exposure) — self-hosting attempted 2026-07-08 but Google served suspiciously
-      identical woff2 hashes across all 5 weights for one fetch attempt; didn't trust it
-      enough to ship without re-verification, deferred
-- [ ] Old exposed Telegram token still sits in git history — cosmetic cleanup, not urgent
-      since it's revoked
+      2026-07-23, blocked on the base notification leaving "на рассмотрении" status.
+      Check with the user whether this has been filed before assuming so.
 
 ## Tools installed (macOS)
 | Tool | Command |
