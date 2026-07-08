@@ -17,9 +17,12 @@ sitemap.xml, robots.txt
 blocks/             — individual Tilda Zero-block HTML files (reference; don't edit)
   nav.html, hero.html, dlya-kogo.html, about.html, audit.html,
   services.html, cases.html, how.html, faq.html, cta-final.html, footer.html,
-  contact.html      — lead form, wired to Telegram Bot API (currently disabled in index.html)
+  contact.html      — lead form markup (currently disabled in index.html via FORM_ENABLED)
+netlify/functions/send-lead.js — serverless function the form posts to (see Status below)
+netlify.toml        — points Netlify at netlify/functions
 assets/
-  avatar.png        — Sergey's cutout photo (no background), used in hero
+  avatar.png        — original hero photo source (rembg output), kept for future edits
+  avatar.webp       — actual deployed hero image (94KB, resized from the 2.4MB png)
 ```
 Netlify serves clean paths (`/offer`, `/privacy`) for the matching `.html` files
 automatically — no `_redirects`/`netlify.toml` needed for this.
@@ -89,6 +92,71 @@ automatically — no `_redirects`/`netlify.toml` needed for this.
   session mixed this up with `sergeynasyrow.ru`; if you see that spelling anywhere, it's
   a leftover mistake, not a second domain.
 
+## Status (as of 2026-07-08)
+
+### Security incident — resolved
+Commit `0aab8be` (predates this session) hardcoded a live Telegram bot token directly in
+client-side JS in `index.html`, in this **public** repo. Confirmed exposed. User revoked
+it via @BotFather and generated a new one same day. Fixed in commit `dc79d1b`:
+- New token lives **only** in the Netlify env var `TELEGRAM_BOT_TOKEN` — never in code.
+- Old token string still exists in earlier git history (harmless now that it's revoked,
+  but if anyone asks, history rewrite is the cleanup — not done yet, low priority).
+- If you ever touch `netlify/functions/send-lead.js` or the form's `submitContactForm`,
+  do **not** reintroduce a hardcoded token/chat_id — always `process.env.*`.
+
+### Lead form backend — rebuilt for 152-ФЗ data localization
+The form (still `FORM_ENABLED = false`, still hidden — do not flip without the user
+explicitly asking) now posts to `/.netlify/functions/send-lead` instead of calling
+Telegram directly from the browser. That function:
+1. Writes the lead first to a **Yandex Object Storage** bucket (`nasyrov-leads`,
+   RF-hosted) via hand-rolled AWS SigV4 signing in `send-lead.js` — zero npm
+   dependencies, don't add the AWS SDK, it's unnecessary.
+2. Only then sends a Telegram notification, best-effort (failure there doesn't fail
+   the request — the RF write is the record of truth).
+
+Required Netlify env vars (all set by the user on 2026-07-08, confirmed working via a
+direct `curl` test to the function returning 200): `TELEGRAM_BOT_TOKEN`,
+`TELEGRAM_CHAT_ID`, `YC_ACCESS_KEY_ID`, `YC_SECRET_ACCESS_KEY`, `YC_BUCKET`.
+
+Why this exists: the site's data flow was flagged as likely non-compliant with the
+152-ФЗ art. 18 ч.5 requirement that personal data of RF citizens be primarily recorded
+in an RF-located database — Telegram-only (foreign infra) didn't satisfy that. This fix
+is a prerequisite for filing the Roskomnadzor notification (see next item) — the
+notification should describe the corrected architecture, not the old one.
+
+### Roskomnadzor notification — still not filed
+Full field-by-field guide for pd.rkn.gov.ru was researched and saved to
+`~/Downloads/РКН-чек-лист и заполнение уведомления.md` (user reads it in Obsidian).
+Covers: what purposes/legal-basis/data-category checkboxes to select, and the
+cross-border-transfer field (now answerable more favorably since primary storage is
+RF-based, Telegram is just a secondary notification copy). Not yet confirmed submitted —
+ask before assuming it's done.
+
+### Domain/hosting confusion — resolved, was never a real problem
+Spent a long thread debugging why `nasyrov.pro` seemed unreachable/slow. Root cause had
+nothing to do with the site: a zombie WireGuard VPN tunnel (`utun6`) on the user's own
+Mac was hijacking the default route. Fixed client-side via `sudo pkill -f wireguard`.
+For the record: `nasyrov.pro` and `sergey-nasyrov.ru` both correctly point to this same
+Netlify project (AWS Global Accelerator IP `75.2.60.5`) — confirmed via check-host.net
+from Moscow/SPb nodes, both fast, no blocking. `sergeynasyrow.ru` (different spelling,
+ends in "w") is a **separate, unrelated old Tilda-hosted site** — different ASN, not
+part of this repo, don't touch it or assume it needs to match.
+
+### Performance
+`avatar.png` (2.4MB) → `avatar.webp` (94KB) shipped in `dc79d1b`, all references
+(`<img>`, og:image, twitter:image, schema.org) updated. `avatar.png` kept in repo as the
+rembg source for future re-edits, just no longer referenced by the live page.
+
+### Open items
+- [ ] Roskomnadzor notification — not filed
+- [ ] Form still disabled — needs explicit user go-ahead to flip `FORM_ENABLED`
+- [ ] Google Fonts loads from fonts.googleapis.com (foreign resource / minor cross-border
+      exposure) — self-hosting the woff2 files would close this, not done
+- [ ] Cookie banner — not needed yet (no analytics installed), will be needed if Яндекс.Метрика
+      or similar gets added later
+- [ ] Old exposed Telegram token still sits in git history — cosmetic cleanup, not urgent
+      since it's revoked
+
 ## Tools installed (macOS)
 | Tool | Command |
 |------|---------|
@@ -107,5 +175,5 @@ const puppeteer = require('/Users/sergey.nasyrov13/node_modules/puppeteer');
 ```
 
 ## GitHub
-repo: https://github.com/sergeynasyrow13-boop/sergeynasyrow-site
+repo: https://github.com/sergeynasyrov13-boop/sergeynasyrow-site
 branch: main
