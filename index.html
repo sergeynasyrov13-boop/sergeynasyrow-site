@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
   <title>Сергей Насыров — Маркетолог-практик для МСБ</title>
   <link rel="icon" href="/assets/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
@@ -1805,6 +1806,8 @@
       font-family: inherit; font-size: 13px; color: #999999; text-decoration: underline;
     }
     .tg-exit__skip:hover { color: #666666; }
+
+    .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: #F0902C; z-index: 10000; }
   </style>
   <script type="application/ld+json">
   {
@@ -1917,6 +1920,8 @@
   </script>
 </head>
 <body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- ── NAV ── -->
   <header class="nav" id="nav-header">
@@ -2673,8 +2678,7 @@
             <a class="footer__nav-link" href="#services">Услуги</a>
             <a class="footer__nav-link" href="#cases">Кейсы</a>
             <a class="footer__nav-link" href="#faq">Вопросы</a>
-            <a class="footer__nav-link" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener">Telegram</a>
-            <a class="footer__cta" href="#contact" data-modal="contact">
+            <a class="footer__cta" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
               </svg>
@@ -2706,8 +2710,31 @@
     window.addEventListener('scroll', () => {
       navHeader.classList.toggle('scrolled', window.scrollY > 10);
     });
-    document.getElementById('burger').addEventListener('click', () => {
-      document.getElementById('mobileMenu').classList.toggle('open');
+
+    // ── Scroll progress bar ──
+    (function() {
+      const bar = document.getElementById('scrollProgress');
+      function update() {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+        bar.style.width = pct + '%';
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+    const burgerBtn = document.getElementById('burger');
+    const mobileMenuEl = document.getElementById('mobileMenu');
+    burgerBtn.addEventListener('click', () => {
+      mobileMenuEl.classList.toggle('open');
+    });
+    document.addEventListener('click', (e) => {
+      if (mobileMenuEl.classList.contains('open') && !mobileMenuEl.contains(e.target) && !burgerBtn.contains(e.target)) {
+        mobileMenuEl.classList.remove('open');
+      }
+    });
+    mobileMenuEl.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => mobileMenuEl.classList.remove('open'));
     });
 
     // ── Cases: arrow carousel + counter animation ──
