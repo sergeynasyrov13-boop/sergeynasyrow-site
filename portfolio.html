@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Портфолио — Сергей Насыров</title>
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="description" content="Портфолио Сергея Насырова: кейсы в роли руководителя маркетинга, менеджерские задачи, агентский опыт и экспертные материалы. 8 лет в маркетинге, ROMI 120%+.">
+  <link rel="canonical" href="https://nasyrov.pro/portfolio">
+  <meta property="og:title" content="Портфолио — Сергей Насыров">
+  <meta property="og:description" content="Кейсы в роли руководителя маркетинга, менеджерские задачи, агентский опыт. 8 лет в маркетинге, ROMI 120%+.">
+  <meta property="og:image" content="https://nasyrov.pro/assets/portfolio/hero.webp">
+  <meta property="og:url" content="https://nasyrov.pro/portfolio">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <style>
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-cyrillic-ext.woff2') format('woff2');
+      unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+    }
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-cyrillic.woff2') format('woff2');
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-latin-ext.woff2') format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background: #F9F9F9; color: #333333; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    [id] { scroll-margin-top: 84px; }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Nav ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #F0F0F0;
+    }
+    .nav__inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .nav__brand { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .nav__brand-name { font-size: 15px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.01em; line-height: 1; }
+    .nav__brand-role { font-size: 10px; font-weight: 500; color: #AAAAAA; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1; }
+    .nav__back { font-size: 13px; font-weight: 600; color: #666666; }
+    .nav__back:hover { color: #F0902C; }
+    .nav__cta {
+      display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff;
+      font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 100px; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .nav__cta:hover { background: #d97e20; }
+
+    /* ── Hero ── */
+    .hero { padding: 64px 0 56px; }
+    .hero__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
+    .hero__eyebrow { font-size: 13px; font-weight: 700; color: #F0902C; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px; }
+    .hero__title { font-size: clamp(30px, 4vw, 44px); font-weight: 800; letter-spacing: -0.02em; color: #1A1A1A; line-height: 1.15; margin-bottom: 20px; }
+    .hero__text { font-size: 16px; color: #555555; margin-bottom: 28px; max-width: 480px; }
+    .hero__photo { height: 520px; display: flex; align-items: flex-end; justify-content: center; }
+    .hero__photo-img { height: 100%; width: auto; display: block; }
+    .hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff;
+      font-size: 15px; font-weight: 600; padding: 15px 28px; border-radius: 100px; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #d97e20; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px; background: #fff; color: #1A1A1A;
+      font-size: 15px; font-weight: 600; padding: 15px 28px; border-radius: 100px; border: 1px solid #E5E5E5;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: #F0902C; color: #F0902C; }
+
+    /* ── Stats ── */
+    .stats { padding: 8px 0 56px; }
+    .stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .stats__item { background: #fff; border-radius: 16px; padding: 24px 16px; text-align: center; }
+    .stats__num { font-size: 28px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.02em; }
+    .stats__label { font-size: 12px; color: #999999; margin-top: 4px; }
+
+    /* ── Section shell ── */
+    .section { padding: 56px 0; }
+    .section--alt { background: #fff; }
+    .section__title { font-size: clamp(30px, 4.2vw, 46px); font-weight: 800; color: #1A1A1A; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .section__text { font-size: 15px; color: #666666; margin-bottom: 36px; }
+
+    /* ── About / How ── */
+    .about__text { font-size: 15px; color: #444444; }
+    .about__text p + p { margin-top: 14px; }
+    .about__text a { color: #F0902C; font-weight: 600; }
+
+    .how__steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .how__steps::before {
+      content: ''; position: absolute; top: 20px; left: calc(20px + 3%); right: calc(20px + 3%);
+      height: 1px; background: #E8E8E8; z-index: 0;
+    }
+    .how__step { padding: 0 24px 0 0; position: relative; }
+    .how__step:last-child { padding-right: 0; }
+    .how__step-num {
+      width: 40px; height: 40px; border-radius: 50%; background: #F9F9F9; border: 1.5px solid #F0902C;
+      color: #F0902C; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; margin-bottom: 24px; position: relative; z-index: 1;
+    }
+    .section--alt .how__step-num { background: #fff; }
+    .how__step-title { font-size: 15px; font-weight: 700; color: #1A1A1A; margin-bottom: 10px; line-height: 1.3; }
+    .how__step-text { font-size: 13px; color: #666666; line-height: 1.6; }
+    @media (max-width: 860px) {
+      .how__steps { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+      .how__steps::before { display: none; }
+    }
+    @media (max-width: 560px) {
+      .how__steps { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    /* ── Big case list (accordion by project) ── */
+    .proj { margin-bottom: 28px; }
+    .proj:last-child { margin-bottom: 0; }
+    .proj__name { font-size: 13px; font-weight: 700; color: #F0902C; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; }
+    details.case-item {
+      background: #F9F9F9; border-radius: 14px; margin-bottom: 10px; overflow: hidden;
+    }
+    details.case-item summary {
+      list-style: none; cursor: pointer; padding: 18px 22px; font-size: 15px; font-weight: 700; color: #1A1A1A;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    details.case-item summary::-webkit-details-marker { display: none; }
+    details.case-item summary::after {
+      content: '+'; font-size: 20px; font-weight: 400; color: #F0902C; flex-shrink: 0; transition: transform 0.2s;
+    }
+    details.case-item[open] summary::after { transform: rotate(45deg); }
+    .case-item__body { padding: 0 22px 22px; font-size: 14px; color: #555555; }
+    .case-item__block { margin-top: 14px; }
+    .case-item__block-label { font-size: 12px; font-weight: 700; color: #999999; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+    .case-item__block ul { padding-left: 18px; margin-top: 6px; }
+    .case-item__block li { margin-bottom: 4px; }
+    .case-item__result { background: #fff; border-radius: 10px; padding: 14px 16px; margin-top: 14px; border-left: 3px solid #F0902C; }
+
+    /* ── Card grids ── */
+    .grid-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    @media (max-width: 700px) { .grid-cards { grid-template-columns: 1fr; } }
+    .case-card {
+      background: #fff; border: 1px solid #ECECEC; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      border-radius: 16px; padding: 26px; display: flex; flex-direction: column; height: 100%;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .case-card__title { font-size: 16px; font-weight: 700; color: #1A1A1A; margin-bottom: 10px; line-height: 1.35; }
+    .case-card__text { font-size: 13px; color: #666666; flex: 1; margin-bottom: 16px; }
+    .case-card__link {
+      font-size: 13px; font-weight: 700; color: #F0902C; display: inline-flex; align-items: center; gap: 6px;
+      align-self: flex-start; padding: 9px 16px; border-radius: 100px; border: 1.5px solid #F0902C;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .logo-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    @media (max-width: 860px) { .logo-cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .logo-cards { grid-template-columns: 1fr; } }
+    .logo-card {
+      background: #fff; border: 1px solid #ECECEC; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px; height: 100%;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .logo-card__img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; background: #fff; }
+    .logo-card__title { font-size: 14px; font-weight: 700; color: #1A1A1A; line-height: 1.4; }
+    .logo-card__link {
+      font-size: 12px; font-weight: 700; color: #F0902C; margin-top: auto; align-self: flex-start;
+      padding: 8px 14px; border-radius: 100px; border: 1.5px solid #F0902C;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    /* Molyanov-style hover: card settles down, CTA fills solid — desktop/pointer only */
+    @media (hover: hover) and (pointer: fine) {
+      .case-card:hover, .logo-card:hover { transform: translateY(6px); box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+      .case-card:hover .case-card__link, .logo-card:hover .logo-card__link { background: #F0902C; color: #fff; }
+    }
+    /* Touch devices: no hover, so keep the CTA permanently in its "revealed" filled state */
+    @media (hover: none) {
+      .case-card__link, .logo-card__link { background: #F0902C; color: #fff; }
+    }
+
+    /* ── Testimonials ── */
+    .testi-wrap { position: relative; }
+    .testi-carousel {
+      display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory;
+      padding-bottom: 14px; scrollbar-width: thin;
+    }
+    .testi-carousel::-webkit-scrollbar { height: 6px; }
+    .testi-carousel::-webkit-scrollbar-thumb { background: #E0E0E0; border-radius: 10px; }
+    .testi-card { background: #F9F9F9; border-radius: 16px; padding: 22px; flex: 0 0 300px; scroll-snap-align: start; }
+    .testi-arrow {
+      position: absolute; top: 40%; transform: translateY(-50%); z-index: 2;
+      width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 1px solid #E5E5E5;
+      display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1); transition: background 0.2s, color 0.2s, border-color 0.2s;
+      color: #1A1A1A;
+    }
+    .testi-arrow:hover { background: #F0902C; color: #fff; border-color: #F0902C; }
+    .testi-arrow--prev { left: -22px; }
+    .testi-arrow--next { right: -22px; }
+    @media (max-width: 900px) { .testi-arrow { display: none; } }
+    .testi-card__text { font-size: 13.5px; color: #444444; margin-bottom: 14px; line-height: 1.6; }
+    .testi-card__name { font-size: 13px; font-weight: 700; color: #1A1A1A; }
+    .testi-card__role { font-size: 12px; color: #999999; }
+
+    /* ── Final CTA ── */
+    .cta-final { padding: 64px 0; text-align: center; }
+    .cta-final__title { font-size: clamp(22px, 3vw, 30px); font-weight: 800; color: #1A1A1A; margin-bottom: 28px; letter-spacing: -0.02em; }
+    .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .contact-link {
+      display: flex; align-items: center; gap: 14px; background: #F9F9F9; border-radius: 100px;
+      padding: 16px 30px; font-size: 15px; font-weight: 600; color: #1A1A1A; transition: background 0.2s, color 0.2s;
+    }
+    .contact-link:hover { background: #F0902C; color: #fff; }
+    .contact-link svg { flex-shrink: 0; }
+
+    /* ── Footer ── */
+    .footer { background: #1A1A1A; padding: 56px 24px 32px; }
+    .footer__inner { max-width: 1100px; margin: 0 auto; }
+    .footer__top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; padding-bottom: 32px; border-bottom: 1px solid #333333; }
+    .footer__name { font-size: 16px; font-weight: 800; color: #fff; }
+    .footer__role { font-size: 12px; color: #888888; margin-top: 4px; }
+    .footer__nav { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .footer__nav-link { font-size: 13px; color: #AAAAAA; font-weight: 500; }
+    .footer__nav-link:hover { color: #fff; }
+    .footer__cta {
+      display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff;
+      font-size: 13px; font-weight: 600; padding: 12px 22px; border-radius: 100px;
+    }
+    .footer__bottom { padding-top: 24px; font-size: 12px; color: #777777; }
+
+    @media (max-width: 860px) {
+      .hero__grid { grid-template-columns: 1fr; }
+      .hero__photo { order: -1; height: 260px; }
+      .stats__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .nav__inner { padding: 0 16px; }
+      .wrap { padding: 0 16px; }
+      .hero { padding: 40px 0 40px; }
+      .section { padding: 40px 0; }
+      .footer { padding: 40px 16px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="nav__brand-name">Сергей Насыров</span>
+        <span class="nav__brand-role">Портфолио</span>
+      </a>
+      <a class="nav__back" href="/">← На главную</a>
+      <a class="nav__cta" href="/#contact" data-modal="contact">Обсудить проект</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── HERO ── -->
+    <section class="hero wrap">
+      <div class="hero__grid">
+        <div>
+          <h1 class="hero__title">Привет, я Сергей Насыров</h1>
+          <p class="hero__text">Восемь лет выстраиваю маркетинг так, чтобы за каждым действием команды стоял понятный результат в деньгах. Работал с продуктовыми компаниями, агентствами и брендами из разных ниш — EdTech, HoReCa, финтех, wellness.</p>
+          <div class="hero__actions">
+            <a class="btn-primary" href="/#contact" data-modal="contact">Обсудить задачу</a>
+            <a class="btn-secondary" href="/resume">Смотреть резюме</a>
+          </div>
+        </div>
+        <div class="hero__photo">
+          <img class="hero__photo-img" src="/assets/portfolio/hero.webp" alt="Сергей Насыров" width="960" height="959">
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STATS ── -->
+    <section class="stats wrap">
+      <div class="stats__grid">
+        <div class="stats__item"><div class="stats__num">8 лет</div><div class="stats__label">в маркетинге</div></div>
+        <div class="stats__item"><div class="stats__num">29 чел.</div><div class="stats__label">было в команде</div></div>
+        <div class="stats__item"><div class="stats__num">7 млн</div><div class="stats__label">бюджет в месяц</div></div>
+        <div class="stats__item"><div class="stats__num">20+</div><div class="stats__label">реализованных проектов</div></div>
+      </div>
+    </section>
+
+    <!-- ── ABOUT ── -->
+    <section class="section section--alt" id="about">
+      <div class="wrap">
+        <h2 class="section__title">Обо мне</h2>
+        <div class="about__text">
+          <p>В маркетинге восемь лет. Начинал контент-менеджером, дорос до руководителя отдела — управлял командой из 29 человек и бюджетом 7 млн рублей в месяц.</p>
+          <p>Работаю на стыке стратегии, аналитики и управления: выстраиваю процессы так, чтобы за каждым действием команды стоял понятный результат в деньгах. ROMI, CAC, LTV — рабочие инструменты, а не строчки в отчёте.</p>
+          <p>Умею запускать маркетинг с нуля и перестраивать то, что уже не работает.</p>
+          <p>Веду Telegram-канал <a href="https://t.me/sergeynasyrow" target="_blank" rel="noopener">«Насыров с маслом»</a> — делюсь опытом в маркетинге и управлении, рефлексирую на тему процессов, роста и команд.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HOW I WORK ── -->
+    <section class="section" id="how">
+      <div class="wrap">
+        <h2 class="section__title">Как я работаю</h2>
+        <div class="how__steps">
+          <div class="how__step">
+            <div class="how__step-num">01</div>
+            <div class="how__step-title">Разбираюсь в ситуации</div>
+            <div class="how__step-text">Изучаю бизнес, продукт, аудиторию и текущий маркетинг. Смотрю на цифры, задаю неудобные вопросы — это быстрее, чем месяц работы в неправильном направлении.</div>
+          </div>
+          <div class="how__step">
+            <div class="how__step-num">02</div>
+            <div class="how__step-title">Выстраиваю систему</div>
+            <div class="how__step-text">Стратегия, каналы, аналитика, процессы — всё связано между собой. Каждое действие команды привязано к метрике, каждая метрика — к деньгам.</div>
+          </div>
+          <div class="how__step">
+            <div class="how__step-num">03</div>
+            <div class="how__step-title">Запускаю и проверяю</div>
+            <div class="how__step-text">Не жду идеальных условий. Запускаю, смотрю на данные, корректирую. Принимаю решения по ROMI, CAC, CPL.</div>
+          </div>
+          <div class="how__step">
+            <div class="how__step-num">04</div>
+            <div class="how__step-title">Масштабирую</div>
+            <div class="how__step-text">Когда система работает, увеличиваю то, что даёт результат: бюджеты, каналы, команду.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BIG CASE LIST: HEAD OF MARKETING EXPERIENCE ── -->
+    <section class="section section--alt" id="experience">
+      <div class="wrap">
+        <h2 class="section__title">Опыт в роли руководителя маркетинга</h2>
+        <p class="section__text">Кейсы из проектов, где я отвечал за маркетинг целиком — от стратегии до конкретных инструментов. Каждый кейс — реальная задача с измеримым результатом. Нажмите на заголовок, чтобы раскрыть.</p>
+
+        <div class="proj">
+          <div class="proj__name">Physical Training</div>
+
+          <details class="case-item">
+            <summary>Разработка маркетинговой стратегии</summary>
+            <div class="case-item__body">
+              <div class="case-item__block">
+                <div class="case-item__block-label">Ситуация</div>
+                Продукт существовал без позиционирования: было непонятное название (аббревиатура), аудитория не сегментирована, не было единого стиля коммуникации с аудиторией.
+              </div>
+              <div class="case-item__block">
+                <div class="case-item__block-label">Что сделал</div>
+                <ul>
+                  <li>Собрал бренд-платформу — миссию, ценности, архетип</li>
+                  <li>На основе проведённого JTBD-исследования построил CJM (карту пути клиента)</li>
+                  <li>Сегментировал аудиторию: составил портреты, барьеры и офферы под каждый сегмент</li>
+                  <li>Заложил коммуникационную стратегию — прописал ToV, редполитику</li>
+                  <li>Прописал тактику для каждого канала коммуникаций (контекст, таргет, SMM, Email и др.)</li>
+                  <li>Прописал медиаплан с плановыми показателями</li>
+                </ul>
+              </div>
+              <div class="case-item__result"><strong>Результат:</strong> единая стратегия продвижения, которая отвечает на вопросы «кому говорим», «что говорим», «где говорим» и «во сколько нам это обойдётся» без повторного погружения в контекст при каждом новом запуске.</div>
+            </div>
+          </details>
+
+          <details class="case-item">
+            <summary>Создание лендинга</summary>
+            <div class="case-item__body">
+              <div class="case-item__block">
+                <div class="case-item__block-label">Ситуация</div>
+                На лендинг шёл стабильный поток посетителей, но конверсия держалась около 1% — люди приходили и уходили, не понимая ценности продукта.
+              </div>
+              <div class="case-item__block">
+                <div class="case-item__block-label">Что сделал</div>
+                Совместно с продакт-менеджером провёл custdev, переработал структуру страницы и тексты под реальные запросы и барьеры аудитории, адаптировал лендинг под путь клиента.
+              </div>
+              <div class="case-item__result"><strong>Результат:</strong> конверсия в заявку выросла с 1% до 3% — втрое больше людей из тех, кто зашёл на сайт, оставляли заявку.</div>
+            </div>
+          </details>
+
+          <details class="case-item">
+            <summary>Инфлюенс-маркетинг</summary>
+            <div class="case-item__body">
+              <div class="case-item__block">
+                <div class="case-item__block-label">Ситуация</div>
+                У проекта в Telegram-канале была перегретая аудитория: активности много, но покупок мало — большинство уже пользовались продуктом и просто продляли подписку. Нужно было обеспечить приток новой ЦА, познакомить с продуктом и убедить его купить.
+              </div>
+              <div class="case-item__block">
+                <div class="case-item__block-label">Что сделал</div>
+                Выстроил процесс размещений у блогеров с нуля — определил критерии отбора каналов, поставил задачи специалисту, согласовывал тексты размещений, разработал таблицу аналитики для оценки эффективности каждого размещения в связке «стоимость → подписчики → покупка».
+              </div>
+              <div class="case-item__result"><strong>Результат:</strong> +6 237 целевых подписчиков в Telegram-канал по адекватной рыночной цене за подписчика.</div>
+            </div>
+          </details>
+
+          <details class="case-item">
+            <summary>Email-маркетинг</summary>
+            <div class="case-item__body">
+              <div class="case-item__block">
+                <div class="case-item__block-label">Ситуация</div>
+                Email-канал существовал, но работал без системы — был контент-план, но письма рассылались только в окно продаж, и в большинстве продающие. Не было сегментации базы аудитории, воронок под каждую, новые подписчики не получали никакой онбординг-коммуникации.
+              </div>
+              <div class="case-item__block">
+                <div class="case-item__block-label">Что сделал</div>
+                Совместно с нанятым email-маркетологом выстроил процесс: сегментировал базу, разработал контент-план с воронками под каждый сегмент, написал воронки писем, настроил велкам-цепочку для новой аудитории, запустил регулярный анализ того, что конвертит лучше.
+              </div>
+              <div class="case-item__result"><strong>Результат:</strong> open rate email-цепочек 54% — каждое второе письмо подписчик открывал (среднее по рынку — каждое пятое); retention 85% — из десяти клиентов, начавших заниматься, восемь-девять продолжали.</div>
+            </div>
+          </details>
+        </div>
+
+        <div class="proj">
+          <div class="proj__name">«ЕваЕла», HoReCa</div>
+
+          <details class="case-item">
+            <summary>SMM</summary>
+            <div class="case-item__body">
+              <div class="case-item__block">
+                <div class="case-item__block-label">Ситуация</div>
+                Аккаунт в Нельзяграм вели без стратегии, охваты стагнировали на уровне 20–45 тыс. в месяц, SMM-специалиста не было. Аккаунты в ВК и Telegram вели по остаточному принципу.
+              </div>
+              <div class="case-item__block">
+                <div class="case-item__block-label">Что сделал</div>
+                <ul>
+                  <li>Нанял SMM</li>
+                  <li>Разработал SMM-стратегию с персонажной коммуникацией от лица Евы</li>
+                  <li>Запустил еженедельные посевы в пабликах с анонсами мероприятий ресторана</li>
+                  <li>Выстроил работу с блогерами по бартеру — одни рассказывали о событиях и приводили аудиторию на конкретные вечера, другие снимали имиджевый контент о еде и атмосфере заведения</li>
+                  <li>Наладил регулярный кросспостинг в VK и Telegram, в Telegram добавили истории — треть подписчиков их смотрела</li>
+                  <li>После блокировки Telegram в России создали канал в MAX и запустили конкурс для перевода аудитории</li>
+                </ul>
+              </div>
+              <div class="case-item__result">
+                <strong>Результат:</strong> аудитория реагировала на контент в 7,6 раза активнее, чем у конкурентов в категории (ER 5,1% при среднем по рынку 0,67%); месячный охват вырос с 45 тыс. до 180 тыс. — лучший пост собрал 105 тыс. просмотров; за период работы аккаунт прирос на 1 990 подписчиков органически, без платного продвижения; канал в MAX — 370 подписчиков по 13,5 ₽.
+              </div>
+            </div>
+          </details>
+
+          <details class="case-item">
+            <summary>Яндекс.Директ</summary>
+            <div class="case-item__body">
+              <div class="case-item__block">
+                <div class="case-item__block-label">Ситуация</div>
+                Реклама работала, но стоимость привлечения гостя оставалась высокой — 770 ₽ за одно бронирование, бюджет расходовался без видимой отдачи.
+              </div>
+              <div class="case-item__block">
+                <div class="case-item__block-label">Что сделал</div>
+                Перестроил воронку по поисковому трафику и РСЯ, три месяца последовательно оптимизировал кампании.
+              </div>
+              <div class="case-item__result"><strong>Результат:</strong> CPA снизился с 770 до 450 ₽ (−42%) — каждое бронирование стало обходиться почти вдвое дешевле; конверсии выросли на 37% при бюджете, который сократился на 20%; количество бронирований удвоилось.</div>
+            </div>
+          </details>
+
+          <details class="case-item">
+            <summary>Реклама ВК</summary>
+            <div class="case-item__body">
+              <div class="case-item__block">
+                <div class="case-item__block-label">Ситуация</div>
+                Реклама работала только на прирост подписчиков и базы рассылки — конкретные продукты заведения не продвигались совсем.
+              </div>
+              <div class="case-item__block">
+                <div class="case-item__block-label">Что сделал</div>
+                Выстроил охватную стратегию первого касания с новой аудиторией: запустил отдельные кампании под выходные, бизнес-ланчи, банкеты, корпоративы, дни рождения и мероприятия; показывал рекламу трём группам — людям, которые интересуются похожими заведениями, подписчикам конкурентов и тем, кто уже бывал в ЕваЕла.
+              </div>
+              <div class="case-item__result"><strong>Результат:</strong> охваты выросли на 57%, стоимость показа снизилась с 94 до 58 ₽ (−39%) — нужная аудитория стала видеть рекламу дешевле на треть.</div>
+            </div>
+          </details>
+
+          <details class="case-item">
+            <summary>Программа лояльности</summary>
+            <div class="case-item__body">
+              <div class="case-item__block">
+                <div class="case-item__block-label">Ситуация</div>
+                Коммуникация с гостями велась бессистемно, программы лояльности не существовало, гостевая база нигде не собиралась.
+              </div>
+              <div class="case-item__block">
+                <div class="case-item__block-label">Что сделал</div>
+                Разработал трёхуровневую программу лояльности — чем чаще гость приходит, тем больше кешбэк; прописал сценарии автоматических сообщений от лица персонажа; собрал базу гостей из трёх источников.
+              </div>
+              <div class="case-item__result"><strong>Результат:</strong> программа лояльности запущена впервые в истории заведения; гостевая база собрана из кассовой системы, Wi-Fi-авторизации и системы бронирования.</div>
+            </div>
+          </details>
+        </div>
+
+        <div class="proj">
+          <div class="proj__name">«Понеслось», HoReCa</div>
+
+          <details class="case-item">
+            <summary>Реклама VK</summary>
+            <div class="case-item__body">
+              <div class="case-item__block">
+                <div class="case-item__block-label">Ситуация</div>
+                Реклама в VK работала только на прирост подписчиков и анонсы афиш — конкретные продукты заведения не продвигались совсем.
+              </div>
+              <div class="case-item__block">
+                <div class="case-item__block-label">Что сделал</div>
+                <ul>
+                  <li>При сокращающемся бюджете переориентировал кампании на продвижение конкретных продуктов заведения</li>
+                  <li>Запустил отдельные направления под акции по дням недели, бизнес-ланчи, выходные и мероприятия</li>
+                  <li>Сегментировал работу с аудиториями: холодные по интересам, подписчики конкурентов и те, кто уже знаком с заведением</li>
+                </ul>
+              </div>
+              <div class="case-item__result"><strong>Результат:</strong> стоимость клика снизилась на 64% при бюджете, который сократился на 53%; количество кликов выросло на 31%, кликабельность объявлений выросла вдвое.</div>
+            </div>
+          </details>
+
+          <details class="case-item">
+            <summary>Реклама в Яндекс.Директ</summary>
+            <div class="case-item__body">
+              <div class="case-item__block">
+                <div class="case-item__block-label">Ситуация</div>
+                Поисковые кампании и РСЯ работали без регулярной оптимизации — стоимость привлечения клиента не снижалась, объявления не улучшались.
+              </div>
+              <div class="case-item__block">
+                <div class="case-item__block-label">Что сделал</div>
+                Провёл последовательную оптимизацию поисковых кампаний и рекламы в сетях — люди продолжали обращаться в том же объёме, но каждое обращение стало обходиться дешевле.
+              </div>
+              <div class="case-item__result"><strong>Результат:</strong> расходы сократились на 39% при сохранении объёма; стоимость одного обращения снизилась с 465 до 371 ₽; кликабельность объявлений выросла вдвое — с 0,84% до 1,68%.</div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MANAGERIAL CASES → DETAIL PAGES ── -->
+    <section class="section" id="managerial">
+      <div class="wrap">
+        <h2 class="section__title">Менеджерские кейсы</h2>
+        <p class="section__text">Управленческие задачи из практики — как выстраивал процессы, работал с командой и находил решения в нестандартных ситуациях.</p>
+        <div class="grid-cards">
+          <a class="case-card" href="/portfolio/no_cases">
+            <div class="case-card__title">Как вернуть команде способность создавать виральный контент: от аудита до системы экспериментов</div>
+            <div class="case-card__text">Команда полгода не создала ни одного вирального ролика. Провёл системный аудит, внедрил культуру экспериментов, создал базу паттернов и вывел метрики вирусности в KPI.</div>
+            <span class="case-card__link">Читать кейс →</span>
+          </a>
+          <a class="case-card" href="/portfolio/finance_model">
+            <div class="case-card__title">Пересмотр системы оплаты внештатных модераторов: от фикса к модели «база + бонус за качество»</div>
+            <div class="case-card__text">Внештатные модераторы работали на фиксированной оплате без привязки к качеству. Разработал новую модель «база + бонус», создал систему оценки по 4 критериям — ошибки снизились на 70% за 3 месяца.</div>
+            <span class="case-card__link">Читать кейс →</span>
+          </a>
+          <a class="case-card" href="/portfolio/low_season">
+            <div class="case-card__title">Оптимизация загрузки команды в январе: как превратить простой в инвестицию в развитие</div>
+            <div class="case-card__text">Штатная команда простаивала из-за паузы в проектах. Провёл инвентаризацию ресурсов, перераспределил нагрузку на обучение и внутренние задачи — сэкономил 130 тыс. рублей на внештатниках.</div>
+            <span class="case-card__link">Читать кейс →</span>
+          </a>
+          <a class="case-card" href="/portfolio/engagement">
+            <div class="case-card__title">Что делать, когда Engagement Rate не растёт год: пошаговый план от аудита до новых форматов</div>
+            <div class="case-card__text">ER не рос на большинстве проектов, база виральных роликов не пополнялась. Провёл количественный и качественный анализ контента, выявил паттерны провалов, сформировал новые форматы.</div>
+            <span class="case-card__link">Читать кейс →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── AGENCY EXPERIENCE ── -->
+    <section class="section section--alt" id="agency">
+      <div class="wrap">
+        <h2 class="section__title">Агентский опыт</h2>
+        <p class="section__text">Проекты из трёх лет работы руководителем отдела контент-маркетинга в Студии Чижова. Команда вела проекты в e-commerce, недвижимости, EdTech, медицине и FMCG — я отвечал за результат по каждому. Полные кейсы опубликованы на vc.ru.</p>
+        <div class="logo-cards">
+          <a class="logo-card" href="https://vc.ru/marketing/1823724-menyaem-predstavlenie-ob-smm-v-strahovanii-kak-strahovoi-dom-vsk-v-44-raza-uvelichil-organicheskii-ohvat-i-stal-liderom-v-nishe-po-prirostu-auditorii-za-god" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/agency-1-insurance.webp" alt="ВСК Страховой дом" loading="lazy">
+            <div class="logo-card__title">Страхование — как «Страховой Дом» ВСК в 44 раза увеличил органический охват и стал лидером в нише по приросту аудитории за год</div>
+            <span class="logo-card__link">Читать кейс на vc.ru →</span>
+          </a>
+          <a class="logo-card" href="https://vc.ru/marketing/1198591-kak-my-proveli-neirokvest-vkontakte-dlya-585zolotoi-27-mln-brendovyh-kontaktov-pri-nulevyh-rashodah-na-reklamu" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/agency-2-jewelry.webp" alt="585*Золотой" loading="lazy">
+            <div class="logo-card__title">Ювелирный ритейл — нейроквест «ВКонтакте» для «585*Золотой»: 2,7 млн брендовых контактов при нулевых расходах на рекламу</div>
+            <span class="logo-card__link">Читать кейс на vc.ru →</span>
+          </a>
+          <a class="logo-card" href="https://vc.ru/marketing/365052-kak-krupnyi-brend-doveril-socseti-nachinayushemu-agentstvu-pervye-v-nishe-po-vovlecheniyu-i-rost-vyruchki-s-klienta-na-33" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/agency-3-drugstore.webp" alt="Дрогери-ритейл" loading="lazy">
+            <div class="logo-card__title">Дрогери-ритейл, FMCG — как в 15 раз увеличить продажи из соцсетей несмотря на блокировку Instagram</div>
+            <span class="logo-card__link">Читать кейс на vc.ru →</span>
+          </a>
+          <a class="logo-card" href="https://vc.ru/marketing/1802656-slomali-stereotipy-kak-derzkii-stil-kommunikacii-v-socsetyah-dal-targethunter-78-k-ohvatam-i-61-k-vovlechennosti-v-surovom-b2b" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/agency-4-martech.webp" alt="TargetHunter" loading="lazy">
+            <div class="logo-card__title">MarTech — дерзкий стиль коммуникации в соцсетях дал TargetHunter +78% к охватам и +61% к вовлечённости в суровом b2b</div>
+            <span class="logo-card__link">Читать кейс на vc.ru →</span>
+          </a>
+          <a class="logo-card" href="https://vc.ru/marketing/326329-kak-v-6-raz-uvelichit-ohvaty-v-socsetyah-i-zadat-vizualnye-trendy-v-nishe-keis-mirazh-sinema" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/agency-5-entertainment.webp" alt="Мираж Синема" loading="lazy">
+            <div class="logo-card__title">Entertainment — как в 6 раз увеличить охваты в соцсетях и задать визуальные тренды в нише. Кейс «Мираж Синема»</div>
+            <span class="logo-card__link">Читать кейс на vc.ru →</span>
+          </a>
+          <a class="logo-card" href="https://vc.ru/marketing/705194-kak-seti-magazinov-elektroniki-uvelichit-srednii-chek-i-prodat-na-11-millionov-rublei-s-romi-120-s-pomoshyu-vkontakte" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/agency-6-electronics.webp" alt="Электроника и бытовая техника" loading="lazy">
+            <div class="logo-card__title">Электроника и бытовая техника — как увеличить средний чек и продать на 11 млн рублей с ROMI 120% через ВКонтакте</div>
+            <span class="logo-card__link">Читать кейс на vc.ru →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TESTIMONIALS ── -->
+    <section class="section" id="testimonials">
+      <div class="wrap">
+        <h2 class="section__title">Что говорят те, кто со мной работал</h2>
+        <div class="testi-wrap">
+        <button class="testi-arrow testi-arrow--prev" id="testiPrev" aria-label="Предыдущий отзыв">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="testi-arrow testi-arrow--next" id="testiNext" aria-label="Следующий отзыв">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="testi-carousel" id="testiCarousel">
+          <div class="testi-card">
+            <div class="testi-card__text">«За Сергеем как за каменной стеной — команда знала, что он отстоит её интересы. При этом первый руководитель в моей жизни, который сказал: делай что хочешь, если это хорошо. Раскрыл мой потенциал.»</div>
+            <div class="testi-card__name">Дарья Краева</div>
+            <div class="testi-card__role">тимлид Студии Чижова</div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__text">«Сергей напоминал, что я — специалист, и ответственность за результат на мне. Под его руководством выросла от человека без системы до специалиста, который понимает, какие задачи решает контент. Строгий наставник и поддерживающий товарищ в одном человеке.»</div>
+            <div class="testi-card__name">Дарья Шубина</div>
+            <div class="testi-card__role">контент-менеджер</div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__text">«Дружелюбный, но требовательный и принципиальный. С ним комфортно работать, если работаешь на результат — он это видит и даёт возможности. С теми, кто халтурит или срывает дедлайны, всегда обозначает позицию.»</div>
+            <div class="testi-card__name">Александра Соболева</div>
+            <div class="testi-card__role">контент-менеджер</div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__text">«Сергей давал проявить себя — не душил контролем и чрезмерными правками. Пришла в Студию практически без опыта, под его наставничеством стала старшим специалистом в отделе. Понимающий, поддерживающий, вдохновляющий.»</div>
+            <div class="testi-card__name">Анастасия Лагунова</div>
+            <div class="testi-card__role">контент-менеджер</div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__text">«Всегда спокоен, какой бы хаос ни происходил вокруг. Смотрит на вопрос без паники, приземляет и упрощает. Руководитель, под началом которого хочется работать.»</div>
+            <div class="testi-card__name">Ирина Понагушина</div>
+            <div class="testi-card__role">контент-менеджер</div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__text">«Поддерживающий, понимающий, адекватный и справедливый. Работая в Студии, кратно выросла — начала глубже погружаться в цифры и работать с крупными проектами.»</div>
+            <div class="testi-card__name">Анастасия Воронцова</div>
+            <div class="testi-card__role">контент-менеджер</div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__text">«Пришла с неясным представлением о своих возможностях — спустя год стала другим человеком. Сергей выстроил структуру погружения в работу так, что здесь впервые увидела, как должна работать команда.»</div>
+            <div class="testi-card__name">Анна Ефимычева</div>
+            <div class="testi-card__role">контент-менеджер</div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__text">«Полностью обучил работать в SMM на профессиональном уровне. Через месяц после найма уже делала стратегию и собирала воронку. Дотошный — в хорошем смысле.»</div>
+            <div class="testi-card__name">Валентина Пригодина</div>
+            <div class="testi-card__role">контент-менеджер</div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__text">«Доверие и отсутствие давления с первых дней. Сергей включён во внутрянку производства, а не только в управленческие задачи — это чувствуется в работе.»</div>
+            <div class="testi-card__name">Анна Кузмичёва</div>
+            <div class="testi-card__role">контент-менеджер</div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-card__text">«Сильный в хардах руководитель, который помогает специалистам раскрывать свои сильные стороны. Передавал знания и опыт, выстраивал структуру отдела, подталкивал к принятию решений.»</div>
+            <div class="testi-card__name">Дарья Лисовик</div>
+            <div class="testi-card__role">контент-менеджер</div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── EXPERT MATERIALS ── -->
+    <section class="section section--alt" id="expert">
+      <div class="wrap">
+        <h2 class="section__title">Экспертные материалы на vc.ru и VK Business</h2>
+        <p class="section__text">Участвовал в подготовке материалов по стратегиям, видеомаркетингу, продажам в соцсетях.</p>
+        <div class="logo-cards">
+          <a class="logo-card" href="https://vc.ru/marketing/1072233-kak-biznesu-prodavat-v-instagram-v-2024-godu-poshagovaya-instrukciya" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/expert-1-instagram.webp" alt="" loading="lazy">
+            <div class="logo-card__title">Как бизнесу продавать в Нельзяграмме: пошаговая инструкция</div>
+            <span class="logo-card__link">Читать статью →</span>
+          </a>
+          <a class="logo-card" href="https://vc.ru/marketing/1363356-videomarketing-v-socsetyah-dlya-biznesa-v-2024-godu-podrobnaya-instrukciya-po-vnedreniyu" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/expert-2-video.webp" alt="" loading="lazy">
+            <div class="logo-card__title">Видеомаркетинг в соцсетях для бизнеса</div>
+            <span class="logo-card__link">Читать статью →</span>
+          </a>
+          <a class="logo-card" href="https://expert.vk.com/articles/neiroseti-dlya-biznesa-i-marketinga-obzor-poleznih-instrumentov/" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/expert-3-neuro.webp" alt="" loading="lazy">
+            <div class="logo-card__title">Нейросети для бизнеса и маркетинга: обзор полезных инструментов</div>
+            <span class="logo-card__link">Читать статью →</span>
+          </a>
+          <a class="logo-card" href="https://vc.ru/marketing/961049-kak-biznesu-prodavat-vo-vkontakte-v-2024-godu" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/expert-4-vk.webp" alt="" loading="lazy">
+            <div class="logo-card__title">Как бизнесу продавать во ВКонтакте</div>
+            <span class="logo-card__link">Читать статью →</span>
+          </a>
+          <a class="logo-card" href="https://vc.ru/marketing/1026941-bolshoe-rukovodstvo-po-prodazham-v-telegram-dlya-biznesa-strategiya-instrumenty-realnye-primery-analitika" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/expert-5-telegram.webp" alt="" loading="lazy">
+            <div class="logo-card__title">Большое руководство по продажам в Telegram</div>
+            <span class="logo-card__link">Читать статью →</span>
+          </a>
+          <a class="logo-card" href="https://vc.ru/marketing/678455-kak-motivirovat-auditoriyu-socsetei-pokupat-s-pomoshyu-triggerov-prakticheskoe-rukovodstvo-s-primerami" target="_blank" rel="noopener">
+            <img class="logo-card__img" src="/assets/portfolio/expert-6-triggers.webp" alt="" loading="lazy">
+            <div class="logo-card__title">Как с помощью триггеров мотивировать аудиторию соцсетей покупать</div>
+            <span class="logo-card__link">Читать статью →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACTS ── -->
+    <section class="cta-final wrap">
+      <div class="cta-final__title">Контакты для связи</div>
+      <div class="contact-links">
+        <a class="contact-link" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Telegram
+        </a>
+        <a class="contact-link" href="https://max.ru/u/f9LHodD0cOJmOP8ZWly1PeNMdawSLyDpjpO-OrFnWRXK8ZmaWPdevtOw4H4" target="_blank" rel="noopener">
+          <svg width="26" height="26" viewBox="0 0 1000 1000"><g transform="translate(0,1000) scale(0.1,-0.1)" fill="currentColor" stroke="none"><path d="M3140 9994 c-525 -18 -999 -69 -1317 -140 -1155 -258 -1628 -874 -1772 -2304 -45 -441 -46 -509 -46 -2550 0 -2041 1 -2109 46 -2550 165 -1638 761 -2234 2399 -2399 441 -45 509 -46 2550 -46 2041 0 2109 1 2550 46 1638 165 2234 761 2399 2399 45 441 46 509 46 2550 0 2041 -1 2109 -46 2550 -165 1638 -763 2236 -2401 2399 -432 43 -455 44 -2423 46 -1045 1 -1938 0 -1985 -1z m2318 -1230 c1253 -128 2362 -897 2932 -2034 426 -850 525 -1862 269 -2760 -75 -265 -145 -445 -269 -689 -516 -1022 -1482 -1755 -2600 -1975 -268 -53 -370 -61 -740 -61 -367 0 -464 7 -672 51 -282 59 -513 164 -830 376 -82 54 -127 78 -147 78 -24 0 -49 -17 -113 -76 -204 -186 -491 -338 -786 -415 -152 -40 -359 -51 -462 -25 -134 34 -211 93 -258 194 -23 50 -26 77 -38 267 -22 355 -57 569 -159 965 -29 113 -84 329 -123 480 -190 735 -255 1201 -255 1835 -1 323 12 478 58 731 280 1515 1475 2701 3029 3003 391 76 777 95 1164 55z"/><path d="M4752 6905 c-760 -116 -1332 -675 -1531 -1497 -66 -273 -86 -488 -78 -861 10 -517 96 -969 234 -1239 52 -101 98 -148 146 -148 72 0 234 102 406 254 56 50 81 66 104 66 17 0 66 -21 117 -51 396 -228 803 -296 1245 -208 357 72 726 276 985 545 318 331 496 737 525 1199 12 191 -24 452 -92 655 -213 640 -760 1125 -1428 1266 -101 22 -153 26 -330 29 -148 3 -237 0 -303 -10z"/></g></svg>
+          MAX
+        </a>
+        <a class="contact-link" href="tel:+79290091312">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +7 929 009-13-12
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div>
+          <div class="footer__name">Сергей Насыров</div>
+          <div class="footer__role">Маркетолог-практик · МСБ</div>
+        </div>
+        <nav class="footer__nav">
+          <a class="footer__nav-link" href="/">На главную</a>
+          <a class="footer__nav-link" href="/resume">Резюме</a>
+          <a class="footer__nav-link" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener">Telegram</a>
+          <a class="footer__cta" href="/#contact" data-modal="contact">Написать</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">© 2026 ИП Насыров С.Д. · ОГРНИП 326366800063559 · <a class="footer__nav-link" href="/offer">Оферта</a> · <a class="footer__nav-link" href="/privacy">Политика конфиденциальности</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var track = document.getElementById('testiCarousel');
+      var prev = document.getElementById('testiPrev');
+      var next = document.getElementById('testiNext');
+      if (!track || !prev || !next) return;
+      function step() {
+        var card = track.querySelector('.testi-card');
+        return card ? card.getBoundingClientRect().width + 18 : 300;
+      }
+      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    })();
+  </script>
+
+</body>
+</html>

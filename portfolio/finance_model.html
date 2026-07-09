@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Пересмотр системы оплаты внештатных модераторов — кейс Сергея Насырова</title>
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="description" content="От фиксированной оплаты к модели «база + бонус за качество»: как пересмотреть систему оплаты внештатных модераторов и снизить количество ошибок на 70% за 3 месяца.">
+  <link rel="canonical" href="https://nasyrov.pro/portfolio/finance_model">
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('/assets/fonts/montserrat-cyrillic-ext.woff2') format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('/assets/fonts/montserrat-cyrillic.woff2') format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('/assets/fonts/montserrat-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('/assets/fonts/montserrat-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background: #F9F9F9; color: #333333; line-height: 1.6; }
+    a { color: #F0902C; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid #F0F0F0; }
+    .nav__inner { max-width: 800px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .nav__brand { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .nav__brand-name { font-size: 15px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.01em; line-height: 1; }
+    .nav__brand-role { font-size: 10px; font-weight: 500; color: #AAAAAA; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1; }
+    .nav__back { font-size: 13px; font-weight: 600; color: #666666; text-decoration: none; }
+    .nav__back:hover { color: #F0902C; text-decoration: none; }
+    .nav__cta { display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff; font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 100px; white-space: nowrap; text-decoration: none; transition: background 0.2s; }
+    .nav__cta:hover { background: #d97e20; text-decoration: none; }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
+    .article__eyebrow { font-size: 12px; font-weight: 700; color: #F0902C; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+    .article__title { font-size: clamp(24px, 3.4vw, 34px); font-weight: 800; letter-spacing: -0.02em; color: #1A1A1A; line-height: 1.25; margin-bottom: 24px; }
+    .article__intro { background: #fff; border-radius: 14px; padding: 22px 24px; font-size: 15px; color: #444444; margin-bottom: 40px; }
+
+    .article h2 { font-size: 20px; font-weight: 800; color: #1A1A1A; margin: 40px 0 14px; letter-spacing: -0.01em; }
+    .article h3 { font-size: 15px; font-weight: 700; color: #1A1A1A; margin: 20px 0 8px; }
+    .article p { font-size: 14.5px; color: #444444; margin-bottom: 12px; }
+    .article ul, .article ol { padding-left: 20px; margin: 8px 0 16px; }
+    .article li { font-size: 14.5px; color: #444444; margin-bottom: 6px; }
+    .article strong { color: #1A1A1A; }
+    .article .formula { background: #fff; border-radius: 10px; padding: 14px 18px; font-size: 14.5px; font-weight: 600; color: #1A1A1A; margin: 14px 0; border-left: 3px solid #F0902C; }
+    .article .result-block { background: #fff; border-radius: 12px; padding: 18px 20px; margin: 14px 0; }
+    .article .result-block h4 { font-size: 13px; font-weight: 700; color: #F0902C; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+
+    .cta-final { margin-top: 56px; padding: 40px 32px; background: #1A1A1A; border-radius: 20px; text-align: center; }
+    .cta-final__title { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .cta-final__text { font-size: 14px; color: #AAAAAA; margin-bottom: 22px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff; font-size: 15px; font-weight: 600; padding: 14px 28px; border-radius: 100px; text-decoration: none; transition: background 0.2s; }
+    .btn-primary:hover { background: #d97e20; text-decoration: none; }
+
+    .other-cases { margin-top: 40px; }
+    .other-cases__title { font-size: 13px; font-weight: 700; color: #999999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; }
+    .other-cases__link { display: block; font-size: 14px; font-weight: 600; color: #1A1A1A; padding: 12px 0; border-top: 1px solid #E5E5E5; }
+    .other-cases__link:hover { color: #F0902C; text-decoration: none; }
+
+    .footer { background: #1A1A1A; padding: 40px 24px; text-align: center; }
+    .footer a { color: #AAAAAA; font-size: 12px; margin: 0 8px; }
+    .footer a:hover { color: #fff; }
+
+    @media (max-width: 560px) { .wrap { padding: 40px 16px 56px; } .nav__inner { padding: 0 16px; } }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/portfolio">
+        <span class="nav__brand-name">Сергей Насыров</span>
+        <span class="nav__brand-role">Портфолио</span>
+      </a>
+      <a class="nav__back" href="/portfolio">← Портфолио</a>
+      <a class="nav__cta" href="/#contact" data-modal="contact">Обсудить проект</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="article__eyebrow">Менеджерский кейс</div>
+    <h1 class="article__title">Пересмотр системы оплаты внештатных модераторов: от фикса к модели «база + бонус за качество»</h1>
+    <div class="article__intro">Работаю с внештатными модераторами по SMM на условиях фиксированной оплаты за проект. Из-за увеличения количества ошибок встаёт вопрос о пересмотре системы оплаты и мотивации подобных исполнителей. Как решить вопрос?</div>
+
+    <article class="article">
+      <h2>Аудит ситуации</h2>
+      <p>Прежде чем менять оплату, разбираюсь, откуда взялись ошибки. Вижу четыре причины.</p>
+
+      <h3>Фикс не поощряет качество</h3>
+      <p>Модератор получает одинаково за вылизанную ветку комментариев и за отписки на отвяжись. А раз платят за факт закрытия проекта, то чем быстрее закрыл, тем выгоднее. Качество тут только мешает.</p>
+      <h3>Качество никто не мерит</h3>
+      <p>Нет критериев, что считать ошибкой. Нет обратной связи: человек год отвечает в комментариях и ни разу не слышал, где именно косячит.</p>
+      <h3>Выгорание</h3>
+      <p>Однотипная работа без разнообразия и без единого «спасибо» за удачно погашенный негатив. На такой дистанции внимание садится у любого.</p>
+      <h3>Нет регламента</h3>
+      <p>Модераторы не сговаривались работать плохо, они просто по-разному понимают, что такое «хорошо». Нет чек-листов, нет базы с примерами, каждый решает на глаз.</p>
+
+      <h2>Формируем модель оплаты</h2>
+      <p>Просчитал три варианта.</p>
+
+      <h3>Модель 1: базовая ставка + бонус за качество</h3>
+      <div class="formula">Итоговая оплата = базовая ставка (70%) + бонус за качество (30%)</div>
+      <p>На ней и остановился, по ней считаю дальше.</p>
+      <p><strong>База — 70%.</strong> Гарантированный минимум за проект, плачу его, если человек уложился во все дедлайны. Это страховка: даже в неудачный месяц модератор не остаётся без денег и не бежит искать подработку на стороне.</p>
+      <p><strong>Бонус за качество — 30%.</strong> Считаю по четырём вещам: отсутствие ошибок, скорость реакции, качество ответов, проактивность. Долю взял ощутимую, за такую надбавку уже хочется стараться, но не настолько огромную, чтобы люди жили в стрессе от каждого промаха.</p>
+
+      <h3>Модель 2: оплата за объём + KPI</h3>
+      <div class="formula">Оплата = (ставка за пост × количество постов) + бонус за KPI</div>
+      <p><strong>Ставки:</strong></p>
+      <ul>
+        <li>ответы на комментарии — 50 ₽/пост;</li>
+        <li>модерация плюс создание контента — 150 ₽/пост;</li>
+        <li>срочная модерация — +50% к ставке.</li>
+      </ul>
+      <p>Сверху навешиваю месячные KPI-бонусы:</p>
+      <ul>
+        <li>негатива меньше 5% — +10% к месячной оплате;</li>
+        <li>время реакции до 30 минут — +5%;</li>
+        <li>растёт ER — +15%.</li>
+      </ul>
+
+      <h3>Модель 3: грейды по баллам</h3>
+      <p>Делю модераторов на грейды, от грейда завишу, кого ставить на какие проекты:</p>
+      <ul>
+        <li>джун — &lt;85 баллов, обычные проекты;</li>
+        <li>мидл — 85–92, приоритетные;</li>
+        <li>сеньор — 93–97, VIP.</li>
+      </ul>
+      <p>Баллы пересчитываю раз в месяц: качество работы — 50, скорость — 20, довольны ли клиенты — 20, инициатива — 10.</p>
+
+      <h2>Внедряем систему</h2>
+      <h3>Подготовка — 2 недели</h3>
+      <p>Первым делом пишу регламент: что считается ошибкой, когда и как реагировать. К нему — чек-листы для самопроверки, база знаний с примерами, разбор типичных ситуаций. Пока этого нет, спрашивать с людей за качество нечестно: они не знают правил игры.</p>
+      <p>Параллельно собираю систему оценки. Google-таблица, которая сама считает баллы, чек-лист для супервизора и форма обратной связи для клиентов, чтобы мерить NPS.</p>
+      <p>И только потом иду к модераторам. С каждым лично: объясняю логику, отвечаю на вопросы, договариваюсь на тестовый месяц. Рассылкой такое не проводят. Человек читает «меняем оплату» и первым делом думает, что ему хотят срезать доход, это надо снимать голосом.</p>
+
+      <h3>Тестовый запуск — 1 месяц</h3>
+      <p>Месяц гоняю новую систему параллельно со старой, чтобы сравнить на одних и тех же людях. Каждую неделю даю модераторам обратную связь, собираю данные и подкручиваю веса критериев: с первого раза они почти всегда стоят криво.</p>
+      <p>Смотрю на четыре вещи: упали ли ошибки, выросла ли скорость реакции, как модераторы приняли систему и что стало со средним чеком. Последнее важно. Если новая модель незаметно урезала людям доход, она долго не проживёт даже при отличных метриках качества.</p>
+
+      <h3>Полный переход со 2-го месяца</h3>
+      <p>Дальше система живёт в постоянном режиме: еженедельные отчёты по качеству, ежемесячные встречи с командой, раз в квартал пересматриваю веса критериев. Если модераторов больше пяти, вешаю публичный рейтинг: на маленькой команде он стравливает людей, на большой заводит.</p>
+
+      <h2>Нематериальная мотивация</h2>
+      <p>Деньги удерживают человека, но не делают его инициативным. Поэтому рядом с оплатой ставлю ещё три вещи.</p>
+      <p><strong>Признание.</strong> «Модератор месяца» с постом на внутренней площадке, бонусы за результат по бонусной политике агентства. Дёшево, а работает.</p>
+      <p><strong>Развитие.</strong> Доступ к обучалкам, менторство от сеньоров, понятный путь до супервизора. Человек должен видеть, куда расти, иначе уйдёт туда, где это видно.</p>
+      <p><strong>Комьюнити.</strong> Закрытый чат, еженедельные митапы, обмен кейсами. Модератор на фрилансе варится в одиночку, чат вытаскивает его из этого и заодно разносит удачные решения по всей команде.</p>
+
+      <h2>Результат</h2>
+      <div class="result-block">
+        <h4>Через 1 месяц</h4>
+        Снижение ошибок на 40%. Модераторы понимают критерии оценки. Прозрачность в оплате.
+      </div>
+      <div class="result-block">
+        <h4>Через 3 месяца</h4>
+        Ошибки снижены на 70%. Рост инициативности модераторов. Формирование культуры качества. Стабилизация команды (меньше текучки).
+      </div>
+      <div class="result-block">
+        <h4>Финансовый эффект</h4>
+        Экономия времени на исправление ошибок — примерно 20 часов в месяц. Рост клиентской удовлетворённости. Снижение репутационных рисков. Окупаемость системы со 2-го месяца.
+      </div>
+    </article>
+
+    <div class="cta-final">
+      <div class="cta-final__title">Похожая задача в вашем проекте?</div>
+      <p class="cta-final__text">Расскажите, что нужно — отвечу в течение рабочего дня.</p>
+      <a class="btn-primary" href="/#contact" data-modal="contact">Обсудить задачу</a>
+    </div>
+
+    <div class="other-cases">
+      <div class="other-cases__title">Другие кейсы</div>
+      <a class="other-cases__link" href="/portfolio/engagement">Что делать, когда Engagement Rate не растёт год →</a>
+      <a class="other-cases__link" href="/portfolio/low_season">Оптимизация загрузки команды в низкий сезон →</a>
+      <a class="other-cases__link" href="/portfolio/no_cases">Как вернуть команде способность создавать виральный контент →</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <a href="/">На главную</a>
+    <a href="/portfolio">Портфолио</a>
+    <a href="/resume">Резюме</a>
+    <a href="/privacy">Политика конфиденциальности</a>
+  </footer>
+
+</body>
+</html>

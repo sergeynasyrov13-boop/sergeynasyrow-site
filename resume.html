@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Резюме — Сергей Насыров, руководитель отдела маркетинга</title>
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="description" content="Резюме Сергея Насырова — руководитель отдела маркетинга. 8+ лет опыта, 20+ проектов, ROMI до 135%, команды до 29 человек, бюджеты до 7 млн ₽/мес.">
+  <link rel="canonical" href="https://nasyrov.pro/resume">
+  <style>
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('/assets/fonts/montserrat-cyrillic-ext.woff2') format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('/assets/fonts/montserrat-cyrillic.woff2') format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('/assets/fonts/montserrat-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+    @font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('/assets/fonts/montserrat-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background: #F9F9F9; color: #333333; line-height: 1.6; }
+    a { color: #F0902C; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid #F0F0F0; }
+    .nav__inner { max-width: 860px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .nav__brand { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .nav__brand-name { font-size: 15px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.01em; line-height: 1; }
+    .nav__brand-role { font-size: 10px; font-weight: 500; color: #AAAAAA; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1; }
+    .nav__back { font-size: 13px; font-weight: 600; color: #666666; text-decoration: none; }
+    .nav__back:hover { color: #F0902C; text-decoration: none; }
+    .nav__cta { display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff; font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 100px; white-space: nowrap; text-decoration: none; transition: background 0.2s; }
+    .nav__actions { display: flex; align-items: center; gap: 10px; }
+    .nav__icon-btn {
+      width: 38px; height: 38px; border-radius: 50%; border: 1px solid #E5E5E5; background: #fff;
+      display: flex; align-items: center; justify-content: center; color: #666666; cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s; flex-shrink: 0;
+    }
+    .nav__icon-btn:hover { background: #F0902C; border-color: #F0902C; color: #fff; }
+    .nav__icon-btn[disabled] { opacity: 0.5; cursor: wait; }
+    @media (max-width: 560px) { .nav__icon-btn { width: 34px; height: 34px; } .nav__actions { gap: 6px; } }
+
+    @media print {
+      .nav, .footer, .exp-toggle, .btn-primary, .rhead__contact[href^="tel"], .cta-final { }
+      .nav { display: none; }
+      .footer { display: none; }
+      .exp-toggle { display: none; }
+      .wrap { padding: 0; max-width: 100%; }
+      body { background: #fff; }
+      .rsec, .rhead, .rstats__item, .cta-final { box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .job { break-inside: avoid; }
+      .rsec__top, .rsec__title { break-after: avoid; }
+      a[href]::after { content: ""; }
+    }
+    .nav__cta:hover { background: #d97e20; text-decoration: none; }
+
+    .wrap { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* ── Header card ── */
+    .rhead { background: #1A1A1A; border-radius: 20px; padding: 36px 32px; color: #fff; margin-bottom: 24px; }
+    .rhead__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 28px; }
+    .rhead__name { font-size: clamp(26px, 4vw, 34px); font-weight: 800; letter-spacing: -0.02em; }
+    .rhead__role { font-size: 15px; color: #F0902C; font-weight: 600; margin-top: 6px; margin-bottom: 20px; }
+    .rhead__meta { display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 13px; color: #CCCCCC; }
+    .rhead__meta strong { color: #fff; }
+    .rhead__photo { width: 120px; height: 120px; border-radius: 16px; object-fit: cover; flex-shrink: 0; }
+    .rhead__contacts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .rhead__contact {
+      width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center; color: #fff;
+      transition: background 0.2s, color 0.2s; flex-shrink: 0;
+    }
+    .rhead__contact:hover { background: #F0902C; color: #1A1A1A; }
+    @media (max-width: 560px) {
+      .rhead__top { flex-direction: column-reverse; align-items: center; text-align: center; }
+      .rhead__meta, .rhead__contacts { justify-content: center; }
+    }
+
+    /* ── Stats ── */
+    .rstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+    .rstats__item { background: #fff; border-radius: 14px; padding: 18px 14px; text-align: center; }
+    .rstats__num { font-size: 22px; font-weight: 800; color: #1A1A1A; }
+    .rstats__label { font-size: 11px; color: #999999; margin-top: 4px; }
+
+    /* ── Section ── */
+    .rsec { background: #fff; border-radius: 16px; padding: 28px 30px; margin-bottom: 20px; }
+    .rsec__title { font-size: 18px; font-weight: 800; color: #1A1A1A; margin-bottom: 16px; letter-spacing: -0.01em; }
+    .rsec__top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+    .exp-toggle { display: inline-flex; background: #F9F9F9; border-radius: 100px; padding: 4px; gap: 4px; flex-shrink: 0; }
+    .exp-toggle__btn {
+      border: none; background: transparent; font-family: inherit; font-size: 12.5px; font-weight: 700;
+      padding: 9px 16px; border-radius: 100px; cursor: pointer; color: #999999; transition: background 0.2s, color 0.2s;
+    }
+    .exp-toggle__btn.is-active { background: #F0902C; color: #fff; }
+    @media (max-width: 480px) { .exp-toggle__btn { padding: 8px 12px; font-size: 11.5px; } }
+    .rsec p { font-size: 14px; color: #444444; margin-bottom: 10px; }
+
+    /* ── Job entries ── */
+    .job { padding: 20px 0; border-top: 1px solid #F0F0F0; }
+    .job:first-of-type { border-top: none; padding-top: 0; }
+    .job__top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+    .job__company { font-size: 15px; font-weight: 700; color: #1A1A1A; }
+    .job__period { font-size: 12px; color: #999999; white-space: nowrap; }
+    .job__title { font-size: 13.5px; font-weight: 600; color: #F0902C; margin-bottom: 10px; }
+    .job ul { padding-left: 18px; margin-bottom: 10px; }
+    .job li { font-size: 13.5px; color: #444444; margin-bottom: 6px; }
+    .job__results { background: #F9F9F9; border-radius: 10px; padding: 14px 16px; margin-top: 10px; }
+    .job__results-title { font-size: 12px; font-weight: 700; color: #999999; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+    .job__results ul { margin-bottom: 0; }
+    .job__badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .job__badge { background: #F9F9F9; border-radius: 10px; padding: 10px 14px; font-size: 12px; color: #444444; min-width: 140px; }
+    .job__badge strong { display: block; font-size: 16px; font-weight: 800; color: #F0902C; }
+
+    /* ── Skills ── */
+    .skills__group { margin-bottom: 16px; }
+    .skills__group-title { font-size: 12px; font-weight: 700; color: #F0902C; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .skills__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skills__tag { background: #F9F9F9; border-radius: 8px; padding: 7px 12px; font-size: 12.5px; color: #333333; font-weight: 500; }
+
+    /* ── Education / Languages / Awards ── */
+    .edu-item, .lang-item { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-top: 1px solid #F0F0F0; font-size: 13.5px; }
+    .edu-item:first-of-type, .lang-item:first-of-type { border-top: none; padding-top: 0; }
+    .edu-item__year, .lang-item__level { color: #999999; white-space: nowrap; font-size: 12.5px; }
+    .edu-item__name { color: #1A1A1A; font-weight: 600; }
+    .edu-item__sub { color: #666666; font-size: 12.5px; display: block; margin-top: 2px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .awards-list { list-style: none; }
+    .awards-list li { font-size: 13.5px; color: #444444; padding: 6px 0; }
+
+    /* ── CTA ── */
+    .cta-final { padding: 36px 30px; background: #1A1A1A; border-radius: 20px; text-align: center; }
+    .cta-final__title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .cta-final__text { font-size: 13.5px; color: #AAAAAA; margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff; font-size: 14px; font-weight: 600; padding: 13px 26px; border-radius: 100px; text-decoration: none; transition: background 0.2s; }
+    .btn-primary:hover { background: #d97e20; text-decoration: none; }
+
+    .footer { background: #1A1A1A; padding: 40px 24px; text-align: center; margin-top: 20px; }
+    .footer a { color: #AAAAAA; font-size: 12px; margin: 0 8px; }
+    .footer a:hover { color: #fff; }
+
+    @media (max-width: 700px) {
+      .rstats { grid-template-columns: repeat(2, 1fr); }
+      .two-col { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .wrap { padding: 32px 16px 56px; }
+      .nav__inner { padding: 0 16px; }
+      .rhead { padding: 28px 22px; }
+      .rsec { padding: 22px 20px; }
+    }
+
+    /* ── Compact mode: applied only while generating the PDF, to fit 2-3 A4 pages ── */
+    body.pdf-mode { line-height: 1.32; }
+    body.pdf-mode .wrap { padding: 0; max-width: 100%; }
+    body.pdf-mode .btn-primary, body.pdf-mode .cta-final, body.pdf-mode .exp-toggle { display: none; }
+    body.pdf-mode .rhead { padding: 14px 18px; margin-bottom: 8px; border-radius: 10px; }
+    body.pdf-mode .rhead__name { font-size: 20px; }
+    body.pdf-mode .rhead__role { font-size: 11px; margin-top: 2px; margin-bottom: 6px; }
+    body.pdf-mode .rhead__meta { font-size: 9.5px; gap: 3px 12px; }
+    body.pdf-mode .rhead__photo { width: 60px; height: 60px; border-radius: 8px; }
+    body.pdf-mode .rhead__contacts { margin-top: 6px; gap: 5px; }
+    body.pdf-mode .rhead__contact { width: 22px; height: 22px; }
+    body.pdf-mode .rhead__contact svg { width: 11px; height: 11px; }
+    body.pdf-mode .rstats { gap: 5px; margin-bottom: 8px; }
+    body.pdf-mode .rstats__item { padding: 6px 5px; border-radius: 6px; }
+    body.pdf-mode .rstats__num { font-size: 13px; }
+    body.pdf-mode .rstats__label { font-size: 7px; }
+    body.pdf-mode .rsec { padding: 10px 14px; margin-bottom: 6px; border-radius: 8px; }
+    body.pdf-mode .rsec__title { font-size: 12px; margin-bottom: 6px; }
+    body.pdf-mode .rsec__top { margin-bottom: 6px; gap: 4px; }
+    body.pdf-mode .rsec p { font-size: 9.5px; margin-bottom: 4px; }
+    body.pdf-mode .job { padding: 6px 0; }
+    body.pdf-mode .job__company { font-size: 10.5px; }
+    body.pdf-mode .job__period { font-size: 8.5px; }
+    body.pdf-mode .job__title { font-size: 9.5px; margin-bottom: 3px; }
+    body.pdf-mode .job p { font-size: 9.5px; margin-bottom: 4px; }
+    body.pdf-mode .job ul { margin-bottom: 4px; padding-left: 13px; }
+    body.pdf-mode .job li { font-size: 9.5px; margin-bottom: 1px; }
+    body.pdf-mode .job__results { padding: 5px 8px; margin-top: 4px; border-radius: 5px; font-size: 9.5px; line-height: 1.32; }
+    body.pdf-mode .job__results-title { font-size: 8px; margin-bottom: 2px; }
+    body.pdf-mode .job__badges { gap: 4px; margin-top: 4px; }
+    body.pdf-mode .job__badge { padding: 4px 7px; font-size: 8px; min-width: 90px; border-radius: 6px; }
+    body.pdf-mode .job__badge strong { font-size: 10.5px; }
+    body.pdf-mode .skills__group { margin-bottom: 5px; }
+    body.pdf-mode .skills__group-title { font-size: 8px; margin-bottom: 3px; }
+    body.pdf-mode .skills__tags { gap: 3px; }
+    body.pdf-mode .skills__tag { padding: 2px 6px; font-size: 8.5px; border-radius: 4px; }
+    body.pdf-mode .edu-item, body.pdf-mode .lang-item { padding: 4px 0; font-size: 9.5px; gap: 8px; }
+    body.pdf-mode .edu-item__sub { font-size: 8.5px; }
+    body.pdf-mode .awards-list li { font-size: 9.5px; padding: 2px 0; }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="nav__brand-name">Сергей Насыров</span>
+        <span class="nav__brand-role">Резюме</span>
+      </a>
+      <a class="nav__back" href="/portfolio">← Портфолио</a>
+      <div class="nav__actions">
+        <button class="nav__icon-btn" id="btnPrint" type="button" aria-label="Распечатать" title="Распечатать">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+        </button>
+        <button class="nav__icon-btn" id="btnPdf" type="button" aria-label="Скачать PDF" title="Скачать PDF">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        </button>
+        <a class="nav__cta" href="/#contact" data-modal="contact">Обсудить проект</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <div class="rhead">
+      <div class="rhead__top">
+        <div>
+          <div class="rhead__name">Сергей Насыров</div>
+          <div class="rhead__role">Маркетолог | Head of Marketing</div>
+          <div class="rhead__meta">
+            <span><strong>Воронеж</strong> · Россия</span>
+            <span>Переезд: Москва, СПб</span>
+            <span>Командировки: готов</span>
+            <span>Занятость: полная, проектная</span>
+            <span>Формат: гибрид / офис / удалённо</span>
+          </div>
+          <div class="rhead__contacts">
+            <a class="rhead__contact" href="tel:+79290091312" aria-label="Позвонить" title="+7 929 009-13-12">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </a>
+            <a class="rhead__contact" href="mailto:sergey@nasyrow.ru" aria-label="Email" title="sergey@nasyrow.ru">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+            </a>
+            <a class="rhead__contact" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+            <a class="rhead__contact" href="https://max.ru/u/f9LHodD0cOJmOP8ZWly1PeNMdawSLyDpjpO-OrFnWRXK8ZmaWPdevtOw4H4" target="_blank" rel="noopener" aria-label="MAX" title="MAX">
+              <svg width="17" height="17" viewBox="0 0 1000 1000"><g transform="translate(0,1000) scale(0.1,-0.1)" fill="currentColor" stroke="none"><path d="M3140 9994 c-525 -18 -999 -69 -1317 -140 -1155 -258 -1628 -874 -1772 -2304 -45 -441 -46 -509 -46 -2550 0 -2041 1 -2109 46 -2550 165 -1638 761 -2234 2399 -2399 441 -45 509 -46 2550 -46 2041 0 2109 1 2550 46 1638 165 2234 761 2399 2399 45 441 46 509 46 2550 0 2041 -1 2109 -46 2550 -165 1638 -763 2236 -2401 2399 -432 43 -455 44 -2423 46 -1045 1 -1938 0 -1985 -1z m2318 -1230 c1253 -128 2362 -897 2932 -2034 426 -850 525 -1862 269 -2760 -75 -265 -145 -445 -269 -689 -516 -1022 -1482 -1755 -2600 -1975 -268 -53 -370 -61 -740 -61 -367 0 -464 7 -672 51 -282 59 -513 164 -830 376 -82 54 -127 78 -147 78 -24 0 -49 -17 -113 -76 -204 -186 -491 -338 -786 -415 -152 -40 -359 -51 -462 -25 -134 34 -211 93 -258 194 -23 50 -26 77 -38 267 -22 355 -57 569 -159 965 -29 113 -84 329 -123 480 -190 735 -255 1201 -255 1835 -1 323 12 478 58 731 280 1515 1475 2701 3029 3003 391 76 777 95 1164 55z"/><path d="M4752 6905 c-760 -116 -1332 -675 -1531 -1497 -66 -273 -86 -488 -78 -861 10 -517 96 -969 234 -1239 52 -101 98 -148 146 -148 72 0 234 102 406 254 56 50 81 66 104 66 17 0 66 -21 117 -51 396 -228 803 -296 1245 -208 357 72 726 276 985 545 318 331 496 737 525 1199 12 191 -24 452 -92 655 -213 640 -760 1125 -1428 1266 -101 22 -153 26 -330 29 -148 3 -237 0 -303 -10z"/></g></svg>
+            </a>
+            <a class="rhead__contact" href="https://www.linkedin.com/in/sergeynasyrov/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z"/></svg>
+            </a>
+            <a class="rhead__contact" href="https://vk.com/sergeynasyrow" target="_blank" rel="noopener" aria-label="ВКонтакте" title="ВКонтакте">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13.19 21.5c-7.5 0-11.78-5.15-11.96-13.72h3.7c.12 6.31 2.91 8.98 5.12 9.53V7.78h3.5v5.42c2.19-.23 4.49-2.71 5.27-5.42h3.5c-.6 3.35-3.08 5.83-4.84 6.85 1.76.83 4.58 3 5.68 6.87h-3.86c-.86-2.58-2.9-4.58-5.75-4.86v4.86h-.42z"/></svg>
+            </a>
+            <a class="rhead__contact" href="/portfolio" aria-label="Портфолио" title="Портфолио">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </a>
+          </div>
+        </div>
+        <img class="rhead__photo" src="/assets/resume-photo.webp" alt="Сергей Насыров" width="480" height="480">
+      </div>
+    </div>
+
+    <div class="rstats">
+      <div class="rstats__item"><div class="rstats__num">8+</div><div class="rstats__label">лет в маркетинге</div></div>
+      <div class="rstats__item"><div class="rstats__num">29</div><div class="rstats__label">человек в команде</div></div>
+      <div class="rstats__item"><div class="rstats__num">7M ₽</div><div class="rstats__label">бюджет в месяц</div></div>
+      <div class="rstats__item"><div class="rstats__num">135%</div><div class="rstats__label">лучший ROMI</div></div>
+    </div>
+
+    <div class="rsec">
+      <div class="rsec__title">О себе</div>
+      <p>Строю системный маркетинг с опорой на данные. За 8+ лет реализовал 20+ проектов в B2C и B2B: e-commerce, fintech, EdTech, FMCG, HoReCa, медицина.</p>
+      <p>Принимаю решения на основе данных — работаю со сквозной аналитикой, юнит-экономикой, метриками ROMI, CAC, CPL, LTV. Руководил командой до 29 специалистов, управлял рекламными бюджетами до 7 млн ₽ в месяц.</p>
+      <p>Самостоятельно запускаю кампании в Яндекс.Директ, VK Ads, Telegram Ads. Веду Telegram-канал <a href="https://t.me/sergeynasyrow" target="_blank" rel="noopener">@sergeynasyrow</a> — пишу про маркетинг для предпринимателей и тех, кто разбирается в нём сам.</p>
+      <a class="btn-primary" href="/#contact" data-modal="contact" style="margin-top: 8px;">Обсудить сотрудничество →</a>
+    </div>
+
+    <div class="rsec">
+      <div class="rsec__top">
+        <div class="rsec__title" style="margin-bottom:0;">Опыт работы — 8 лет 1 месяц</div>
+        <div class="exp-toggle" id="expToggle">
+          <button class="exp-toggle__btn is-active" data-mode="human" type="button">Для человеков</button>
+          <button class="exp-toggle__btn" data-mode="robots" type="button">Для роботов</button>
+        </div>
+      </div>
+
+      <div id="expHuman" class="exp-version">
+        <div class="job">
+          <div class="job__top">
+            <span class="job__company">Частная консалтинговая практика (ИП)</span>
+            <span class="job__period">Май 2025 — настоящее время</span>
+          </div>
+          <div class="job__title">Руководитель маркетинга</div>
+
+          <p style="font-size:13.5px;color:#666;font-weight:700;margin-bottom:6px;">Physical Transformation (онлайн-фитнес, СПб)</p>
+          <p>Продукт терял клиентов и не мог объяснить, чем отличается от конкурентов.</p>
+          <p>Провёл исследование аудитории, переработал позиционирование, перезапустил сайт и воронку продаж (конверсия лендинга 1% → 3%). Настроил систему удержания: автоматические письма по сегментам, Telegram-бот для прогрева аудитории, программу лояльности.</p>
+          <div class="job__results">
+            <div class="job__results-title">Результат</div>
+            Каждый второй новый клиент открывал письма (email open rate 54%, push open rate 92%), восемь из десяти продлевали подписку (удержание 85%, ROMI 120–135%).
+          </div>
+
+          <p style="font-size:13.5px;color:#666;font-weight:700;margin:18px 0 6px;">Два ресторана, Воронеж (HoReCa)</p>
+          <p>В двух заведениях одновременно реклама съедала бюджет, а стоимость привлечения гостя была неприемлемой.</p>
+          <p>Разработал маркетинговую стратегию, пересобрал рекламные кампании в Яндекс.Директ и VK Ads, оптимизировал работу в Яндекс Картах и 2GIS, запустил программу лояльности, отправлял продающие рассылки по базе клиентов, размещал медийную рекламу.</p>
+          <div class="job__results">
+            <div class="job__results-title">Результат</div>
+            Стоимость привлечения гостя снизилась на 20–42% в зависимости от канала (CPA Яндекс.Директ: 770 → 450 ₽ и 465 → 371 ₽), количество бронирований выросло вдвое (RestoPlace ×2), охват Instagram вырос с 45 до 180 тысяч в месяц (ER 5,1%), open rate рассылок — 55–59%.
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job__top">
+            <span class="job__company">Студия Чижова (рекламное агентство, Курск)</span>
+            <span class="job__period">Январь 2022 — Май 2025 · 3 года 5 месяцев</span>
+          </div>
+          <div class="job__title">Руководитель отдела контент-маркетинга</div>
+          <p>Агентству нужно было масштабировать производство контента под растущий портфель клиентов.</p>
+          <p>Собрал отдел с 9 до 29 человек (копирайтеры, дизайнеры, видеопродюсеры, SMM), вырастил трёх тимлидов, подготовил 70+ регламентов и программу обучения специалистов. Управлял бюджетом на продакшн и подрядчиков — 6–7 млн ₽/мес. Внедрил нейросети ChatGPT и Midjourney в рабочие процессы — производительность команды выросла на 30%.</p>
+          <div class="job__results">
+            <div class="job__results-title">Результат</div>
+            Команда была довольна моей работой: eNPS 9.1/10, клиентский NPS 8.5/10.
+          </div>
+          <p style="margin-top:14px;">Под моим руководством команда реализовала проекты в 10+ отраслях. Несколько результатов:</p>
+          <ul>
+            <li>Сеть доставки роллов: интерактивный квест с AI — 1 414 конверсий, CPL 32 ₽, рост продаж +153% (ROMI 135%)</li>
+            <li>Врач-косметолог: выстроили контент-маркетинг — 1 341 заявка, 39 млн ₽ выручки клиента</li>
+            <li>Страховой дом ВСК: сменили подход к контенту в консервативной нише — органический охват вырос в 44 раза, первое место по приросту аудитории за год</li>
+            <li>B2B SaaS TargetHunter: нестандартный контент в корпоративном сегменте — охваты +78%, вовлечённость +61%</li>
+          </ul>
+          <p style="font-size:12.5px;color:#999;margin-top:12px;">Агентство в период моей работы завоевало отраслевые награды: Ruward Awards №1 (2024), Workspace Digital Awards №1 (2024), Silver Mercury №3, Рейтинг Рунета №2.</p>
+        </div>
+
+        <div class="job">
+          <div class="job__top">
+            <span class="job__company">Студия Чижова, Воронеж</span>
+            <span class="job__period">Ноябрь 2020 — Январь 2022 · 1 год 3 месяца</span>
+          </div>
+          <div class="job__title">Контент-менеджер</div>
+          <p>Начинал как исполнитель: писал тексты, ставил задачи дизайнерам, общался с клиентами. Вёл 10+ проектов одновременно в разных нишах — банки, B2B-компании, кинотеатры, товары для дома.</p>
+          <div class="job__results">
+            <div class="job__results-title">Результат</div>
+            Сеть кинотеатров «Мираж Синема» — аудитория в соцсетях выросла в 6 раз. Розничная сеть «Улыбка Радуги» — продажи через соцсети выросли в 15 раз.
+          </div>
+        </div>
+
+        <div class="job">
+          <div class="job__top">
+            <span class="job__company">AdCombo</span>
+            <span class="job__period">Ноябрь 2017 — Июль 2020 · 2 года 9 месяцев</span>
+          </div>
+          <div class="job__title">SMM-менеджер</div>
+          <p>Продвигал мобильное приложение на трёх международных рынках одновременно — Польша, Мьянма, Нигерия. Под каждый рынок писал отдельный контент, подбирал местных блогеров, следил за тем, что работает, а что нет.</p>
+        </div>
+
+        <div class="job">
+          <div class="job__top">
+            <span class="job__company">Собственные проекты</span>
+          </div>
+          <p style="font-size:13.5px;color:#666;font-weight:700;margin-bottom:6px;">Бот по поиску работы</p>
+          <p>Чтобы не просматривать вакансии вручную, написал персонального ИИ-ассистента по поиску работы. Он отслеживает три площадки одновременно, сначала отсекает нерелевантные вакансии по правилам — и только потом подключает ИИ для анализа оставшихся. Подходящие варианты приходят сразу в Telegram. Работает на двух серверах: один собирает данные с российских площадок, второй анализирует их через ИИ и отправляет мне уведомления.</p>
+
+          <p style="font-size:13.5px;color:#666;font-weight:700;margin:18px 0 6px;">Сайт с услугами и портфолио</p>
+          <p>Спроектировал и собрал личный сайт с нуля без готовых шаблонов: структуру, адаптивную вёрстку под любые устройства, приём заявок напрямую в мессенджер, подключил аналитику. Настроил автоматическое обновление сайта — любое изменение публикуется без ручных действий.</p>
+
+          <p style="font-size:13.5px;color:#666;font-weight:700;margin:18px 0 6px;">Контент-завод для своего блога</p>
+          <p>Собрал систему, которая ведёт Telegram-канал без ручного участия — от поиска тем до публикации готового поста. Каждый день один ИИ-агент обходит 25 источников и отбирает темы по заданным критериям. Раз в два дня второй агент выбирает тему, пишет пост в авторском стиле и проверяет его по 14 критериям качества. Владелец канала только нажимает «одобрить» или «отклонить» новые темы — всё остальное происходит автоматически.</p>
+        </div>
+      </div>
+
+      <div id="expRobots" class="exp-version" style="display:none;">
+      <div class="job">
+        <div class="job__top">
+          <span class="job__company">Частная консалтинговая практика</span>
+          <span class="job__period">Май 2025 — Апрель 2026 · 1 год 2 месяца</span>
+        </div>
+        <div class="job__title">Руководитель отдела маркетинга и рекламы</div>
+        <p style="font-size:13.5px;color:#666;margin-bottom:10px;">Проекты: Physical Transformation / Физикл (онлайн-фитнес, СПб, май–октябрь 2025); HoReCa — «Понеслось» + «ЕваЕла» (два ресторана, Воронеж, январь–апрель 2026).</p>
+        <ul>
+          <li>Разработка и реализация маркетинговой стратегии с нуля: позиционирование бренда, бренд-платформа (миссия, ценности, архетип), JTBD-исследование, сегментация, Customer Journey Map, коммуникационная стратегия, Tone of Voice, редакционная политика, перезапуск сайта</li>
+          <li>Анализ рынка, конкурентов и целевой аудитории: полевые исследования, конкурентная матрица, брифинги с командой и директорами, сегментация с портретами и офферами, приоритизация по влиянию на выручку</li>
+          <li>Управление рекламными бюджетами и масштабирование performance-каналов: Яндекс.Директ (поиск + РСЯ), VK Ads, Telegram Ads — совместно с подрядчиком; оптимизация медиабюджета без потери объёма</li>
+          <li>Сквозная аналитика и постановка KPI: настройка аналитики по всем каналам, система контроля ROMI / CAC / CPL, еженедельная отчётность на базе iiko</li>
+          <li>Построение воронок продаж и лидогенерация: Telegram-бот с прогревающей воронкой, email-цепочки по сегментам, скрипты продления, программа лояльности ReMarked, рассылки через Senler, CRM-активности</li>
+          <li>Инфлюенс-маркетинг с прозрачной оценкой ROI: отбор блогеров, посевы, виральные рилсы, коллаборации</li>
+          <li>Управление командами 3–5 человек и координация подрядчиков: SMM во ВКонтакте, Instagram и Telegram, геосервисы (Яндекс Карты, 2GIS, Restoplace)</li>
+        </ul>
+        <div class="job__results">
+          <div class="job__results-title">Результаты — Physical Transformation / Физикл</div>
+          <ul>
+            <li>Retention клиентов — 85%; CAC 1 500–2 000 ₽, ROMI 120–135%</li>
+            <li>Конверсия лендинга: 1% → 3%</li>
+            <li>Email open rate Welcome-цепочки — 54%, push open rate — 92%</li>
+            <li>Органический охват SMM +30%, ER 3–5%</li>
+            <li>Инфлюенс: +6 237 подписчиков Telegram + 537 Instagram за кампанию; лучший Reel — 231 000 просмотров</li>
+          </ul>
+        </div>
+        <div class="job__results">
+          <div class="job__results-title">Результаты — HoReCa</div>
+          <ul>
+            <li>VK Ads «Понеслось»: клики +31%, CTR ×2, CPC −64% при бюджете −53%</li>
+            <li>VK Ads «ЕваЕла»: охваты +57%, CPM −39%</li>
+            <li>Яндекс.Директ «Понеслось»: CPA 465 → 371 ₽ (−20%), расходы −39%; РСЯ: CPA 660 → 332 ₽ (−50%)</li>
+            <li>Яндекс.Директ «ЕваЕла»: CPA 770 → 450 ₽ (−42%), конверсии +37% при бюджете −20%; бронирования RestoPlace ×2</li>
+            <li>Open rate Senler: «Понеслось» — 55%, «ЕваЕла» — 59%</li>
+            <li>Охват Instagram «ЕваЕла»: 45 000 → 180 000/мес., ER 5,1%</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job__top">
+          <span class="job__company">Студия Чижова (рекламное агентство), Курск</span>
+          <span class="job__period">Январь 2022 — Май 2025 · 3 года 5 месяцев</span>
+        </div>
+        <div class="job__title">Руководитель отдела контент-маркетинга</div>
+        <p style="font-size:12.5px;color:#999;margin-bottom:10px;">СМИ, маркетинг, реклама, BTL, PR, дизайн, продюсирование</p>
+        <ul>
+          <li>Построение и управление маркетинговой командой: масштабировал команду с 9 до 29 специалистов (контент-менеджеры, копирайтеры, дизайнеры, видеопродюсеры, SMM). Вырастил 3 тимлидов. eNPS 9.1/10. Годовой ФОТ — 15+ млн руб.</li>
+          <li>Управление рекламными бюджетами: месячный бюджет на контент-продакшн и внешних подрядчиков — 6–7 млн руб.</li>
+          <li>Разработка и реализация маркетинговых стратегий: руководил digital-маркетингом 60+ параллельных проектов в 10+ отраслях (e-commerce, недвижимость, EdTech, B2B SaaS, медицина, fintech, FMCG)</li>
+          <li>Постановка KPI и контроль их выполнения: выстроил систему процессов — 70+ регламентов, автоматизация, базы знаний. Внедрил AI-инструменты (ChatGPT, Midjourney) — рост производительности команды на 30%</li>
+          <li>Управление подрядчиками: координировал производство контента по 60+ параллельным проектам</li>
+          <li>Сквозная аналитика и принятие решений на основе данных: ROMI до 135%, средний ROMI 120%, CPL от 32 до 100 руб., конверсии до 54%</li>
+        </ul>
+        <div class="job__badges">
+          <div class="job__badge"><strong>135%</strong>ROMI. Сеть доставки роллов: 1 414 конверсий, CPL 32 руб., рост продаж +153%</div>
+          <div class="job__badge"><strong>39M ₽</strong>выручки клиента (врач-косметолог): 1 341 заявка</div>
+          <div class="job__badge"><strong>×44</strong>рост органического охвата. Страховой дом ВСК</div>
+          <div class="job__badge"><strong>+33%</strong>к выручке с клиента. Федеральная розничная сеть, 1 100+ магазинов</div>
+        </div>
+        <p style="font-size:12.5px;color:#999;margin-top:12px;">Ruward Awards №1 (2024) · Workspace Digital Awards №1 (2024) · Silver Mercury №3 · Рейтинг Рунета №2 · Клиентский NPS 8.5/10</p>
+      </div>
+
+      <div class="job">
+        <div class="job__top">
+          <span class="job__company">Студия Чижова, Воронеж</span>
+          <span class="job__period">Ноябрь 2020 — Январь 2022 · 1 год 3 месяца</span>
+        </div>
+        <div class="job__title">Контент-менеджер</div>
+        <p style="font-size:12.5px;color:#999;margin-bottom:10px;">СМИ, маркетинг, реклама, BTL, PR, дизайн, продюсирование</p>
+        <ul>
+          <li>Вёл 10+ контент-проектов в разных сферах: финтех, B2B, кино, lifestyle</li>
+          <li>Разрабатывал стратегии, создавал тексты, выстраивал контент-системы, работал с дизайнерами и клиентами</li>
+        </ul>
+        <div class="job__badges">
+          <div class="job__badge"><strong>×6</strong>рост охватов. Мираж Синема</div>
+          <div class="job__badge"><strong>+33%</strong>выручки. Федеральный B2B-бренд</div>
+          <div class="job__badge"><strong>×15</strong>рост продаж. «Улыбка Радуги»</div>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job__top">
+          <span class="job__company">AdCombo, Воронеж</span>
+          <span class="job__period">Ноябрь 2017 — Июль 2020 · 2 года 9 месяцев</span>
+        </div>
+        <div class="job__title">SMM-менеджер</div>
+        <p style="font-size:12.5px;color:#999;margin-bottom:10px;">СМИ, маркетинг, реклама · adcombo.com</p>
+        <ul>
+          <li>Продвигал мобильное приложение на международных рынках (Польша, Мьянма, Нигерия)</li>
+          <li>Адаптировал контент под локальные аудитории, работал с блогерами, анализировал метрики</li>
+        </ul>
+      </div>
+      </div>
+    </div>
+
+    <div class="rsec">
+      <div class="rsec__title">Навыки</div>
+      <div class="skills__group">
+        <div class="skills__group-title">Стратегия</div>
+        <div class="skills__tags">
+          <span class="skills__tag">Маркетинговая стратегия</span>
+          <span class="skills__tag">Brand Management</span>
+          <span class="skills__tag">Customer Journey Map</span>
+          <span class="skills__tag">JTBD</span>
+          <span class="skills__tag">Стратегическое мышление</span>
+        </div>
+      </div>
+      <div class="skills__group">
+        <div class="skills__group-title">Performance</div>
+        <div class="skills__tags">
+          <span class="skills__tag">Яндекс.Директ</span>
+          <span class="skills__tag">VK Ads</span>
+          <span class="skills__tag">Telegram Ads</span>
+          <span class="skills__tag">Google Ads</span>
+          <span class="skills__tag">Лидогенерация</span>
+          <span class="skills__tag">A/B-тестирование</span>
+          <span class="skills__tag">Построение воронок продаж</span>
+        </div>
+      </div>
+      <div class="skills__group">
+        <div class="skills__group-title">Аналитика</div>
+        <div class="skills__tags">
+          <span class="skills__tag">Сквозная аналитика</span>
+          <span class="skills__tag">Яндекс.Метрика</span>
+          <span class="skills__tag">Google Analytics</span>
+          <span class="skills__tag">ROMI / CAC / LTV / CPL</span>
+          <span class="skills__tag">Юнит-экономика</span>
+          <span class="skills__tag">Аналитическое мышление</span>
+        </div>
+      </div>
+      <div class="skills__group">
+        <div class="skills__group-title">Контент и CRM</div>
+        <div class="skills__tags">
+          <span class="skills__tag">Контент-маркетинг</span>
+          <span class="skills__tag">Копирайтинг</span>
+          <span class="skills__tag">SMM</span>
+          <span class="skills__tag">Email-маркетинг</span>
+          <span class="skills__tag">CRM-маркетинг</span>
+          <span class="skills__tag">Senler</span>
+          <span class="skills__tag">Чат-боты</span>
+          <span class="skills__tag">SEO</span>
+          <span class="skills__tag">Digital Marketing</span>
+        </div>
+      </div>
+      <div class="skills__group">
+        <div class="skills__group-title">Управление</div>
+        <div class="skills__tags">
+          <span class="skills__tag">Управление командой до 29 чел.</span>
+          <span class="skills__tag">Найм и развитие тимлидов</span>
+          <span class="skills__tag">Управление бюджетом до 7 млн ₽/мес.</span>
+          <span class="skills__tag">Управление проектами</span>
+          <span class="skills__tag">KPI</span>
+        </div>
+      </div>
+      <div class="skills__group" style="margin-bottom:0;">
+        <div class="skills__group-title">Инструменты и AI</div>
+        <div class="skills__tags">
+          <span class="skills__tag">Tilda (верстаю сам)</span>
+          <span class="skills__tag">ChatGPT</span>
+          <span class="skills__tag">Midjourney</span>
+          <span class="skills__tag">Автоматизация процессов</span>
+          <span class="skills__tag">iiko</span>
+          <span class="skills__tag">Restoplace</span>
+          <span class="skills__tag">ReMarked</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="rsec">
+        <div class="rsec__title">Образование</div>
+        <div class="edu-item">
+          <div><span class="edu-item__name">Воронежский государственный университет</span><span class="edu-item__sub">Факультет романо-германской филологии, лингвистика</span></div>
+          <span class="edu-item__year">2015</span>
+        </div>
+        <div class="edu-item">
+          <div><span class="edu-item__name">Курс по SEO</span><span class="edu-item__sub">Топвизор</span></div>
+          <span class="edu-item__year">2025</span>
+        </div>
+        <div class="edu-item">
+          <div><span class="edu-item__name">Системный контент</span><span class="edu-item__sub">Дмитрий Румянцев — для экспертов, бизнеса, копирайтеров</span></div>
+          <span class="edu-item__year">2025</span>
+        </div>
+        <div class="edu-item">
+          <div><span class="edu-item__name">Трафик-менеджер</span><span class="edu-item__sub">Яндекс.Директ, ВКонтакте, myTarget, Telegram Ads — Д. Румянцев, И. Максимова и др.</span></div>
+          <span class="edu-item__year">2024</span>
+        </div>
+      </div>
+
+      <div class="rsec">
+        <div class="rsec__title">Языки</div>
+        <div class="lang-item"><span>Русский</span><span class="lang-item__level">Родной</span></div>
+        <div class="lang-item"><span>Английский</span><span class="lang-item__level">C1 — Продвинутый</span></div>
+        <div class="lang-item"><span>Испанский</span><span class="lang-item__level">A1 — Начальный</span></div>
+
+        <div class="rsec__title" style="margin-top:24px;">Награды агентства</div>
+        <ul class="awards-list">
+          <li>★ Ruward Awards №1 (2024)</li>
+          <li>★ Workspace Digital Awards №1 (2024)</li>
+          <li>◆ Silver Mercury №3</li>
+          <li>◆ Рейтинг Рунета №2</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rsec">
+      <div class="rsec__title">Специализации</div>
+      <div class="skills__tags">
+        <span class="skills__tag">SMM-менеджер</span>
+        <span class="skills__tag">Контент-менеджер</span>
+        <span class="skills__tag">CMO / Директор по маркетингу</span>
+        <span class="skills__tag">Копирайтер, редактор</span>
+        <span class="skills__tag">Интернет-маркетолог</span>
+        <span class="skills__tag">Руководитель отдела маркетинга</span>
+      </div>
+    </div>
+
+    <div class="cta-final">
+      <div class="cta-final__title">Telegram-канал «Насыров с маслом»</div>
+      <p class="cta-final__text">Пишу про маркетинг для предпринимателей и тех, кто разбирается в нём сам.</p>
+      <a class="btn-primary" href="https://t.me/sergeynasyrow" target="_blank" rel="noopener">Читать канал →</a>
+      <a class="btn-primary" href="/#contact" data-modal="contact" style="margin-left: 10px; background: transparent; border: 1px solid #444;">Обсудить сотрудничество →</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <a href="/">На главную</a>
+    <a href="/portfolio">Портфолио</a>
+    <a href="/privacy">Политика конфиденциальности</a>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('expToggle');
+      var human = document.getElementById('expHuman');
+      var robots = document.getElementById('expRobots');
+      if (!toggle || !human || !robots) return;
+      toggle.addEventListener('click', function (e) {
+        var btn = e.target.closest('.exp-toggle__btn');
+        if (!btn) return;
+        var mode = btn.dataset.mode;
+        toggle.querySelectorAll('.exp-toggle__btn').forEach(function (b) {
+          b.classList.toggle('is-active', b === btn);
+        });
+        human.style.display = mode === 'human' ? 'block' : 'none';
+        robots.style.display = mode === 'robots' ? 'block' : 'none';
+      });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var btnPrint = document.getElementById('btnPrint');
+      var btnPdf = document.getElementById('btnPdf');
+
+      if (btnPrint) {
+        btnPrint.addEventListener('click', function () {
+          document.body.classList.add('pdf-mode');
+          window.addEventListener('afterprint', function onAfterPrint() {
+            document.body.classList.remove('pdf-mode');
+            window.removeEventListener('afterprint', onAfterPrint);
+          });
+          window.print();
+        });
+      }
+
+      var pdfLibLoading = null;
+      function loadHtml2Pdf() {
+        if (window.html2pdf) return Promise.resolve();
+        if (pdfLibLoading) return pdfLibLoading;
+        pdfLibLoading = new Promise(function (resolve, reject) {
+          var s = document.createElement('script');
+          s.src = '/assets/js/html2pdf.bundle.min.js';
+          s.onload = resolve;
+          s.onerror = reject;
+          document.body.appendChild(s);
+        });
+        return pdfLibLoading;
+      }
+
+      if (btnPdf) {
+        btnPdf.addEventListener('click', function () {
+          btnPdf.disabled = true;
+          document.body.classList.add('pdf-mode');
+          loadHtml2Pdf().then(function () {
+            var el = document.querySelector('main.wrap');
+            var opt = {
+              margin: [8, 8],
+              filename: 'Маркетолог Насыров.pdf',
+              image: { type: 'jpeg', quality: 0.95 },
+              html2canvas: { scale: 2, useCORS: true, backgroundColor: '#F9F9F9' },
+              jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+              pagebreak: { mode: ['css'] }
+            };
+            return window.html2pdf().set(opt).from(el).save();
+          }).catch(function (err) {
+            console.error('PDF export failed', err);
+            alert('Не получилось сформировать PDF. Попробуйте функцию печати браузера (значок принтера) и сохранить как PDF там.');
+          }).finally(function () {
+            document.body.classList.remove('pdf-mode');
+            btnPdf.disabled = false;
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
