@@ -60,6 +60,87 @@
     .footer a:hover { color: #fff; }
 
     @media (max-width: 560px) { .wrap { padding: 40px 16px 56px; } .nav__inner { padding: 0 16px; } }
+
+    /* ── Contact modal + form ── */
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-size: 13px; font-weight: 600; color: #1A1A1A; margin-bottom: 8px; display: block; }
+    .form-input, .form-textarea {
+      width: 100%; padding: 14px 18px; border: 1.5px solid #E8E8E8; border-radius: 12px;
+      font-family: 'Montserrat', sans-serif; font-size: 14px; color: #1A1A1A;
+      background: #F9F9F9; outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: #F0902C; background: #fff; }
+    .form-input::placeholder, .form-textarea::placeholder { color: #AAAAAA; }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-checkbox-wrap { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 28px; cursor: pointer; user-select: none; }
+    .form-checkbox-wrap input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .form-checkbox-box {
+      flex-shrink: 0; width: 18px; height: 18px; border: 1.5px solid #E8E8E8; border-radius: 4px;
+      background: #F9F9F9; display: flex; align-items: center; justify-content: center;
+      margin-top: 1px; transition: border-color 0.2s, background 0.2s;
+    }
+    .form-checkbox-box svg { opacity: 0; transition: opacity 0.15s; }
+    .form-checkbox-wrap input[type="checkbox"]:checked + .form-checkbox-box { background: #F0902C; border-color: #F0902C; }
+    .form-checkbox-wrap input[type="checkbox"]:checked + .form-checkbox-box svg { opacity: 1; }
+    .form-checkbox-text { font-size: 12px; font-weight: 400; line-height: 1.6; color: #666666; }
+    .form-checkbox-text a { color: #F0902C; text-decoration: none; }
+    .form-checkbox-text a:hover { text-decoration: underline; }
+    .btn-submit {
+      display: inline-block; width: 100%; background: #F0902C; color: #fff; border: none;
+      border-radius: 100px; padding: 16px 36px; font-family: 'Montserrat', sans-serif;
+      font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; text-align: center;
+    }
+    .btn-submit:hover { background: #d97d1e; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+    .form-success { display: none; text-align: center; padding: 40px 20px; }
+    .form-success__icon {
+      width: 64px; height: 64px; background: #F0902C; color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 28px;
+      font-weight: 700; margin: 0 auto 20px;
+    }
+    .form-success h3 { font-size: 22px; font-weight: 700; color: #1A1A1A; margin-bottom: 10px; }
+    .form-success p { font-size: 15px; color: #666666; }
+    .modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal.open { display: flex; }
+    .modal__inner {
+      background: #fff; border-radius: 20px; padding: 48px; max-width: 560px;
+      width: 100%; position: relative; max-height: 90vh; overflow-y: auto;
+    }
+    .modal__close {
+      position: absolute; top: 20px; right: 20px; width: 36px; height: 36px;
+      border: none; background: #F9F9F9; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #666666; transition: background 0.2s, color 0.2s;
+    }
+    .modal__close:hover { background: #E8E8E8; color: #1A1A1A; }
+    .modal__title { font-size: clamp(20px, 2vw, 26px); font-weight: 800; letter-spacing: -0.02em; color: #1A1A1A; margin-bottom: 8px; }
+    .modal__sub { font-size: 14px; color: #666666; margin-bottom: 32px; line-height: 1.6; }
+    @media (max-width: 480px) { .modal__inner { padding: 32px 24px; } }
+
+    /* ── Cookie consent banner ── */
+    .cookie-banner {
+      position: fixed; left: 20px; right: 20px; bottom: 20px; z-index: 9999;
+      max-width: 640px; margin: 0 auto; background: #1A1A1A; color: #FFFFFF;
+      border-radius: 14px; padding: 20px 24px; display: flex; align-items: center;
+      gap: 20px; flex-wrap: wrap; box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+      transform: translateY(140%); transition: transform 0.4s ease;
+    }
+    .cookie-banner.is-visible { transform: translateY(0); }
+    .cookie-banner__text { flex: 1 1 260px; font-size: 13px; line-height: 1.6; color: #CCCCCC; }
+    .cookie-banner__text a { color: #F0902C; text-decoration: underline; }
+    .cookie-banner__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .cookie-banner__btn {
+      font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; padding: 10px 18px;
+      border-radius: 100px; border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .cookie-banner__btn--accept { background: #F0902C; color: #FFFFFF; }
+    .cookie-banner__btn--accept:hover { background: #d97e20; }
+    .cookie-banner__btn--decline { background: transparent; color: #999999; border: 1px solid #444444; }
+    .cookie-banner__btn--decline:hover { color: #FFFFFF; border-color: #666666; }
+    @media (max-width: 480px) { .cookie-banner { left: 12px; right: 12px; bottom: 12px; padding: 18px 20px; } }
   </style>
 </head>
 <body>
@@ -189,5 +270,158 @@
     <a href="/privacy">Политика конфиденциальности</a>
   </footer>
 
+
+  <div class="modal" id="modal-contact">
+    <div class="modal__inner">
+      <button class="modal__close" onclick="closeContactModal()" aria-label="Закрыть">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <h2 class="modal__title">Давайте обсудим вашу задачу</h2>
+      <p class="modal__sub">Напишите — отвечу в течение рабочего дня</p>
+      <form id="form-contact-modal" onsubmit="handleSubmit(event, this)" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="modal-name">Как вас зовут?</label>
+          <input class="form-input" type="text" id="modal-name" name="name" placeholder="Иван Петров">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modal-task">Какая у вас задача?</label>
+          <textarea class="form-textarea" id="modal-task" name="task" rows="4" placeholder="Расскажите в двух словах…"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modal-contact-field">Как с вами связаться?</label>
+          <input class="form-input" type="text" id="modal-contact-field" name="contact" placeholder="Телефон, email или ссылка на соцсеть">
+        </div>
+        <div class="form-group">
+          <label class="form-checkbox-wrap">
+            <input type="checkbox" class="consent-checkbox">
+            <span class="form-checkbox-box">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                <path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="form-checkbox-text">
+              Соглашаюсь на сбор и обработку персональных данных по <a href="/privacy">политике конфиденциальности</a>
+            </span>
+          </label>
+        </div>
+        <button class="btn-submit" type="submit">Отправить</button>
+      </form>
+      <div class="form-success" id="success-modal">
+        <div class="form-success__icon">✓</div>
+        <h3>Заявка отправлена</h3>
+        <p>Отвечу в течение рабочего дня</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-banner__text">
+      Мы используем cookie для аналитики и улучшения сайта. Подробнее — в <a href="/privacy#analytics">политике конфиденциальности</a>.
+    </div>
+    <div class="cookie-banner__actions">
+      <button class="cookie-banner__btn cookie-banner__btn--decline" id="cookieDecline" type="button">Отклонить</button>
+      <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept" type="button">Принять</button>
+    </div>
+  </div>
+
+  <script>
+    function openContactModal() {
+      document.getElementById('modal-contact').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeContactModal() {
+      document.getElementById('modal-contact').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('modal-contact').addEventListener('click', function(e) {
+      if (e.target === this) closeContactModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeContactModal();
+    });
+    document.querySelectorAll('[data-modal="contact"]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        openContactModal();
+      });
+    });
+    function showFormSuccess(formEl) {
+      formEl.style.display = 'none';
+      document.getElementById('success-modal').style.display = 'block';
+    }
+    async function submitContactForm(formEl) {
+      const data = new FormData(formEl);
+      const name = data.get('name') || '—';
+      const task = data.get('task') || '—';
+      const contact = data.get('contact') || '—';
+      try {
+        await fetch('/.netlify/functions/send-lead', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({name, task, contact})
+        });
+      } catch (e) {}
+      showFormSuccess(formEl);
+    }
+    function handleSubmit(e, formEl) {
+      e.preventDefault();
+      const data = new FormData(formEl);
+      const empty = ['name','task','contact'].some(f => !(data.get(f)||'').trim());
+      const consent = formEl.querySelector('.consent-checkbox').checked;
+      let errEl = formEl.querySelector('.form-error');
+      if (!errEl) {
+        errEl = document.createElement('p');
+        errEl.className = 'form-error';
+        errEl.style.cssText = 'color:#e53935;font-size:13px;margin-bottom:12px;margin-top:-8px;font-weight:600;';
+        formEl.querySelector('.btn-submit').before(errEl);
+      }
+      if (empty || !consent) {
+        formEl.querySelectorAll('.form-input,.form-textarea').forEach(el => {
+          el.style.borderColor = el.value.trim() ? '' : '#e53935';
+        });
+        if (!consent) formEl.querySelector('.form-checkbox-box').style.borderColor = '#e53935';
+        errEl.textContent = !consent ? 'Подтвердите согласие на обработку данных' : 'Заполните все поля';
+        return;
+      }
+      errEl.textContent = '';
+      submitContactForm(formEl);
+    }
+  </script>
+
+  <script>
+    // ── Cookie consent + gated analytics ──
+    var YANDEX_METRIKA_ID = 110507843;
+    function loadYandexMetrika() {
+      if (!YANDEX_METRIKA_ID) return;
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + YANDEX_METRIKA_ID, 'ym');
+      window.ym(YANDEX_METRIKA_ID, 'init', {
+        ssr: true, webvisor: true, clickmap: true, ecommerce: 'dataLayer',
+        referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true,
+      });
+    }
+    var CONSENT_KEY = 'cookie_consent';
+    var cookieBanner = document.getElementById('cookieBanner');
+    var savedConsent = localStorage.getItem(CONSENT_KEY);
+    if (savedConsent === 'accepted') {
+      loadYandexMetrika();
+    } else if (savedConsent !== 'declined') {
+      requestAnimationFrame(function () { cookieBanner.classList.add('is-visible'); });
+    }
+    document.getElementById('cookieAccept').addEventListener('click', function () {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      cookieBanner.classList.remove('is-visible');
+      loadYandexMetrika();
+    });
+    document.getElementById('cookieDecline').addEventListener('click', function () {
+      localStorage.setItem(CONSENT_KEY, 'declined');
+      cookieBanner.classList.remove('is-visible');
+    });
+  </script>
 </body>
 </html>
