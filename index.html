@@ -323,7 +323,7 @@
       text-decoration: none;
       display: flex;
       flex-direction: column;
-      gap: 1px;
+      gap: 4px;
       flex-shrink: 0;
     }
 
@@ -1783,6 +1783,28 @@
     @media (max-width: 480px) {
       .cookie-banner { left: 12px; right: 12px; bottom: 12px; padding: 18px 20px; }
     }
+
+    /* ── Telegram exit popup ── */
+    .tg-exit__inner { max-width: 420px; text-align: center; }
+    .tg-exit__avatar {
+      width: 88px; height: 88px; border-radius: 50%; margin: 0 auto 20px; display: block;
+      object-fit: cover;
+    }
+    .tg-exit__title { font-size: 20px; font-weight: 800; color: #1A1A1A; margin-bottom: 10px; }
+    .tg-exit__text { font-size: 14px; line-height: 1.6; color: #666666; margin-bottom: 28px; }
+    .tg-exit__text strong { color: #1A1A1A; }
+    .tg-exit__cta {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: #F0902C; color: #fff; font-family: inherit; font-size: 15px; font-weight: 600;
+      padding: 15px 32px; border-radius: 100px; text-decoration: none; transition: background 0.2s;
+      width: 100%;
+    }
+    .tg-exit__cta:hover { background: #d97e20; text-decoration: none; }
+    .tg-exit__skip {
+      display: block; margin: 16px auto 0; background: none; border: none; cursor: pointer;
+      font-family: inherit; font-size: 13px; color: #999999; text-decoration: underline;
+    }
+    .tg-exit__skip:hover { color: #666666; }
   </style>
   <script type="application/ld+json">
   {
@@ -1793,7 +1815,7 @@
     "description": "8 лет строю маркетинг для малого и среднего бизнеса — от стратегии до конкретных каналов.",
     "image": "https://sergey-nasyrov.ru/assets/avatar.webp",
     "url": "https://sergey-nasyrov.ru",
-    "sameAs": ["https://t.me/sergeynasyrov_bot"],
+    "sameAs": ["https://t.me/sergeynasyrov"],
     "knowsAbout": ["маркетинговая стратегия", "performance-маркетинг", "email-маркетинг", "SMM", "маркетинг МСБ"]
   }
   </script>
@@ -2611,6 +2633,7 @@
             <a class="footer__nav-link" href="#services">Услуги</a>
             <a class="footer__nav-link" href="#cases">Кейсы</a>
             <a class="footer__nav-link" href="#faq">Вопросы</a>
+            <a class="footer__nav-link" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener">Telegram</a>
             <a class="footer__cta" href="#contact" data-modal="contact">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
@@ -2834,6 +2857,21 @@
     </div>
   </div>
 
+  <div class="modal" id="modal-tg-exit">
+    <div class="modal__inner tg-exit__inner">
+      <button class="modal__close" id="tgExitClose" aria-label="Закрыть">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <img class="tg-exit__avatar" src="assets/channel-avatar.webp" alt="Насыров с Маслом" width="88" height="88" loading="lazy">
+      <div class="tg-exit__title">Постойте</div>
+      <p class="tg-exit__text">Давайте будем на связи в моём канале <strong>«Насыров с Маслом»</strong> — отвечаю там на вопросы про маркетинг, которые предпринимателям обычно некому задать.</p>
+      <a class="tg-exit__cta" href="https://t.me/sergeynasyrow" target="_blank" rel="noopener">Подписаться на канал</a>
+      <button type="button" class="tg-exit__skip" id="tgExitSkip">Не сейчас</button>
+    </div>
+  </div>
+
   <script>
     // FORM_ENABLED: true = форма активна, false = форма скрыта
     var FORM_ENABLED = true;
@@ -2901,6 +2939,61 @@
       errEl.textContent = '';
       submitContactForm(formEl);
     }
+  </script>
+
+  <script>
+    (function () {
+      var STORAGE_KEY = 'tgExitShown';
+      if (sessionStorage.getItem(STORAGE_KEY)) return;
+
+      var modal = document.getElementById('modal-tg-exit');
+      var pageLoadTime = Date.now();
+      var MIN_TIME_MS = 8000;
+      var shown = false;
+
+      function contactModalOpen() {
+        var m = document.getElementById('modal-contact');
+        return m && m.classList.contains('open');
+      }
+
+      function showPopup() {
+        if (shown || contactModalOpen()) return;
+        if (Date.now() - pageLoadTime < MIN_TIME_MS) return;
+        shown = true;
+        sessionStorage.setItem(STORAGE_KEY, '1');
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        document.removeEventListener('mouseout', onMouseOut);
+        window.removeEventListener('scroll', onScroll);
+      }
+
+      function closePopup() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      // Desktop: cursor leaves the viewport through the top (classic exit-intent)
+      function onMouseOut(e) {
+        if (!e.relatedTarget && e.clientY <= 0) showPopup();
+      }
+      document.addEventListener('mouseout', onMouseOut);
+
+      // Mobile/tablet: no mouse, so trigger once the visitor has scrolled through most of the page
+      function onScroll() {
+        var scrolledFraction = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+        if (scrolledFraction > 0.7) showPopup();
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      document.getElementById('tgExitClose').addEventListener('click', closePopup);
+      document.getElementById('tgExitSkip').addEventListener('click', closePopup);
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closePopup();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closePopup();
+      });
+    })();
   </script>
 
   <script>
