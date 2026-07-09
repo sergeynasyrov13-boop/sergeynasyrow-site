@@ -102,6 +102,13 @@
       transition: background 0.2s, color 0.2s; flex-shrink: 0;
     }
     .rhead__contact:hover { background: #F0902C; color: #1A1A1A; }
+    .rhead__portfolio {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 16px;
+      padding: 9px 18px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.25);
+      color: #fff; font-size: 13px; font-weight: 600; text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .rhead__portfolio:hover { background: #F0902C; border-color: #F0902C; color: #1A1A1A; text-decoration: none; }
     @media (max-width: 560px) {
       .rhead__top { flex-direction: column-reverse; align-items: center; text-align: center; }
       .rhead__meta, .rhead__contacts { justify-content: center; }
@@ -378,10 +385,11 @@
             <a class="rhead__contact" href="https://vk.com/sergeynasyrow" target="_blank" rel="noopener" aria-label="ВКонтакте" title="ВКонтакте">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M13.19 21.5c-7.5 0-11.78-5.15-11.96-13.72h3.7c.12 6.31 2.91 8.98 5.12 9.53V7.78h3.5v5.42c2.19-.23 4.49-2.71 5.27-5.42h3.5c-.6 3.35-3.08 5.83-4.84 6.85 1.76.83 4.58 3 5.68 6.87h-3.86c-.86-2.58-2.9-4.58-5.75-4.86v4.86h-.42z"/></svg>
             </a>
-            <a class="rhead__contact" href="/portfolio" aria-label="Портфолио" title="Портфолио">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            </a>
           </div>
+          <a class="rhead__portfolio" href="/portfolio">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            Смотреть портфолио
+          </a>
         </div>
         <img class="rhead__photo" src="/assets/resume-photo.webp" alt="Сергей Насыров" width="480" height="480">
       </div>
