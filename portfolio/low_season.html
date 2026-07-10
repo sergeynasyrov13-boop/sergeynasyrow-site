@@ -174,7 +174,19 @@
     @media (max-width: 480px) { .cookie-banner { left: 12px; right: 12px; bottom: 12px; padding: 18px 20px; } }
 
     .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: #F0902C; z-index: 10000; }
-  </style>
+      @media (max-width: 560px) {
+      .modal__inner { padding: 20px 16px 18px; max-height: 88vh; }
+      .modal__title { padding-right: 44px; font-size: 19px; margin-bottom: 6px; }
+      .modal__sub { margin-bottom: 14px; }
+      .form-label { margin-bottom: 5px; }
+      .form-group { margin-bottom: 10px; }
+      .form-input, .form-textarea { padding: 10px 14px; }
+      .form-textarea { height: 60px; min-height: 60px; }
+      .form-checkbox-wrap { margin-bottom: 14px; }
+      .btn-submit { padding: 13px 30px; }
+      .modal__close { position: fixed; top: 14px; right: 14px; z-index: 1001; }
+    }
+</style>
 </head>
 <body>
 
