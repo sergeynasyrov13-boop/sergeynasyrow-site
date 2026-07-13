@@ -317,6 +317,61 @@ assistant performing a login/authentication action itself. If a future session g
 same request: hold the line on login/authentication specifically, but don't be
 unhelpfully rigid about writing out config values the user already possesses.
 
+## Status (as of 2026-07-13)
+
+### Hosting reality check: `nasyrov.pro` is live on the VPS, not Netlify
+Confirmed via `nginx -T` and `docker ps` on `bot-server` (`45.12.239.15`): `nasyrov.pro`
+and `www.nasyrov.pro` are proxied by nginx straight to a Docker container named `sns`
+on `127.0.0.1:8080` (built from `container/Dockerfile`, this repo). This supersedes the
+2026-07-08 "not deployed to the VPS yet" note above — it's the live production path for
+this domain now, confirmed working end-to-end. `sergey-nasyrov.ru`'s current host wasn't
+re-checked this session — don't assume it matches without verifying.
+
+Deploy command (git pull + rebuild + restart), run directly on the VPS via
+`ssh bot-server '...'`:
+```
+cd /root/sergeynasyrow-site && git pull origin main \
+  && docker build -t sns -f container/Dockerfile . \
+  && docker stop sns && docker rm sns \
+  && docker run -d --name sns --restart unless-stopped -p 127.0.0.1:8080:8080 \
+       -e YC_ACCESS_KEY_ID="..." -e YC_SECRET_ACCESS_KEY="..." -e YC_BUCKET="nasyrov-leads" \
+       -e MAX_BOT_TOKEN="..." -e MAX_USER_ID="..." sns
+```
+The five `-e` values match Netlify's env vars (same names as documented in the
+2026-07-08 entry above) — **do not paste the actual values into this file**, same rule
+as the 2026-07-08 note about the secrets scanner. They're saved in
+`~/Downloads/Деплой сайта на Beget VPS.md` on the user's Mac — that file is the fallback
+copy if they're ever needed again. **Lesson learned the hard way this session:** `stop`
++ `rm` before confirming the replacement `docker run` will succeed causes real downtime
+if that run fails (e.g. a typo'd endpoint, missing env var) — build the new image and
+have the full working `docker run` command ready *before* tearing down the old
+container, not after.
+
+### Yandex Webmaster diagnostics — fixed what's fixable via API
+Host `https:nasyrov.pro:443` was showing 6 active problems in Webmaster. Resolved:
+- `NO_SITEMAPS` — `sitemap.xml` existed and was in `robots.txt` but was never registered
+  with Webmaster itself. Fixed via `POST /v4/user/{id}/hosts/{host}/user-added-sitemaps`
+  (note: it's `user-added-sitemaps`, not `sitemaps/user_added` — the latter 400s).
+- `BIG_FAVICON_ABSENT` — Yandex wants a `rel="icon"` (not just `apple-touch-icon`) of at
+  least 120×120. Added `<link rel="icon" type="image/png" sizes="180x180"
+  href="/assets/apple-touch-icon.png">` to all 9 HTML pages, reusing the existing
+  180×180 file.
+
+Left as-is, not bugs:
+- `NO_METRIKA_COUNTER` / `NO_METRIKA_COUNTER_BINDING` — expected consequence of the
+  consent-gated Metrika loading (see 2026-07-08 entry) — Yandex's crawler never accepts
+  the cookie banner, so it never sees the counter fire. Not worth weakening the consent
+  gate to silence a low-severity "recommendation."
+- `NOT_IN_SPRAV` (Yandex.Spravochnik business listing) and `NO_REGIONS` (site region) —
+  both are manual-only via the Webmaster web panel, no API endpoint exists for either.
+
+### Back-to-top button added (commit `279a039`)
+Circular dark button, bottom-right, fixed position, appears after `scrollY > 600`,
+smooth-scrolls to top on click. On narrow screens (`≤480px`) it dynamically repositions
+above the cookie banner while that's visible (JS reads the banner's live height) instead
+of sitting hidden underneath it — verified visually via Puppeteer at 390×844 before and
+after accept/decline.
+
 ## Tools installed (macOS)
 | Tool | Command |
 |------|---------|
