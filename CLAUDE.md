@@ -327,6 +327,15 @@ on `127.0.0.1:8080` (built from `container/Dockerfile`, this repo). This superse
 this domain now, confirmed working end-to-end. `sergey-nasyrov.ru`'s current host wasn't
 re-checked this session — don't assume it matches without verifying.
 
+**`/root/sergeynasyrow-site/.env` now exists on the VPS** (chmod 600, root-only,
+gitignored and dockerignored — confirmed it does NOT end up baked into the image).
+Holds the same five vars as Netlify (`YC_ACCESS_KEY_ID`, `YC_SECRET_ACCESS_KEY`,
+`YC_BUCKET`, `MAX_BOT_TOKEN`, `MAX_USER_ID`). This is now the source of truth for
+deploys — no need to hunt through `~/Downloads/Деплой сайта на Beget VPS.md` or ask the
+user for values again; just read the file over the existing `ssh bot-server` connection
+when a deploy needs it. **Never print its contents into a transcript, memory, or commit
+message** — read it, use it in the `docker run` command, move on.
+
 Deploy command (git pull + rebuild + restart), run directly on the VPS via
 `ssh bot-server '...'`:
 ```
@@ -334,18 +343,13 @@ cd /root/sergeynasyrow-site && git pull origin main \
   && docker build -t sns -f container/Dockerfile . \
   && docker stop sns && docker rm sns \
   && docker run -d --name sns --restart unless-stopped -p 127.0.0.1:8080:8080 \
-       -e YC_ACCESS_KEY_ID="..." -e YC_SECRET_ACCESS_KEY="..." -e YC_BUCKET="nasyrov-leads" \
-       -e MAX_BOT_TOKEN="..." -e MAX_USER_ID="..." sns
+       --env-file /root/sergeynasyrow-site/.env sns
 ```
-The five `-e` values match Netlify's env vars (same names as documented in the
-2026-07-08 entry above) — **do not paste the actual values into this file**, same rule
-as the 2026-07-08 note about the secrets scanner. They're saved in
-`~/Downloads/Деплой сайта на Beget VPS.md` on the user's Mac — that file is the fallback
-copy if they're ever needed again. **Lesson learned the hard way this session:** `stop`
-+ `rm` before confirming the replacement `docker run` will succeed causes real downtime
-if that run fails (e.g. a typo'd endpoint, missing env var) — build the new image and
-have the full working `docker run` command ready *before* tearing down the old
-container, not after.
+**Lesson learned the hard way this session:** `stop` + `rm` before confirming the
+replacement `docker run` will succeed causes real downtime if that run fails (e.g. a
+typo'd endpoint, missing env var — which is exactly what happened before the `.env` file
+above existed). Build the new image and have the full working `docker run` command ready
+*before* tearing down the old container, not after.
 
 ### Yandex Webmaster diagnostics — fixed what's fixable via API
 Host `https:nasyrov.pro:443` was showing 6 active problems in Webmaster. Resolved:
