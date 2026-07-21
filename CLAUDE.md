@@ -393,6 +393,53 @@ const puppeteer = require('/Users/sergey.nasyrov13/node_modules/puppeteer');
 // page.screenshot({ path: '/tmp/out.png' })
 ```
 
+## Status (as of 2026-07-20)
+
+### DNS moved off Cloudflare to Beget's own nameservers (undocumented until now)
+`dig nasyrov.pro NS` now returns `ns1/ns2.beget.com`, `ns1/ns2.beget.pro` — not the
+Cloudflare pair (`giancarlo`/`paislee.ns.cloudflare.com`) set up 2026-07-08. Confirmed
+consistent at every layer: the `.pro` registry's own authoritative servers, Google
+(8.8.8.8), Cloudflare (1.1.1.1), and Yandex's own resolver (77.88.8.8) all agree on the
+same NS set and the same A record (`45.12.239.15`, the Beget VPS `bot-server` running
+the `sns` container — see 2026-07-13 entry). SSL cert valid (issued 2026-07-08, expires
+2026-10-06), HTTP→HTTPS redirect works, sitemap/favicon all serve correctly live. Not
+clear when/why this switch away from Cloudflare happened — wasn't done in a session
+covered by existing notes. If Cloudflare's IP-blocking workaround (2026-07-08 entry) is
+still needed for some Russian mobile carriers, this NS change effectively undid it —
+worth confirming with the user this was intentional before assuming it's fine long-term.
+
+### Yandex Webmaster false alarm — DNS_ERROR / BIG_FAVICON_ABSENT / NO_SITEMAPS reappeared
+A 2026-07-20 weekly digest showed 6 active Webmaster problems, three previously believed
+fixed (2026-07-13 entry) plus a new FATAL `DNS_ERROR`. Investigated all three:
+- `DNS_ERROR` (FATAL, flagged 18:32 MSK) — DNS is fully healthy right now (see above).
+  Likely a transient hit during the NS cutover window; should self-clear on Yandex's next
+  recrawl. No API-triggerable recheck exists for this problem type.
+- `BIG_FAVICON_ABSENT` (flagged 03:19 MSK) — verified live: `apple-touch-icon.png` is
+  actually 180×180, served with correct `sizes="180x180"` link tag, reachable with a 200.
+  Config is correct; this is a stale flag, not a real regression.
+- `NO_SITEMAPS` (flagged 16:49 MSK) — re-POSTed to
+  `/v4/user/{id}/hosts/{host}/user-added-sitemaps`; got back `SITEMAP_ALREADY_ADDED` with
+  an existing `sitemap_id`, confirming the 2026-07-13 registration is still there
+  server-side even though the `sitemaps/` GET list currently returns empty (an eventual-
+  consistency quirk on Yandex's side, not something to fix here). Also a stale flag.
+- `NOT_IN_SPRAV` / `NO_REGIONS` (RECOMMENDATION) — still no API endpoint for either, per
+  the 2026-07-13 finding; manual-only via the Webmaster web panel.
+- `NO_METRIKA_COUNTER_BINDING` — still the known, intentional consequence of the
+  consent-gated Metrika load (2026-07-08 entry). Not a bug.
+
+Conclusion: no code changes were needed this round. If the same three problems (DNS_ERROR/
+BIG_FAVICON_ABSENT/NO_SITEMAPS) are still `PRESENT` after ~3-4 days, that would mean they're
+real rather than stale and warrant a fresh look.
+
+### GA4 / Search Console OAuth tokens expired (`invalid_grant`)
+Both MCP servers on this VPS started failing with "Token has been expired or revoked."
+Root cause: shared Google OAuth refresh token (see `oauth-reauth` project) was revoked/
+expired upstream — nothing wrong in this repo. Fix requires the user to re-run
+`node reauth.mjs` **on the Mac** (needs an interactive Google consent screen — not
+something this VPS session can do on the user's behalf). That script auto-scp's only the
+refreshed `gdocs-writer` token to this VPS; the `ga4` and `search-console` tokens also
+need a manual `scp` from Mac to VPS afterward since the script doesn't push those two.
+
 ## GitHub
 repo: https://github.com/sergeynasyrov13-boop/sergeynasyrow-site
 branch: main
