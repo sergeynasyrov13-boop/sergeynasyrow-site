@@ -146,15 +146,26 @@ Base notification filed 2026-07-08, confirmation **№ 100345764**. Field-by-fie
 `~/Downloads/РКН-чек-лист и заполнение уведомления.md` (user reads it in Obsidian) —
 keep that file in sync if anything here changes again.
 
-**Follow-up required:** Yandex.Metrika + Webvisor were added to the site *after* the
-notification was filed, introducing a data category (IP address, cookies, behavioral/
-session data) not covered in the original filing. An **«Уведомление об изменении
-сведений»** (amendment, not a new filing — `pd.rkn.gov.ru/operators-registry/notification/updateform/`)
-is needed, deadline **2026-07-23** (15 working days from 2026-07-08). As of end of
-session the original notification is still "на рассмотрении" (under review) — the
-amendment form likely won't accept edits until that review completes; the 15-day
-deadline runs from when the new data started being collected, not from registration, so
-there's slack. Check with the user whether this has been filed before assuming so.
+**Registry entry:** the operator IS registered — **рег. номер 36-26-045464**, приказ
+№ 81 от 08.07.2026 (verified 2026-08-03 via `pd.rkn.gov.ru/operators-registry/operators-list/`,
+search by ИНН 360206536641). That registry number — not the notification number — is what
+the amendment form asks for. № 100345764 / key 70700060 is only the filed-document id.
+
+**Amendment — FILED 2026-08-03, № 100371489, ключ 15979961.** Reason: Yandex.Metrika +
+Webvisor (added 2026-07-08) introduced a data category (IP, cookies, behavioral/session
+data) not covered by the original filing. Values used in the amendment: категории ПД —
+ФИО, email, телефон, иные ПД, **сведения, собираемые посредством метрических программ**;
+субъекты — Клиенты + Посетители сайта; основания — согласие + заключение/исполнение
+договора; действия — all 13 from the base filing (NOT распространение, NOT иные);
+способы — смешанная, без передачи по внутренней сети, с передачей по сети Интернет.
+
+**Still open — GA4 and cross-border transfer.** `gtag.js` (`G-KDHKMSYPC3`) was added
+2026-07-11 to all five pages and sits unconditionally in `<head>`, *outside* the cookie
+consent gate that correctly wraps Metrika — so visitor IPs/cookie ids go to Google LLC
+(US) regardless of consent. Both the base notification and the amendment declare
+«трансграничная передача: не осуществляется». Fix by removing GA4 or moving it behind
+the same `cookie_consent` gate; otherwise a separate ст. 12 cross-border notification is
+required *before* transfer starts. `privacy.html` also never mentions Google/GA4.
 
 ### Cookie consent + Yandex.Metrika — added 2026-07-08
 `index.html` now has a cookie-banner (`#cookieBanner`, bottom-fixed, dark card matching
@@ -236,9 +247,11 @@ this on your own initiative** — it's a settled decision, not an oversight.
   to the next word rather than leaving them to risk dangling at a line end.
 
 ### Open items
-- [ ] RKN "уведомление об изменении сведений" for the analytics data category — deadline
-      2026-07-23, blocked on the base notification leaving "на рассмотрении" status.
-      Check with the user whether this has been filed before assuming so.
+- [x] RKN "уведомление об изменении сведений" for the analytics data category — filed
+      2026-08-03, № 100371489 / ключ 15979961.
+- [ ] GA4 loads outside the cookie consent gate → undeclared cross-border transfer to
+      Google LLC. Remove it or gate it behind `cookie_consent`, and disclose it in
+      `privacy.html` if kept. See the Roskomnadzor section above.
 
 ## Status (2026-07-08, evening — mobile connectivity investigation)
 
