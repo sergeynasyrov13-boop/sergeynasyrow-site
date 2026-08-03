@@ -159,13 +159,16 @@ data) not covered by the original filing. Values used in the amendment: кате
 договора; действия — all 13 from the base filing (NOT распространение, NOT иные);
 способы — смешанная, без передачи по внутренней сети, с передачей по сети Интернет.
 
-**Still open — GA4 and cross-border transfer.** `gtag.js` (`G-KDHKMSYPC3`) was added
-2026-07-11 to all five pages and sits unconditionally in `<head>`, *outside* the cookie
-consent gate that correctly wraps Metrika — so visitor IPs/cookie ids go to Google LLC
-(US) regardless of consent. Both the base notification and the amendment declare
-«трансграничная передача: не осуществляется». Fix by removing GA4 or moving it behind
-the same `cookie_consent` gate; otherwise a separate ст. 12 cross-border notification is
-required *before* transfer starts. `privacy.html` also never mentions Google/GA4.
+**GA4 — resolved by removal, 2026-08-03.** `gtag.js` (`G-KDHKMSYPC3`) had been added
+2026-07-11 to all nine pages and sat unconditionally in `<head>`, *outside* the cookie
+consent gate that correctly wraps Metrika — visitor IPs/cookie ids went to Google LLC
+(US) regardless of consent, contradicting «трансграничная передача: не осуществляется»
+in both filings. Consent-gating it would NOT have fixed this: the transfer itself still
+needs a separate ст. 12 notification, filed *before* it starts. So the tag was stripped
+from all pages and the GA4 block removed from `~/site-digest/digest.mjs` (Metrika already
+reports the same three numbers). The GA4 property `545149309` and `~/.config/ga4` are
+kept — 2026-07-11..08-03 history stays reachable, and the `ga4` MCP server still works.
+If GA4 is ever re-added: consent gate **and** ст. 12 filing first.
 
 ### Cookie consent + Yandex.Metrika — added 2026-07-08
 `index.html` now has a cookie-banner (`#cookieBanner`, bottom-fixed, dark card matching
@@ -249,9 +252,8 @@ this on your own initiative** — it's a settled decision, not an oversight.
 ### Open items
 - [x] RKN "уведомление об изменении сведений" for the analytics data category — filed
       2026-08-03, № 100371489 / ключ 15979961.
-- [ ] GA4 loads outside the cookie consent gate → undeclared cross-border transfer to
-      Google LLC. Remove it or gate it behind `cookie_consent`, and disclose it in
-      `privacy.html` if kept. See the Roskomnadzor section above.
+- [x] GA4 cross-border exposure — closed 2026-08-03 by removing the tag from all pages
+      and the GA4 block from `~/site-digest/digest.mjs`.
 
 ## Status (2026-07-08, evening — mobile connectivity investigation)
 
