@@ -1,12 +1,54 @@
 # sergeynasyrow-site — Project context for Claude
 
+**How to read this file.** Everything above `## История` describes the project *as it is
+now*, in the present tense — architecture, hosting, legal status, conventions, open work.
+Everything below `## История` is a dated log kept for the reasoning behind past decisions;
+entries there were true when written and may have been superseded since. When the two
+disagree, the top half wins. When you change reality, update the top half; when you make a
+decision worth explaining, append to the history.
+
+---
+
 ## What this is
 Personal consulting website for Sergey Nasyrov (marketing practitioner, SMB niche).
-Published at sergey-nasyrov.ru via Netlify, auto-deployed from this GitHub repo
-(https://github.com/sergeynasyrov13-boop/sergeynasyrow-site). `index.html` is the live
-production page — it assembles all 11 blocks into one page. `blocks/*.html` are the
-original Tilda Zero-block exports, kept as design reference only; they are not deployed
-and not part of the live build.
+`index.html` is the live production page — it assembles all 11 blocks into one page.
+`blocks/*.html` are the original Tilda Zero-block exports, kept as design reference only;
+they are not deployed and not part of the live build.
+
+Domain spellings, all three real and all different:
+- **`nasyrov.pro`** — the live production domain. This is the one that matters.
+- **`sergey-nasyrov.ru`** (with hyphen) — points at the same project; its current host was
+  never re-verified after the VPS cutover, so don't assume it matches without checking.
+- **`sergeynasyrow.ru`** (ends in "w") — a **separate, unrelated old Tilda site**. Not part
+  of this repo. Don't touch it, don't make it match. If you see this spelling in older
+  notes referring to *this* project, that's a leftover mistake.
+
+## Hosting and deploy
+**`nasyrov.pro` is served from the VPS, not Netlify.** nginx on `bot-server`
+(`45.12.239.15`, Beget) proxies `nasyrov.pro` and `www.nasyrov.pro` to a Docker container
+named `sns` on `127.0.0.1:8080`, built from `container/Dockerfile` in this repo. The
+Netlify project still exists and the repo still auto-deploys there, which makes it easy to
+"verify a fix" against a URL nobody is actually served — check what you're looking at.
+
+DNS runs on Beget's own nameservers (`ns1/ns2.beget.com`, `ns1/ns2.beget.pro`), A record
+`45.12.239.15`. Cloudflare was in front of this for a while in July and is no longer.
+
+`/root/sergeynasyrow-site/.env` on the VPS (chmod 600, gitignored and dockerignored) holds
+the same five vars as Netlify: `YC_ACCESS_KEY_ID`, `YC_SECRET_ACCESS_KEY`, `YC_BUCKET`,
+`MAX_BOT_TOKEN`, `MAX_USER_ID`. It is the source of truth for deploys — read it over the
+existing `ssh bot-server` connection when needed. **Never print its contents into a
+transcript, memory, or commit message.**
+
+Deploy (run on the VPS via `ssh bot-server '...'`):
+```
+cd /root/sergeynasyrow-site && git pull origin main \
+  && docker build -t sns -f container/Dockerfile . \
+  && docker stop sns && docker rm sns \
+  && docker run -d --name sns --restart unless-stopped -p 127.0.0.1:8080:8080 \
+       --env-file /root/sergeynasyrow-site/.env sns
+```
+Build the new image and have the full working `docker run` ready **before** tearing down
+the old container — `stop` + `rm` first has caused real downtime here.
 
 ## File structure
 ```
@@ -22,26 +64,25 @@ blocks/             — individual Tilda Zero-block HTML files (reference; don't
   nav.html, hero.html, dlya-kogo.html, about.html, audit.html,
   services.html, cases.html, how.html, faq.html, cta-final.html, footer.html,
   contact.html      — lead form markup (the live copy lives in index.html)
-netlify/functions/send-lead.js — serverless function the form posts to (see Status below)
+netlify/functions/send-lead.js — the lead handler; also called by container/server.js
 netlify.toml        — points Netlify at netlify/functions
-container/          — Dockerfile + server.js for the self-hosted VPS deploy (the one
-                      actually serving nasyrov.pro — see the 2026-07-13 entry)
+container/          — Dockerfile + server.js for the VPS deploy (the live production path)
 assets/
   avatar.png        — original hero photo source (rembg output), kept for future edits
   avatar.webp       — actual deployed hero image (94KB, resized from the 2.4MB png)
+  fonts/*.woff2     — self-hosted Montserrat (see Conventions)
 ```
-Nine HTML pages carry analytics/legal markup, not five — `index`, `offer`, `privacy`,
-`resume`, `portfolio` and the four `portfolio/*` case pages. Any change to a tag in
-`<head>` (counters, verification, icons) has to hit all nine; grep before assuming.
+**Nine HTML pages carry analytics/legal markup, not five** — `index`, `offer`, `privacy`,
+`resume`, `portfolio` and the four `portfolio/*` case pages. Any change to a `<head>` tag
+(counters, verification, icons) has to hit all nine; grep before assuming.
 
-Netlify serves clean paths (`/offer`, `/privacy`) for the matching `.html` files
-automatically — no `_redirects`/`netlify.toml` needed for this.
+Netlify serves clean paths (`/offer`, `/privacy`) for matching `.html` files automatically.
 
 ## Design system
 - Background: `#F9F9F9` (page) / `#FFFFFF` (white cards)
 - Accent: `#F0902C` orange
 - Dark: `#1A1A1A` (audit section bg, footer)
-- Font: Montserrat (400/500/600/700/800)
+- Font: Montserrat (400/500/600/700/800), self-hosted
 - Max-width: `1200px`, padding desktop `96px 64px`, tablet `72px 32px`, mobile `56px 20px`
 - Breakpoints: 1200px / 900px / 768px / 560px / 480px
 
@@ -51,353 +92,142 @@ automatically — no `_redirects`/`netlify.toml` needed for this.
 3. **Ticker** — dark strip between hero and for-whom, CSS `@keyframes ticker-run`
 4. **Audit cascade** — `.audit-cascade` + `.audit-item` slide in left-to-right on scroll
 5. **Clock** — `.clock-hand` on SVG line in about section, CSS spin
-6. **How steps** — `.how__steps` cascade + `num-glow` pulse on step numbers
+6. **How steps** — `.how__steps` cascade + `num-glow` pulse, plus a sliding spotlight
 7. **Cases carousel** — 3-up, arrow navigation, `animateMetric()` per card
 8. **Pulse rings** — `.pulse-wrap` on CTA buttons (audit + hero + final)
+9. **Back-to-top** — circular dark button, appears after `scrollY > 600`; on `≤480px` it
+   repositions above the cookie banner while that's visible (JS reads the banner's height)
 
 ## Cases carousel (index.html ~line 1940–2050 JS block)
 - 5 cards, show 3 at a time, max index = 2
 - `go(n)` sets `transform: translateX` on `#casesTrack`
 - `data-count / data-prefix / data-suffix` on `.case-card__metric` drive counters
-- 3 dots (one per scroll position)
-- On resize: `go(idx)` recalculates step width
+- 3 dots (one per scroll position); on resize `go(idx)` recalculates step width
 
-## Completed animation work (as of 2026-06-17)
-- [x] Hero title `<br>` fix + CTA pulse ring
-- [x] Counter animation (hero trust bar): 8 лет / ROMI 120%+ / 20+
-- [x] Ticker strip
-- [x] Middle pain card orange glow (`.pain-card--featured`)
-- [x] Clock SVG hand animation
-- [x] Audit text updated ("Разберём..." no "За 2 часа")
-- [x] Audit cascade animation (4 checkmarks appear top-to-bottom)
-- [x] Cases carousel redesigned (3-up, arrows, counter animation on metrics)
-- [x] How steps cascade fade-in + num-glow on circles
+## Lead form and data flow
+**The form is live.** It collects exactly three fields plus a server-side timestamp:
+- `name` — имя (placeholder «Иван Петров», not full ФИО)
+- `task` — free text, «Какая у вас задача?»
+- `contact` — one field taking phone, email **or** a social/messenger link
+- `submittedAt` — added server-side
 
-## Pending (as of 2026-06-17) — all three done since, kept for history
-- [x] How block: sliding spotlight (commit `baf3dc3`, 2026-06-17)
-- [x] Consistent block widths across all sections (same commit)
-- [x] Mobile QA pass (commit `3c4d7b0`, 2026-07-09, plus later mobile fixes)
+The consent checkbox is mandatory; submission is blocked without it. Copies of the form
+live in `index.html` (twice — modal and inline), `resume.html` and `portfolio.html`.
 
-## Status (as of 2026-07-02)
-- [x] Public offer (`offer.html`) and privacy policy (`privacy.html`) written and live
-      at `/offer` and `/privacy`. Real requisites: ИП Насыров Сергей Дамирович,
-      ОГРНИП 326366800063559, ИНН 360206536641, НПД (4%/6%), счёт в Точке.
-      Adapted from a public template (chipsanov.pro) with added clauses not in the
-      source: confidentiality/NDA (art. 7 of the offer — relevant because Sergey gets
-      access to clients' ad accounts), liability cap, force majeure, offer term/amendment
-      clause, and a corrected 152-ФЗ response-time clause (10 рабочих, not calendar, days).
-      Footer and the contact-form consent checkbox both link to these.
-- [x] Contact form — was disabled here pending the legal docs (`1f345c9`), re-enabled
-      2026-07-08 (`363afd1`) once the RF-only backend and the RKN filing were in place.
-      **Superseded: the form is live.** Fields it actually collects: `name` (имя),
-      `task` (free text), `contact` (one field taking phone / email / social link),
-      plus a server-side `submittedAt`. Consent checkbox is mandatory — submission is
-      blocked without it.
-- [x] Roskomnadzor notification — filed 2026-07-08, operator registered, amendment for
-      the analytics data category filed 2026-08-03. See the Roskomnadzor section below
-      for numbers and the exact values declared.
-- Domain across the whole repo/docs is `sergey-nasyrov.ru` (with hyphen) — an earlier
-  session mixed this up with `sergeynasyrow.ru`; if you see that spelling anywhere, it's
-  a leftover mistake, not a second domain.
+Backend, RF-only by design — `POST /.netlify/functions/send-lead`:
+1. Full record written to **Yandex Object Storage** (`nasyrov-leads`, RF-hosted) via
+   hand-rolled AWS SigV4 signing in `send-lead.js` — zero npm dependencies, **don't add
+   the AWS SDK**.
+2. Full record also sent as a **MAX messenger** notification via `platform-api2.max.ru`.
+   MAX serves a Mintsifry-issued TLS cert Node doesn't trust, so two "Russian Trusted
+   Root/Sub CA" PEM certs are pinned directly in `send-lead.js`. **The sub CA expires
+   2027-03-06** — if MAX notifications silently stop after that date, refresh both PEM
+   blocks from gu-st.ru (exact URLs are in the file's comment).
 
-## Status (as of 2026-07-08, end of day)
+Telegram was deliberately removed from this pipeline (RF-jurisdiction requirement, not
+just PII-stripping). Telegram is still used elsewhere on the site — the footer/hero
+"message me" CTA to `@sergeynasyrov_bot` — as a separate, user-initiated contact channel.
+`TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` are vestigial; no code reads them.
 
-Huge single-day session. The MAX/analytics work was already pushed (commits `82e169a`,
-`103d6a6` — the latter fixed a Netlify secrets-scan build failure caused by an env var
-value being written literally into this file; **never paste actual secret/ID values into
-CLAUDE.md**, describe them instead). The form-enable + self-hosted-fonts work below is a
-second batch, prepared locally, not yet pushed as of this writing — the user asked to
-batch changes to conserve Netlify's monthly build-minute quota rather than pushing after
-every small edit. Ask before pushing if it's unclear whether this batch already went out.
+## Legal — offer, privacy policy, Roskomnadzor
+`offer.html` and `privacy.html` are live at `/offer` and `/privacy`, linked from the footer
+and from the form's consent checkbox. Requisites: ИП Насыров Сергей Дамирович,
+ОГРНИП 326366800063559, ИНН 360206536641, НПД (4%/6%), счёт в Точке. Adapted from a public
+template (chipsanov.pro) with added clauses: confidentiality/NDA (art. 7 — Sergey gets
+access to clients' ad accounts), liability cap, force majeure, offer term/amendment, and a
+corrected 152-ФЗ response-time clause (10 **рабочих**, not calendar, days).
 
-### Security incident — resolved
-Commit `0aab8be` (predates this session) hardcoded a live Telegram bot token directly in
-client-side JS in `index.html`, in this **public** repo. Confirmed exposed. User revoked
-it via @BotFather and generated a new one. Old token string still exists in earlier git
-history (harmless now that it's revoked; history rewrite would be the cosmetic cleanup,
-not done, low priority). If you ever touch `netlify/functions/send-lead.js`, do **not**
-reintroduce a hardcoded token — always `process.env.*`.
+**Roskomnadzor — registered operator.**
+- Registry number **36-26-045464**, приказ № 81 от 08.07.2026. This is what the amendment
+  form asks for. The filed-document ids are *not* interchangeable with it.
+- Base notification: **№ 100345764**, ключ 70700060, filed 2026-07-08.
+- Amendment: **№ 100371489**, ключ 15979961, filed 2026-08-03, adding the analytics data
+  category (IP, cookies, behavioural/session data) that Metrika + Webvisor introduced.
+- Values declared in the amendment: категории ПД — ФИО, email, телефон, иные ПД,
+  **сведения, собираемые посредством метрических программ**; субъекты — Клиенты +
+  Посетители сайта; основания — согласие + заключение/исполнение договора; действия — the
+  13 from the base filing (**not** распространение, **not** иные); способы — смешанная,
+  без передачи по внутренней сети, с передачей по сети Интернет.
+- Both filings declare **«трансграничная передача: не осуществляется»**. Anything that
+  ships visitor data abroad breaks that — see Analytics.
+- Field-by-field guide with the values used: `~/Downloads/РКН-чек-лист и заполнение
+  уведомления.md` (user reads it in Obsidian). Keep in sync if any of this changes.
 
-### Lead form backend — RF-only data flow (Telegram fully removed from this path)
-The form (still `FORM_ENABLED = false` in `index.html`, still hidden — do not flip
-without the user explicitly asking) posts to `/.netlify/functions/send-lead`. Current
-architecture, after several iterations:
-1. Full lead record (name/task/contact) written to a **Yandex Object Storage** bucket
-   (`nasyrov-leads`, RF-hosted) via hand-rolled AWS SigV4 signing in `send-lead.js` —
-   zero npm dependencies, don't add the AWS SDK.
-2. Full record also sent as a **MAX messenger** notification (RF-jurisdiction, replaced
-   Telegram for this specific internal-notification purpose) via `platform-api2.max.ru`.
-   MAX's API serves a Mintsifry-issued TLS cert that Node doesn't trust by default — the
-   two "Russian Trusted Root/Sub CA" PEM certs are pinned directly in `send-lead.js`.
-   **The sub CA expires 2027-03-06** — if MAX notifications silently stop working after
-   that date, refresh both PEM blocks from gu-st.ru (see comment in the file for exact
-   URLs).
+## Analytics and search consoles
+**Yandex.Metrika `110507843`** — the only counter on the site. Consent-gated: loads solely
+after «Принять» in the cookie banner (`#cookieBanner`, state in
+`localStorage['cookie_consent']`). `webvisor: true` and `clickmap: true` — session
+recording was explicitly requested by the user after being told what it does. Deliberately
+**no `<noscript>` pixel fallback**: that path would fire unconditionally for no-JS
+visitors, bypassing a banner that itself needs JS. `privacy.html` discloses Webvisor
+explicitly and describes the Telegram/MAX split.
 
-Required Netlify env vars: `YC_ACCESS_KEY_ID`, `YC_SECRET_ACCESS_KEY`, `YC_BUCKET` (set
-2026-07-08, confirmed working) + `MAX_BOT_TOKEN`, `MAX_USER_ID` (bot: `zayavki_site` /
-`id360206536641_2_bot`, recipient is Sergey's own MAX account — see Netlify env var for
-the actual ID, deliberately not repeated here since Netlify's build-time secret scanner
-flags env var values found anywhere in repo files; both confirmed working via a direct
-round-trip test, message delivered). `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` are no
-longer read by any code — vestigial, safe to leave set or delete in Netlify, doesn't
-matter.
+**GA4 — removed 2026-08-03, and it should stay removed unless two things happen first.**
+`gtag.js` (`G-KDHKMSYPC3`) had been sitting unconditionally in `<head>` on all nine pages,
+outside the consent gate, sending visitor IPs and cookie ids to Google LLC (US) while both
+RKN filings declared no cross-border transfer. Consent-gating would **not** have fixed it:
+consent settles the legal *basis*, not the *transfer*, which needs its own ст. 12
+notification filed *before* it starts. If GA4 is ever re-added: consent gate **and** ст. 12
+filing, in that order. The property `545149309` and `~/.config/ga4` are kept, so historical
+2026-07-11..08-03 data and the `ga4` MCP server still work.
 
-Why MAX instead of just anonymizing the Telegram ping: the user wants the whole pipeline
-on RF infrastructure, not just PII-stripped. Telegram is still used elsewhere on the site
-(footer/hero "message me" CTA linking to `@sergeynasyrov_bot`) — that's a separate,
-user-initiated direct-contact channel, unrelated to the automated lead pipeline, and
-was intentionally left alone.
+**Yandex Webmaster** — counter `110507843` is bound to the host, and Индексирование →
+Обход по счётчикам is **on**. Both are web-panel-only; no API exists for either, same as
+for `NOT_IN_SPRAV` and `NO_REGIONS`. `sitemap.xml` is registered via
+`POST /v4/user/{id}/hosts/{host}/user-added-sitemaps` (note: **not** `sitemaps/user_added`,
+which 400s); the `sitemaps/` GET list can return empty anyway — Yandex-side eventual
+consistency, not a bug to chase.
 
-### Roskomnadzor notification — filed, but needs a follow-up amendment
-Base notification filed 2026-07-08, confirmation **№ 100345764**. Field-by-field guide
-(with the values actually used) is saved to
-`~/Downloads/РКН-чек-лист и заполнение уведомления.md` (user reads it in Obsidian) —
-keep that file in sync if anything here changes again.
+**Google Search Console** — `https://nasyrov.pro/` at `siteOwner`. Also lists
+`sc-domain:sergeynasyrow.ru` as `siteUnverifiedUser` (never completed, harmless).
 
-**Registry entry:** the operator IS registered — **рег. номер 36-26-045464**, приказ
-№ 81 от 08.07.2026 (verified 2026-08-03 via `pd.rkn.gov.ru/operators-registry/operators-list/`,
-search by ИНН 360206536641). That registry number — not the notification number — is what
-the amendment form asks for. № 100345764 / key 70700060 is only the filed-document id.
+**Google OAuth** — GA4, Search Console and gdocs-writer share one Desktop client in GCP
+project `family-bot-499217`. Re-auth with `node ~/oauth-reauth/reauth.mjs`, which now
+distributes the new token to all local config dirs **and** scp's it to `claude-vps` and
+`bot-server`. If tokens start dying weekly, check `refresh_token_expires_in` in Google's
+response first: its presence means the token was minted while the app was in Testing (the
+7-day lifetime is baked in at issue time and survives publishing), and re-issuing fixes it.
+The app's console status can look fine while the token is still doomed.
 
-**Amendment — FILED 2026-08-03, № 100371489, ключ 15979961.** Reason: Yandex.Metrika +
-Webvisor (added 2026-07-08) introduced a data category (IP, cookies, behavioral/session
-data) not covered by the original filing. Values used in the amendment: категории ПД —
-ФИО, email, телефон, иные ПД, **сведения, собираемые посредством метрических программ**;
-субъекты — Клиенты + Посетители сайта; основания — согласие + заключение/исполнение
-договора; действия — all 13 from the base filing (NOT распространение, NOT иные);
-способы — смешанная, без передачи по внутренней сети, с передачей по сети Интернет.
+## Weekly digest (site-digest)
+`~/site-digest/digest.mjs` pulls Metrika + Webmaster + Search Console and sends a summary
+to MAX. Runs on `bot-server` by cron, `0 6 * * 1` UTC (09:00 MSK Monday), via
+`docker run --rm node:20-alpine`, reading `/root/.config/{webmaster,metrika,search-console,max}/`.
 
-**GA4 — resolved by removal, 2026-08-03.** `gtag.js` (`G-KDHKMSYPC3`) had been added
-2026-07-11 to all nine pages and sat unconditionally in `<head>`, *outside* the cookie
-consent gate that correctly wraps Metrika — visitor IPs/cookie ids went to Google LLC
-(US) regardless of consent, contradicting «трансграничная передача: не осуществляется»
-in both filings. Consent-gating it would NOT have fixed this: the transfer itself still
-needs a separate ст. 12 notification, filed *before* it starts. So the tag was stripped
-from all pages and the GA4 block removed from `~/site-digest/digest.mjs` (Metrika already
-reports the same three numbers). The GA4 property `545149309` and `~/.config/ga4` are
-kept — 2026-07-11..08-03 history stays reachable, and the `ga4` MCP server still works.
-If GA4 is ever re-added: consent gate **and** ст. 12 filing first.
+Two traps this has already sprung: the VPS keeps **its own copies** of every credential
+(they go stale silently), and the folder is **not a git repo** — a single loose file on the
+Mac, manually scp'd. Verify both sides after changing anything.
 
-### Cookie consent + Yandex.Metrika — added 2026-07-08
-`index.html` now has a cookie-banner (`#cookieBanner`, bottom-fixed, dark card matching
-site design system) that gates Metrika behind explicit accept/decline, stored in
-`localStorage['cookie_consent']`. Counter ID `110507843`, `webvisor: true` (session
-recording — user explicitly requested it after being told what it does). Deliberately
-**no `<noscript>` pixel fallback** — that path would fire unconditionally for no-JS
-visitors, bypassing the consent banner (which itself needs JS to render). `privacy.html`
-was updated to disclose Webvisor explicitly and to correctly describe the split between
-Telegram (public contact channel) and MAX (internal lead notifications) — see the
-`#analytics` section. `privacy.html`'s publish date bumped to 2026-07-08 to match.
+## Conventions and settled decisions
+- **Висячие предлоги** — glue short prepositions/conjunctions (а, и, с, от, не…) forward
+  with `&nbsp;`. Ongoing site-wide convention, already used extensively in existing copy.
+- **Never paste secret or ID values into this file.** Netlify's build-time secret scanner
+  greps repo files for env var values and fails the build. Describe them instead.
+- **Don't rewrite git history** to scrub the old (revoked, dead) Telegram token visible in
+  early commits. The user was asked and declined — settled decision, not an oversight.
+- **Fonts are self-hosted; Google Fonts is fully gone.** Montserrat v31 is a variable font,
+  so one `.woff2` per subset legitimately covers 400–800 via `font-weight: 400 800`. Four
+  subsets in `assets/fonts/` (~145KB). Verify with a local `python3 -m http.server`, not
+  `file://`, which breaks absolute `/assets/...` paths.
+- **Favicon**: `favicon.ico` / `favicon-32x32.png` / `favicon-16x16.png` are round with
+  transparent corners; `apple-touch-icon.png` is a plain **square** on purpose — iOS
+  rounds it itself and handles alpha on touch icons badly. Also referenced as
+  `<link rel="icon" sizes="180x180">` because Yandex wants a ≥120×120 `rel="icon"`. If it
+  looks wrong, suspect favicon caching (very sticky, browser-level) before the files.
+- **Entering passwords or credentials to authenticate is refused**, including when the
+  user insists, pastes the password, and says they authorize it. This has been tested
+  repeatedly here. It is distinct from writing out values the user already has (e.g.
+  filling a `docker run` with their own env vars) — that's fine.
 
-### Domain/hosting confusion — resolved, was never a real problem
-Spent a long thread debugging why `nasyrov.pro` seemed unreachable/slow. Root cause had
-nothing to do with the site: a zombie WireGuard VPN tunnel (`utun6`) on the user's own
-Mac was hijacking the default route. Fixed client-side via `sudo pkill -f wireguard`.
-For the record: `nasyrov.pro` and `sergey-nasyrov.ru` both correctly point to this same
-Netlify project (AWS Global Accelerator IP `75.2.60.5`) — confirmed via check-host.net
-from Moscow/SPb nodes, both fast, no blocking. `sergeynasyrow.ru` (different spelling,
-ends in "w") is a **separate, unrelated old Tilda-hosted site** — different ASN, not
-part of this repo, don't touch it or assume it needs to match.
-
-### Performance
-`avatar.png` (2.4MB) → `avatar.webp` (94KB), all references (`<img>`, og:image,
-twitter:image, schema.org) updated. `avatar.png` kept in repo as the rembg source for
-future re-edits, just no longer referenced by the live page.
-
-### Fonts — self-hosted, Google Fonts fully removed
-Earlier in the session, self-hosting was deferred because a fetch of the Google Fonts
-CSS looked wrong (identical woff2 URL across all 5 weight declarations). Turned out that
-was correct, not a bug: Montserrat v31 on Google Fonts is served as a **variable font**
-(has `fvar`/`gvar`/`avar`/`STAT` tables — verified with `fonttools ttx -l`), so one file
-legitimately covers the whole 400-800 weight range via the `wght` axis. Downloaded the 4
-subsets actually needed (cyrillic, cyrillic-ext, latin, latin-ext — skipped vietnamese)
-into `assets/fonts/*.woff2` (~145KB total) and replaced the `<link
-href="fonts.googleapis.com/...">` in all three HTML files with local `@font-face`
-declarations using `font-weight: 400 800` (a range, not a single value — that's what
-makes one file serve every weight). Verified via a local `python3 -m http.server` (not
-`file://`, which breaks absolute `/assets/...` paths) that fonts load with 200s and no
-Google network calls happen at all anymore.
-
-### Form — enabled
-`FORM_ENABLED` flipped to `true` in commit after this Status section was last written.
-Backend (Yandex Object Storage + MAX) was already verified end-to-end before flipping.
-
-### Git history — user declined cleanup, leave it
-Old (revoked, dead) Telegram token is still visible in early commits of the public repo.
-Asked the user whether to rewrite history to scrub it — they declined (force-push to
-main risk not worth it for a token that no longer works). **Don't rewrite history for
-this on your own initiative** — it's a settled decision, not an oversight.
-
-### Design/copy polish round — deployed 2026-07-08 (commit `3f7ffb3`)
-- Favicon added: cropped from the hero photo, orange brand circle for browser tabs
-  (`favicon.ico`, `favicon-32x32.png`, `favicon-16x16.png` — transparent corners, real
-  circle), but `apple-touch-icon.png` is a plain **square** on purpose — iOS applies its
-  own rounding and handles alpha transparency on touch icons poorly. If it still looks
-  square in someone's tab, it's almost always favicon caching (very sticky, browser-level,
-  separate from normal page cache) — check in an incognito window before assuming the
-  files are wrong.
-- Hero: no longer has the "Маркетолог-практик · МСБ" eyebrow label.
-- `.pain-card` (the "Узнаёте свою ситуацию?" cards) are now `<a href="#contact"
-  data-modal="contact">`, not `<div>` — they were visually card-like but did nothing
-  when clicked. Has a hover lift now too.
-- `.how` section has a `.section-cta` button after the steps (same pattern as after
-  `#services`).
-- `.cta-final__note` ("Одновременно работаю не более чем с 4 проектами") was removed
-  entirely, not just hidden.
-- Footer copyright line now includes "ИП Насыров С.Д. · ОГРНИП 326366800063559" next to
-  the `/offer` link — required by ЗоЗПП to have operator info near the public offer,
-  no strict rule on exact placement (footer/header/offer page all satisfy it).
-- `.svc__example` ("Пример →" links on 4 service cards) moved from inline after the tag
-  row to `position: absolute; top: 20px; right: 20px` — a corner badge. It used to blend
-  into the orange `.svc__tag` pills right above it and effectively disappeared visually.
-  `.svc` needed `position: relative` added for this to anchor correctly.
-- Niches list copy: "Beauty" → "EdTech SaaS". SMM card tags gained "MAX".
-- Several hanging prepositions/conjunctions (висячие предлоги) fixed with `&nbsp;` per
-  user request — this is an ongoing site convention, already used extensively; when
-  adding new copy, glue short prepositions/conjunctions (а, и, с, от, не, etc.) forward
-  to the next word rather than leaving them to risk dangling at a line end.
-
-### Open items
-- [x] RKN "уведомление об изменении сведений" for the analytics data category — filed
-      2026-08-03, № 100371489 / ключ 15979961.
-- [x] GA4 cross-border exposure — closed 2026-08-03 by removing the tag from all pages
-      and the GA4 block from `~/site-digest/digest.mjs`.
-
-## Status (2026-07-08, evening — mobile connectivity investigation)
-
-### The problem
-User (and separately his wife, different mobile carrier) could not load `nasyrov.pro` /
-`sergey-nasyrov.ru` on phones — blank white page, load spinner never completes. Confirmed:
-- Fails on WiFi AND cellular, with and without VPN, on multiple devices/carriers.
-- Works fine on the user's own Mac without VPN; **fails on that same Mac when a VPN is on**.
-- Every OTHER website loads fine in all the same failing conditions — ruled out general
-  connectivity, DNS-resolver, router, Screen Time, Private Relay, VPN-profile causes one
-  by one before landing here.
-- My own automated testing (Puppeteer/Chromium via this sandbox, and check-host.net from
-  Moscow/SPb datacenter nodes back on 2026-07-08 morning) showed the site fine — but
-  datacenter routes don't go through the same consumer/mobile ISP filtering equipment as
-  real users, so that earlier check wasn't representative. Re-confirmed diagnosis: likely
-  selective throttling/blocking of Netlify's IP range (AWS Global Accelerator, ASN 16509)
-  on some Russian mobile/VPN network paths — not a site bug.
-
-### Fix in progress: Cloudflare proxy in front of Netlify
-Added `nasyrov.pro` to Cloudflare (free plan), proxied (orange cloud) on both the apex A
-record (`75.2.60.5`) and `www` CNAME (`sergeynasyrow.netlify.app`). Nameservers switched
-at reg.ru from `ns1/ns2.reg.ru` to `giancarlo.ns.cloudflare.com` /
-`paislee.ns.cloudflare.com` — **confirmed propagated** (both 8.8.8.8 and 1.1.1.1 show the
-Cloudflare NS now, and `curl -I` shows `server: cloudflare` + `cf-ray` header, still
-correctly reaching Netlify behind it per `x-nf-request-id`).
-
-**Mid-process scare (resolved, no data lost):** while looking for the NS-server field in
-reg.ru's panel, the user accidentally deleted the A/CNAME records in reg.ru's *own* DNS
-zone. This looked like an active outage (confirmed via `dig @ns1.reg.ru` — records really
-were gone at the authoritative source) but turned out to be harmless: NS had already been
-switched to Cloudflare by then, so reg.ru's own zone records are no longer used by
-anything. `sergey-nasyrov.ru` was **not** touched — only `nasyrov.pro` went through this
-Cloudflare setup so far.
-
-**Status as of end of session: waiting to hear back whether phones can load the site now
-that Cloudflare is live.** If yes — done, no further action. If no after a day or so —
-next hypothesis is SNI-based (hostname-level) blocking rather than IP-based, for which
-Cloudflare's IP swap wouldn't help; next steps would be trying Cloudflare's ECH
-(Encrypted Client Hello) feature, or the VPS fallback below.
-
-### Backup plan prepared: self-hosted Docker container on user's Beget VPS
-In case Cloudflare doesn't fix it, `container/` (commit `0ad7fcc`, already pushed) has a
-ready-to-deploy alternative to Netlify entirely:
-- `container/server.js` — plain Node http server, serves the static site + handles
-  `POST /.netlify/functions/send-lead` by requiring and calling the exact same
-  `netlify/functions/send-lead.js` handler (zero duplicated logic).
-- `container/Dockerfile` — `node:20-alpine`, `CMD node container/server.js`.
-- Built and tested locally via Colima (`brew install colima docker`) — image builds
-  clean, static routes (`/`, `/offer`, `/privacy`, fonts, favicon) all 200, the lead
-  handler correctly returns 500 "Server is not configured" without env vars (proves the
-  wiring works; the underlying Yandex/MAX logic was already proven live on Netlify).
-- User's VPS: `45.12.239.15` (Beget, real VPS not shared hosting — confirmed root/SSH
-  access). Deployment script and full walkthrough saved to
-  `~/Downloads/Деплой сайта на Beget VPS.md`.
-- **Not deployed to the VPS yet** — user was still working through SSH access issues
-  (wrong password attempt → looked like a temporary fail2ban-style lockout on port 22,
-  cleared on its own after ~10-15 min — confirmed port 22 reachable again via `nc -zv`
-  from this Mac). Next step once in: paste the one consolidated deploy script from the
-  Downloads doc, send back `nginx -t` / `ss -tlnp` output so the reverse-proxy config for
-  the actual domain + SSL can be written correctly without clobbering whatever else runs
-  on that VPS (user wasn't sure how the other projects there are currently routed).
-- If this path is ever actually cut over: needs (a) nginx (or similar) config on the VPS
-  proxying the domain to `127.0.0.1:8080`, (b) Let's Encrypt cert, (c) DNS switched from
-  Cloudflare/Netlify to the VPS's IP. None of that is done — this is prepared, not live.
-
-### A boundary that got tested repeatedly this session, worth remembering clearly
-The user asked several times, increasingly insistently (including switching permission
-mode to `dontAsk` and explicitly saying "I authorize it") for the assistant to SSH into
-the VPS itself using the root password the user pasted in chat. **Declined every time,
-consistently** — entering passwords/credentials to authenticate anywhere is a hard rule
-that explicit user permission does not override. This is different from just *repeating
-already-known secret values in generated text* (e.g., filling a docker run command with
-the YC/MAX values already established earlier in the session) — that was judged fine
-since it's the user's own credentials for their own infra and doesn't involve the
-assistant performing a login/authentication action itself. If a future session gets the
-same request: hold the line on login/authentication specifically, but don't be
-unhelpfully rigid about writing out config values the user already possesses.
-
-## Status (as of 2026-07-13)
-
-### Hosting reality check: `nasyrov.pro` is live on the VPS, not Netlify
-Confirmed via `nginx -T` and `docker ps` on `bot-server` (`45.12.239.15`): `nasyrov.pro`
-and `www.nasyrov.pro` are proxied by nginx straight to a Docker container named `sns`
-on `127.0.0.1:8080` (built from `container/Dockerfile`, this repo). This supersedes the
-2026-07-08 "not deployed to the VPS yet" note above — it's the live production path for
-this domain now, confirmed working end-to-end. `sergey-nasyrov.ru`'s current host wasn't
-re-checked this session — don't assume it matches without verifying.
-
-**`/root/sergeynasyrow-site/.env` now exists on the VPS** (chmod 600, root-only,
-gitignored and dockerignored — confirmed it does NOT end up baked into the image).
-Holds the same five vars as Netlify (`YC_ACCESS_KEY_ID`, `YC_SECRET_ACCESS_KEY`,
-`YC_BUCKET`, `MAX_BOT_TOKEN`, `MAX_USER_ID`). This is now the source of truth for
-deploys — no need to hunt through `~/Downloads/Деплой сайта на Beget VPS.md` or ask the
-user for values again; just read the file over the existing `ssh bot-server` connection
-when a deploy needs it. **Never print its contents into a transcript, memory, or commit
-message** — read it, use it in the `docker run` command, move on.
-
-Deploy command (git pull + rebuild + restart), run directly on the VPS via
-`ssh bot-server '...'`:
-```
-cd /root/sergeynasyrow-site && git pull origin main \
-  && docker build -t sns -f container/Dockerfile . \
-  && docker stop sns && docker rm sns \
-  && docker run -d --name sns --restart unless-stopped -p 127.0.0.1:8080:8080 \
-       --env-file /root/sergeynasyrow-site/.env sns
-```
-**Lesson learned the hard way this session:** `stop` + `rm` before confirming the
-replacement `docker run` will succeed causes real downtime if that run fails (e.g. a
-typo'd endpoint, missing env var — which is exactly what happened before the `.env` file
-above existed). Build the new image and have the full working `docker run` command ready
-*before* tearing down the old container, not after.
-
-### Yandex Webmaster diagnostics — fixed what's fixable via API
-Host `https:nasyrov.pro:443` was showing 6 active problems in Webmaster. Resolved:
-- `NO_SITEMAPS` — `sitemap.xml` existed and was in `robots.txt` but was never registered
-  with Webmaster itself. Fixed via `POST /v4/user/{id}/hosts/{host}/user-added-sitemaps`
-  (note: it's `user-added-sitemaps`, not `sitemaps/user_added` — the latter 400s).
-- `BIG_FAVICON_ABSENT` — Yandex wants a `rel="icon"` (not just `apple-touch-icon`) of at
-  least 120×120. Added `<link rel="icon" type="image/png" sizes="180x180"
-  href="/assets/apple-touch-icon.png">` to all 9 HTML pages, reusing the existing
-  180×180 file.
-
-Left as-is, not bugs:
-- `NO_METRIKA_COUNTER` / `NO_METRIKA_COUNTER_BINDING` — expected consequence of the
-  consent-gated Metrika loading (see 2026-07-08 entry) — Yandex's crawler never accepts
-  the cookie banner, so it never sees the counter fire. Not worth weakening the consent
-  gate to silence a low-severity "recommendation."
-- `NOT_IN_SPRAV` (Yandex.Spravochnik business listing) and `NO_REGIONS` (site region) —
-  both are manual-only via the Webmaster web panel, no API endpoint exists for either.
-
-### Back-to-top button added (commit `279a039`)
-Circular dark button, bottom-right, fixed position, appears after `scrollY > 600`,
-smooth-scrolls to top on click. On narrow screens (`≤480px`) it dynamically repositions
-above the cookie banner while that's visible (JS reads the banner's live height) instead
-of sitting hidden underneath it — verified visually via Puppeteer at 390×844 before and
-after accept/decline.
+## Open items
+- [ ] **Only 1 of 9 pages is indexed by Yandex.** The real SEO problem. Crawl-by-counter
+      helps only as fast as traffic arrives (3 visits/week). Инструменты → Переобход
+      страниц with all nine URLs is more direct.
+- [ ] `NO_REGIONS` / `NOT_IN_SPRAV` — a Яндекс Бизнес card closes both. User offered, not
+      yet decided.
+- [ ] `~/site-digest/` should become a git repo before the Mac and VPS copies drift again.
+- [ ] `sergey-nasyrov.ru` — host never re-verified after the VPS cutover.
+- [ ] `sc-domain:sergeynasyrow.ru` sits unverified in Search Console; dead weight.
 
 ## Tools installed (macOS)
 | Tool | Command |
@@ -416,105 +246,156 @@ const puppeteer = require('/Users/sergey.nasyrov13/node_modules/puppeteer');
 // page.screenshot({ path: '/tmp/out.png' })
 ```
 
-## Status (as of 2026-07-20)
-
-### DNS moved off Cloudflare to Beget's own nameservers (undocumented until now)
-`dig nasyrov.pro NS` now returns `ns1/ns2.beget.com`, `ns1/ns2.beget.pro` — not the
-Cloudflare pair (`giancarlo`/`paislee.ns.cloudflare.com`) set up 2026-07-08. Confirmed
-consistent at every layer: the `.pro` registry's own authoritative servers, Google
-(8.8.8.8), Cloudflare (1.1.1.1), and Yandex's own resolver (77.88.8.8) all agree on the
-same NS set and the same A record (`45.12.239.15`, the Beget VPS `bot-server` running
-the `sns` container — see 2026-07-13 entry). SSL cert valid (issued 2026-07-08, expires
-2026-10-06), HTTP→HTTPS redirect works, sitemap/favicon all serve correctly live. Not
-clear when/why this switch away from Cloudflare happened — wasn't done in a session
-covered by existing notes. If Cloudflare's IP-blocking workaround (2026-07-08 entry) is
-still needed for some Russian mobile carriers, this NS change effectively undid it —
-worth confirming with the user this was intentional before assuming it's fine long-term.
-
-### Yandex Webmaster false alarm — DNS_ERROR / BIG_FAVICON_ABSENT / NO_SITEMAPS reappeared
-A 2026-07-20 weekly digest showed 6 active Webmaster problems, three previously believed
-fixed (2026-07-13 entry) plus a new FATAL `DNS_ERROR`. Investigated all three:
-- `DNS_ERROR` (FATAL, flagged 18:32 MSK) — DNS is fully healthy right now (see above).
-  Likely a transient hit during the NS cutover window; should self-clear on Yandex's next
-  recrawl. No API-triggerable recheck exists for this problem type.
-- `BIG_FAVICON_ABSENT` (flagged 03:19 MSK) — verified live: `apple-touch-icon.png` is
-  actually 180×180, served with correct `sizes="180x180"` link tag, reachable with a 200.
-  Config is correct; this is a stale flag, not a real regression.
-- `NO_SITEMAPS` (flagged 16:49 MSK) — re-POSTed to
-  `/v4/user/{id}/hosts/{host}/user-added-sitemaps`; got back `SITEMAP_ALREADY_ADDED` with
-  an existing `sitemap_id`, confirming the 2026-07-13 registration is still there
-  server-side even though the `sitemaps/` GET list currently returns empty (an eventual-
-  consistency quirk on Yandex's side, not something to fix here). Also a stale flag.
-- `NOT_IN_SPRAV` / `NO_REGIONS` (RECOMMENDATION) — still no API endpoint for either, per
-  the 2026-07-13 finding; manual-only via the Webmaster web panel.
-- `NO_METRIKA_COUNTER_BINDING` — believed at the time to be an unavoidable consequence
-  of the consent-gated Metrika load. That was wrong: the flag is about binding the
-  counter to the host *in Webmaster*, which has nothing to do with when the counter
-  loads on the page. Fixed 2026-08-03, see the entry below.
-
-Conclusion: no code changes were needed this round. If the same three problems (DNS_ERROR/
-BIG_FAVICON_ABSENT/NO_SITEMAPS) are still `PRESENT` after ~3-4 days, that would mean they're
-real rather than stale and warrant a fresh look.
-
-### GA4 / Search Console OAuth tokens expired (`invalid_grant`)
-Both MCP servers on this VPS started failing with "Token has been expired or revoked."
-Root cause: shared Google OAuth refresh token (see `oauth-reauth` project) was revoked/
-expired upstream — nothing wrong in this repo. **Root cause fully diagnosed and closed
-2026-08-03 — see below; `reauth.mjs` now pushes all three tokens itself.**
-
-## Status (as of 2026-08-03) — RKN amendment, GA4 removal, digest repair
-
-### The through-line
-One question ("when did the form go live and what does it collect, for the RKN
-amendment") uncovered three separate problems. Order of discovery matters less than the
-end state, which is: the filing matches reality, GA4 is gone, and the weekly digest is
-no longer silently broken.
-
-### Roskomnadzor — amendment filed
-Registry number **36-26-045464** (приказ № 81 от 08.07.2026). That is what the update
-form asks for; the filed-document ids (`100345764` base, `100371489` amendment) are not
-interchangeable with it. Full detail in the Roskomnadzor section above.
-
-### GA4 removed from all nine pages
-`gtag.js` sat unconditionally in `<head>`, outside the consent gate that wraps Metrika,
-sending visitor IPs/cookie ids to Google LLC while both filings declared no cross-border
-transfer. Removed rather than consent-gated: gating fixes the legal *basis* but not the
-*transfer*, which would still need its own ст. 12 notification filed before it starts.
-The `~/site-digest/digest.mjs` GA4 block went with it. GA4 property `545149309` kept.
-
-### Weekly digest — three bugs, all fixed
-1. **`invalid_grant`.** `bot-server` runs the digest cron off its own `/root/.config`,
-   which no re-auth had ever updated — it sat on a 2026-07-11 token while the Mac's copy
-   was fine. `reauth.mjs` now scp's `search-console` and `ga4` to `bot-server` too.
-2. **The 7-day expiry.** Not a Testing-status problem — the OAuth app in project
-   `family-bot-499217` was already *In production*. The old refresh token had simply been
-   *issued* while it was in Testing, and the 7-day lifetime is baked in at issue time.
-   Re-issuing produced a token with no `refresh_token_expires_in` at all. If tokens start
-   dying weekly again, check that field first — its presence is the whole diagnosis.
-3. **`Проиндексировано страниц: н/д`.** The Webmaster API returns
-   `searchable_pages_count` as a plain number; the code read `.value` off it and always
-   got `undefined`. Also regrouped problem reporting by `severity`, because a flat
-   "3 активных проблем" read as alarming when all three were advisory.
-
-### Yandex Webmaster — counter bound, crawl-by-counter enabled
-Metrika counter `110507843` bound to the host (Настройки → Привязка к Яндекс Метрике),
-and Индексирование → Обход по счётчикам switched **on**. Both are web-panel-only, no API.
-Only **1 page of 9** is indexed — that is the real SEO problem, and crawl-by-counter
-helps only as fast as traffic arrives (3 visits/week right now). `NO_REGIONS` and
-`NOT_IN_SPRAV` remain open; a Яндекс Бизнес card closes both at once.
-
-### Open items
-- [ ] Only 1 of 9 pages indexed by Yandex. Consider Инструменты → Переобход страниц with
-      all nine URLs — more direct than waiting on crawl-by-counter.
-- [ ] `NO_REGIONS` / `NOT_IN_SPRAV` — needs a Яндекс Бизнес card. User was offered, not
-      yet decided.
-- [ ] Search Console lists `sc-domain:sergeynasyrow.ru` as `siteUnverifiedUser` —
-      verification for that domain was never completed. Harmless (the digest only reads
-      `https://nasyrov.pro/`, which is `siteOwner`), but it is dead weight in the account.
-- [ ] `~/site-digest/` is not a git repo — a single loose file on the Mac, manually
-      scp'd to `bot-server:/root/site-digest/`. Worth turning into a repo before it
-      drifts out of sync again.
-
 ## GitHub
 repo: https://github.com/sergeynasyrov13-boop/sergeynasyrow-site
 branch: main
+
+---
+
+# История
+
+Dated entries, newest last. Kept for the *reasoning* — what was tried, what was ruled out,
+why a decision went the way it did. Factual claims here may be stale; the top half of this
+file is the current state.
+
+## 2026-06-17 — animation build-out
+Completed: hero title `<br>` fix + CTA pulse ring; counter animation on the hero trust bar
+(8 лет / ROMI 120%+ / 20+); ticker strip; middle pain card orange glow
+(`.pain-card--featured`); clock SVG hand; audit copy ("Разберём…", dropped "За 2 часа");
+audit cascade (4 checkmarks top-to-bottom); cases carousel redesign (3-up, arrows, metric
+counters); how-steps cascade + num-glow.
+
+Left pending at the time and since done: sliding spotlight on the how block and consistent
+block widths (`baf3dc3`, same day), mobile QA pass (`3c4d7b0`, 2026-07-09, plus later
+mobile fixes).
+
+## 2026-07-02 — legal docs, form deliberately off
+Offer and privacy policy written and published. The contact form was **disabled** here
+(`1f345c9`) pending those docs, and the user asked explicitly that it not be re-enabled
+without him saying so. Both conditions have since been met — see 2026-07-08.
+
+## 2026-07-08 (daytime) — RF-only backend, Metrika, form enabled
+Large single-day session. Notes from it:
+
+**Security incident — resolved.** Commit `0aab8be` had hardcoded a live Telegram bot token
+in client-side JS in this **public** repo. Confirmed exposed; user revoked it via
+@BotFather. The dead string still exists in early history (see Conventions — history
+rewrite was declined). Never reintroduce a hardcoded token in `send-lead.js` — always
+`process.env.*`.
+
+**Lead pipeline rebuilt** onto Yandex Object Storage + MAX, dropping Telegram from the
+automated path. Rationale and current shape are in "Lead form and data flow" above. The
+env var values were kept out of this file after commit `103d6a6` — a literal value written
+here once failed a Netlify build via its secret scanner.
+
+**Cookie consent + Metrika** added, gating the counter behind explicit accept/decline.
+
+**Form enabled** (`363afd1`) after the backend was verified end-to-end.
+
+**Performance**: `avatar.png` (2.4MB) → `avatar.webp` (94KB); all references updated
+(`<img>`, og:image, twitter:image, schema.org). The png stays as the rembg source.
+
+**Fonts self-hosted.** Self-hosting had been deferred earlier because the Google Fonts CSS
+returned an identical woff2 URL for all five weight declarations, which looked like a bug.
+It wasn't — Montserrat v31 is a variable font (`fvar`/`gvar`/`avar`/`STAT` tables, verified
+with `fonttools ttx -l`), so one file covers 400–800.
+
+**Design/copy polish** (`3f7ffb3`): favicon set added; hero lost the "Маркетолог-практик ·
+МСБ" eyebrow; `.pain-card`s became real `<a href="#contact" data-modal="contact">` links
+with a hover lift (they looked clickable and did nothing); `.how` gained a `.section-cta`;
+`.cta-final__note` ("Одновременно работаю не более чем с 4 проектами") removed entirely;
+footer copyright now carries "ИП Насыров С.Д. · ОГРНИП 326366800063559" next to the
+`/offer` link (ЗоЗПП wants operator info near the public offer; placement is flexible);
+`.svc__example` moved to an absolute corner badge because it visually disappeared into the
+orange `.svc__tag` pills above it (`.svc` needed `position: relative`); niches copy
+"Beauty" → "EdTech SaaS"; SMM card tags gained "MAX".
+
+**Domain/hosting scare — was never real.** A long thread debugging `nasyrov.pro` being
+unreachable turned out to be a zombie WireGuard tunnel (`utun6`) on the user's own Mac
+hijacking the default route. Fixed with `sudo pkill -f wireguard`.
+
+## 2026-07-08 (evening) — mobile connectivity investigation
+User and (separately) his wife, on different carriers, could not load the site on phones:
+blank page, spinner forever. Ruled out one by one: general connectivity, DNS resolver,
+router, Screen Time, Private Relay, VPN profiles. Pattern: fails on WiFi and cellular, with
+and without VPN, on multiple devices; works on the Mac without VPN and **fails on that same
+Mac with VPN on**; every other site loads fine throughout.
+
+Note on method: Puppeteer from this sandbox and check-host.net from Moscow/SPb datacenter
+nodes both showed the site healthy — datacenter routes don't traverse the same consumer/
+mobile filtering equipment, so those checks weren't representative of the reported problem.
+Working diagnosis was selective throttling of Netlify's IP range (AWS Global Accelerator,
+ASN 16509) on some Russian mobile paths.
+
+Fix attempted: Cloudflare (free plan) proxying both the apex A record and `www`, NS moved
+at reg.ru. Mid-process the user accidentally deleted the A/CNAME records in reg.ru's own
+zone — looked like an outage, was harmless, since NS had already moved to Cloudflare.
+Next hypothesis if it hadn't worked was SNI-based blocking (Cloudflare's IP swap wouldn't
+help; ECH or the VPS would).
+
+Backup plan prepared the same evening: `container/` (`0ad7fcc`) — a plain Node http server
+that serves the static site and calls the exact same `send-lead.js` handler, plus a
+`node:20-alpine` Dockerfile. Built and tested locally via Colima. This backup later became
+the actual production path (2026-07-13), and Cloudflare later went away (2026-07-20).
+
+**Boundary tested repeatedly:** the user asked several times, increasingly insistently —
+including switching to `dontAsk` mode and stating he authorized it — for the assistant to
+SSH into the VPS using a root password he pasted in chat. Declined every time. See
+Conventions; the distinction that mattered was authenticating (refused) versus writing out
+values he already has (fine).
+
+## 2026-07-13 — VPS is production, Webmaster cleanup
+Confirmed via `nginx -T` and `docker ps` that `nasyrov.pro` is served by the `sns`
+container, superseding the 2026-07-08 "not deployed yet" note. `.env` created on the VPS.
+Deploy command settled — and the lesson that `stop` + `rm` before a verified `docker run`
+causes real downtime was learned by causing it.
+
+Webmaster: `NO_SITEMAPS` fixed by registering the sitemap through the API;
+`BIG_FAVICON_ABSENT` fixed by adding a 180×180 `rel="icon"` to all nine pages.
+`NO_METRIKA_COUNTER` / `NO_METRIKA_COUNTER_BINDING` were written off as an unavoidable
+consequence of consent-gating Metrika, on the theory that Yandex's crawler never accepts
+the banner so never sees the counter fire. **That reasoning was wrong** — the binding flag
+is about linking the counter to the host in Webmaster's own settings and has nothing to do
+with when the tag loads. Corrected 2026-08-03.
+
+Also: back-to-top button (`279a039`).
+
+## 2026-07-20 — DNS moved again, Webmaster false alarms
+`dig nasyrov.pro NS` came back as Beget's nameservers, not Cloudflare's — a switch nobody
+had documented, confirmed consistent across the `.pro` registry, 8.8.8.8, 1.1.1.1 and
+77.88.8.8. If Cloudflare was still needed as the mobile-blocking workaround, this undid it.
+
+Weekly digest showed 6 Webmaster problems; three had been believed fixed. Investigation:
+`DNS_ERROR` (FATAL) — DNS provably healthy, likely a transient hit during the NS cutover.
+`BIG_FAVICON_ABSENT` — the icon is genuinely 180×180 and serves 200; stale flag.
+`NO_SITEMAPS` — re-POSTing returned `SITEMAP_ALREADY_ADDED` with an existing id; stale
+flag, and the empty GET list is Yandex-side eventual consistency. No code changes needed.
+
+`invalid_grant` on GA4 and Search Console was noted here and misattributed to an upstream
+revocation. Actual cause found 2026-08-03.
+
+## 2026-08-03 — RKN amendment, GA4 removed, digest repaired
+Started as one question — when did the form go live and what exactly does it collect, for
+the RKN amendment — and turned up three unrelated problems.
+
+**Roskomnadzor.** Registry number found in the public registry by ИНН; amendment filed.
+Numbers and declared values are in the Legal section above. Worth remembering: the update
+form asks for the **registry** number (36-26-045464), which is not the notification number
+people naturally reach for.
+
+**GA4 removed** from all nine pages and from the digest. Full rationale in Analytics; the
+short version is that consent-gating would have fixed the wrong half of the problem.
+
+**Digest — three separate bugs.**
+1. `invalid_grant` — `bot-server` reads its own `/root/.config`, which no re-auth had ever
+   updated. It sat on a 2026-07-11 token while the Mac's copy was healthy, which is why
+   this looked like an upstream revocation on 2026-07-20. `reauth.mjs` now pushes there.
+2. The 7-day expiry — **not** a Testing-status problem; the app was already In production.
+   The old token had been *issued* during Testing and carried the lifetime with it.
+3. `Проиндексировано страниц: н/д` — the API returns `searchable_pages_count` as a plain
+   number and the code read `.value` off it. Problem reporting also regrouped by
+   `severity`, because a flat "3 активных проблем" read as alarming when all three were
+   advisory.
+
+**Webmaster.** Counter bound, crawl-by-counter enabled — both web-panel-only. Surfaced the
+finding that only 1 of 9 pages is indexed, which is now the main open item.
