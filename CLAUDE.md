@@ -13,17 +13,27 @@ and not part of the live build.
 index.html          — full assembled page (primary working file)
 offer.html           — public offer (contract), served at /offer
 privacy.html         — personal data processing policy, served at /privacy
-sitemap.xml, robots.txt
+resume.html          — CV page, served at /resume (has its own copy of the lead form)
+portfolio.html       — portfolio index, served at /portfolio (also has the lead form)
+portfolio/           — four managerial case pages
+  engagement.html, finance_model.html, low_season.html, no_cases.html
+sitemap.xml, robots.txt, favicon.ico, yandex_bbc7087061df6826.html
 blocks/             — individual Tilda Zero-block HTML files (reference; don't edit)
   nav.html, hero.html, dlya-kogo.html, about.html, audit.html,
   services.html, cases.html, how.html, faq.html, cta-final.html, footer.html,
-  contact.html      — lead form markup (currently disabled in index.html via FORM_ENABLED)
+  contact.html      — lead form markup (the live copy lives in index.html)
 netlify/functions/send-lead.js — serverless function the form posts to (see Status below)
 netlify.toml        — points Netlify at netlify/functions
+container/          — Dockerfile + server.js for the self-hosted VPS deploy (the one
+                      actually serving nasyrov.pro — see the 2026-07-13 entry)
 assets/
   avatar.png        — original hero photo source (rembg output), kept for future edits
   avatar.webp       — actual deployed hero image (94KB, resized from the 2.4MB png)
 ```
+Nine HTML pages carry analytics/legal markup, not five — `index`, `offer`, `privacy`,
+`resume`, `portfolio` and the four `portfolio/*` case pages. Any change to a tag in
+`<head>` (counters, verification, icons) has to hit all nine; grep before assuming.
+
 Netlify serves clean paths (`/offer`, `/privacy`) for the matching `.html` files
 automatically — no `_redirects`/`netlify.toml` needed for this.
 
@@ -63,10 +73,10 @@ automatically — no `_redirects`/`netlify.toml` needed for this.
 - [x] Cases carousel redesigned (3-up, arrows, counter animation on metrics)
 - [x] How steps cascade fade-in + num-glow on circles
 
-## Pending (as of 2026-06-17)
-- [ ] How block: sliding spotlight (orange highlight travels 01→02→03→04)
-- [ ] Consistent block widths across all sections
-- [ ] Mobile QA pass
+## Pending (as of 2026-06-17) — all three done since, kept for history
+- [x] How block: sliding spotlight (commit `baf3dc3`, 2026-06-17)
+- [x] Consistent block widths across all sections (same commit)
+- [x] Mobile QA pass (commit `3c4d7b0`, 2026-07-09, plus later mobile fixes)
 
 ## Status (as of 2026-07-02)
 - [x] Public offer (`offer.html`) and privacy policy (`privacy.html`) written and live
@@ -77,17 +87,15 @@ automatically — no `_redirects`/`netlify.toml` needed for this.
       access to clients' ad accounts), liability cap, force majeure, offer term/amendment
       clause, and a corrected 152-ФЗ response-time clause (10 рабочих, not calendar, days).
       Footer and the contact-form consent checkbox both link to these.
-- [ ] **Contact form is intentionally disabled** (`blocks/contact.html` / the wired-up
-      version in `index.html`) — it was turned off pending these legal docs, per commit
-      `1f345c9 Disable contact form temporarily (pending legal docs)`. The docs now
-      exist, but **do not re-enable the form without the user explicitly asking** — he
-      said so directly on 2026-07-02.
-- [ ] User still needs to file a personal-data-processing notification with Roskomnadzor
-      (pd.rkn.gov.ru) — required before the form goes live and before adding any
-      analytics (Метрика etc.), since the site collects leads pre-contract, which likely
-      doesn't qualify for the "processing only for contract execution" exemption in
-      ст. 22 ч.2 152-ФЗ. Not yet confirmed filed — check with the user before assuming
-      this is settled.
+- [x] Contact form — was disabled here pending the legal docs (`1f345c9`), re-enabled
+      2026-07-08 (`363afd1`) once the RF-only backend and the RKN filing were in place.
+      **Superseded: the form is live.** Fields it actually collects: `name` (имя),
+      `task` (free text), `contact` (one field taking phone / email / social link),
+      plus a server-side `submittedAt`. Consent checkbox is mandatory — submission is
+      blocked without it.
+- [x] Roskomnadzor notification — filed 2026-07-08, operator registered, amendment for
+      the analytics data category filed 2026-08-03. See the Roskomnadzor section below
+      for numbers and the exact values declared.
 - Domain across the whole repo/docs is `sergey-nasyrov.ru` (with hyphen) — an earlier
   session mixed this up with `sergeynasyrow.ru`; if you see that spelling anywhere, it's
   a leftover mistake, not a second domain.
@@ -439,8 +447,10 @@ fixed (2026-07-13 entry) plus a new FATAL `DNS_ERROR`. Investigated all three:
   consistency quirk on Yandex's side, not something to fix here). Also a stale flag.
 - `NOT_IN_SPRAV` / `NO_REGIONS` (RECOMMENDATION) — still no API endpoint for either, per
   the 2026-07-13 finding; manual-only via the Webmaster web panel.
-- `NO_METRIKA_COUNTER_BINDING` — still the known, intentional consequence of the
-  consent-gated Metrika load (2026-07-08 entry). Not a bug.
+- `NO_METRIKA_COUNTER_BINDING` — believed at the time to be an unavoidable consequence
+  of the consent-gated Metrika load. That was wrong: the flag is about binding the
+  counter to the host *in Webmaster*, which has nothing to do with when the counter
+  loads on the page. Fixed 2026-08-03, see the entry below.
 
 Conclusion: no code changes were needed this round. If the same three problems (DNS_ERROR/
 BIG_FAVICON_ABSENT/NO_SITEMAPS) are still `PRESENT` after ~3-4 days, that would mean they're
@@ -449,11 +459,61 @@ real rather than stale and warrant a fresh look.
 ### GA4 / Search Console OAuth tokens expired (`invalid_grant`)
 Both MCP servers on this VPS started failing with "Token has been expired or revoked."
 Root cause: shared Google OAuth refresh token (see `oauth-reauth` project) was revoked/
-expired upstream — nothing wrong in this repo. Fix requires the user to re-run
-`node reauth.mjs` **on the Mac** (needs an interactive Google consent screen — not
-something this VPS session can do on the user's behalf). That script auto-scp's only the
-refreshed `gdocs-writer` token to this VPS; the `ga4` and `search-console` tokens also
-need a manual `scp` from Mac to VPS afterward since the script doesn't push those two.
+expired upstream — nothing wrong in this repo. **Root cause fully diagnosed and closed
+2026-08-03 — see below; `reauth.mjs` now pushes all three tokens itself.**
+
+## Status (as of 2026-08-03) — RKN amendment, GA4 removal, digest repair
+
+### The through-line
+One question ("when did the form go live and what does it collect, for the RKN
+amendment") uncovered three separate problems. Order of discovery matters less than the
+end state, which is: the filing matches reality, GA4 is gone, and the weekly digest is
+no longer silently broken.
+
+### Roskomnadzor — amendment filed
+Registry number **36-26-045464** (приказ № 81 от 08.07.2026). That is what the update
+form asks for; the filed-document ids (`100345764` base, `100371489` amendment) are not
+interchangeable with it. Full detail in the Roskomnadzor section above.
+
+### GA4 removed from all nine pages
+`gtag.js` sat unconditionally in `<head>`, outside the consent gate that wraps Metrika,
+sending visitor IPs/cookie ids to Google LLC while both filings declared no cross-border
+transfer. Removed rather than consent-gated: gating fixes the legal *basis* but not the
+*transfer*, which would still need its own ст. 12 notification filed before it starts.
+The `~/site-digest/digest.mjs` GA4 block went with it. GA4 property `545149309` kept.
+
+### Weekly digest — three bugs, all fixed
+1. **`invalid_grant`.** `bot-server` runs the digest cron off its own `/root/.config`,
+   which no re-auth had ever updated — it sat on a 2026-07-11 token while the Mac's copy
+   was fine. `reauth.mjs` now scp's `search-console` and `ga4` to `bot-server` too.
+2. **The 7-day expiry.** Not a Testing-status problem — the OAuth app in project
+   `family-bot-499217` was already *In production*. The old refresh token had simply been
+   *issued* while it was in Testing, and the 7-day lifetime is baked in at issue time.
+   Re-issuing produced a token with no `refresh_token_expires_in` at all. If tokens start
+   dying weekly again, check that field first — its presence is the whole diagnosis.
+3. **`Проиндексировано страниц: н/д`.** The Webmaster API returns
+   `searchable_pages_count` as a plain number; the code read `.value` off it and always
+   got `undefined`. Also regrouped problem reporting by `severity`, because a flat
+   "3 активных проблем" read as alarming when all three were advisory.
+
+### Yandex Webmaster — counter bound, crawl-by-counter enabled
+Metrika counter `110507843` bound to the host (Настройки → Привязка к Яндекс Метрике),
+and Индексирование → Обход по счётчикам switched **on**. Both are web-panel-only, no API.
+Only **1 page of 9** is indexed — that is the real SEO problem, and crawl-by-counter
+helps only as fast as traffic arrives (3 visits/week right now). `NO_REGIONS` and
+`NOT_IN_SPRAV` remain open; a Яндекс Бизнес card closes both at once.
+
+### Open items
+- [ ] Only 1 of 9 pages indexed by Yandex. Consider Инструменты → Переобход страниц with
+      all nine URLs — more direct than waiting on crawl-by-counter.
+- [ ] `NO_REGIONS` / `NOT_IN_SPRAV` — needs a Яндекс Бизнес card. User was offered, not
+      yet decided.
+- [ ] Search Console lists `sc-domain:sergeynasyrow.ru` as `siteUnverifiedUser` —
+      verification for that domain was never completed. Harmless (the digest only reads
+      `https://nasyrov.pro/`, which is `siteOwner`), but it is dead weight in the account.
+- [ ] `~/site-digest/` is not a git repo — a single loose file on the Mac, manually
+      scp'd to `bot-server:/root/site-digest/`. Worth turning into a repo before it
+      drifts out of sync again.
 
 ## GitHub
 repo: https://github.com/sergeynasyrov13-boop/sergeynasyrow-site
