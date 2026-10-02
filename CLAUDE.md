@@ -451,3 +451,6 @@ plus breakdowns, in the Telegram/Max channel); the zone-dependent line under it 
 template to start with. The audit is a quiet text link under the card, still opening the
 contact modal and firing `cta_audit_click`. Nav CTA on this page points to block 5, and the
 «Что сделать первым» box links down to the templates.
+
+## 2026-10-02 — /calc opened publicly
+`calc-wave2` merged into `main` (6e78176) and deployed from `/root/sergeynasyrow-site`; nginx password gate removed (backup with gate: `/root/nasyrov.pro.sites-enabled.bak-gated-20261002`). Rollback image `sns:prev-calc-preview`. Metrika goals created on counter 110507843: calc_start 667037651, calc_complete 667037652, calc_budget_view 667037653, cta_tg_click 667037654, cta_max_click 667037655, cta_audit_click 667037656. `/calc` and `/` queued for Yandex recrawl. Funnel goal is channel subscription (Telegram/Max), the audit is a quiet secondary link — Sergey has no time for consultations.
