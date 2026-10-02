@@ -443,3 +443,11 @@ for break-even (losing) or the allowed client price (thin), weighted by what is 
 numbers and different verdicts. Goal `calc_step2` replaced by `calc_budget_view`. The
 "header mid-page" seen in old full-page screenshots was a capture artifact (full-page
 capture renders sticky elements at the scroll position); real scrolling keeps it on top.
+
+## 2026-10-02 — /calc goal switched to channel subscription (branch `calc-wave2`)
+Sergey has no time for consultations, so block 5 «Что дальше» now leads with one dark card
+«Забрать шаблоны и разборы» (unit-economics and marketing-report templates in Google Sheets
+plus breakdowns, in the Telegram/Max channel); the zone-dependent line under it names which
+template to start with. The audit is a quiet text link under the card, still opening the
+contact modal and firing `cta_audit_click`. Nav CTA on this page points to block 5, and the
+«Что сделать первым» box links down to the templates.

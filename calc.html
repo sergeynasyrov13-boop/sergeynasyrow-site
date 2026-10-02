@@ -201,6 +201,8 @@
     .more .tiles { margin-top: 10px; }
     .to-budget { display: inline-block; margin-top: 14px; font-size: 13px; font-weight: 700; color: #1A1A1A; border-bottom: 1.5px solid #F0902C; padding-bottom: 1px; }
     .to-budget:hover { color: #F0902C; }
+    .to-next { display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 600; color: #6B6B6B; border-bottom: 1px solid #F0902C; }
+    .to-next:hover { color: #F0902C; }
 
     /* ── Block 4: budget for N clients ── */
     .budget-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
@@ -222,39 +224,26 @@
     .metric-value.negative { color: #C62828; }
     .note { font-size: 12px; color: #6B6B6B; margin-top: 10px; }
 
-    /* ── Block 5: what next ── */
-    .next-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
-    .audit-card { background: #1A1A1A; color: #fff; border-radius: 20px; padding: 28px; }
-    .audit-card__eyebrow { font-size: 12px; font-weight: 700; color: #F0902C; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
-    .audit-card__title { font-size: clamp(20px, 2vw, 24px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 10px; }
-    .audit-card__lead { font-size: 14px; color: #E0E0E0; line-height: 1.6; margin-bottom: 18px; }
-    .audit-card__list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-    .audit-card__list li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; font-size: 14px; color: #CFCFCF; line-height: 1.5; }
-    .audit-card__list b { color: #fff; font-weight: 700; }
-    .audit-card__list svg { margin-top: 3px; }
-    .audit-card__facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 22px; }
-    .fact { background: rgba(255,255,255,0.07); border-radius: 12px; padding: 10px 12px; }
-    .fact__k { font-size: 11px; font-weight: 600; color: #9A9A9A; text-transform: uppercase; letter-spacing: 0.05em; }
-    .fact__v { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.35; margin-top: 2px; }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 100px;
-      font-size: 15px; font-weight: 600; padding: 14px 26px; cursor: pointer; border: none; text-align: center;
-      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    /* ── Block 5: what next — channel subscription is the main step ── */
+    .take {
+      background: #1A1A1A; color: #fff; border-radius: 20px; padding: 32px;
+      display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 28px; align-items: center;
     }
-    .btn--accent { background: #F0902C; color: #fff; }
-    .btn--accent:hover { background: #d97e20; transform: translateY(-1px); }
-
-    .take { background: #fff; border: 1px solid #EDEDED; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; justify-content: center; }
-    .take__label { font-size: 17px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.01em; margin-bottom: 6px; }
-    .take__text { font-size: 13px; color: #6B6B6B; margin-bottom: 16px; }
-    .take__btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .take__eyebrow { font-size: 12px; font-weight: 700; color: #F0902C; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+    .take__title { font-size: clamp(22px, 2.4vw, 28px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px; }
+    .take__lead { font-size: 15px; color: #E0E0E0; line-height: 1.6; }
+    .take__zone { margin-top: 14px; font-size: 14px; color: #fff; line-height: 1.55; border-left: 3px solid #F0902C; padding-left: 12px; }
+    .take__btns { display: flex; flex-direction: column; gap: 12px; }
     .icon-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 14px;
-      border: 1.5px solid #E5E5E5; border-radius: 14px; font-size: 14px; font-weight: 700; color: #1A1A1A;
+      display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 60px; padding: 14px 20px;
+      background: #fff; border: 2px solid #fff; border-radius: 16px; font-size: 17px; font-weight: 800; color: #1A1A1A;
       transition: border-color 0.2s, transform 0.15s;
     }
     .icon-btn:hover { border-color: #F0902C; transform: translateY(-1px); }
     .icon-btn svg { flex-shrink: 0; }
+    .audit-link { margin-top: 14px; font-size: 14px; color: #6B6B6B; }
+    .audit-link a { color: #1A1A1A; font-weight: 600; border-bottom: 1px solid #CFCFCF; }
+    .audit-link a:hover { color: #F0902C; border-color: #F0902C; }
 
     /* ── Mobile result bar ── */
     .mbar { display: none; }
@@ -289,7 +278,8 @@
     @media (max-width: 900px) {
       .flow { grid-template-columns: 1fr; }
       .flow__side { position: static; max-height: none; overflow: visible; }
-      .budget-grid, .next-grid, .explain__grid { grid-template-columns: 1fr; }
+      .budget-grid, .explain__grid { grid-template-columns: 1fr; }
+      .take { grid-template-columns: 1fr; gap: 22px; }
       .tiles--main { grid-template-columns: 1fr 1fr 1fr; }
       .tiles--main .tile:first-child { grid-column: auto; }
       .mbar {
@@ -329,11 +319,7 @@
       .lever__text { font-size: 14px; }
       .plan-out { padding: 16px 14px; }
       .funnel-row { grid-template-columns: 84px minmax(0, 1fr) auto; gap: 8px; }
-      .audit-card, .take { padding: 22px 16px; border-radius: 16px; }
-      .audit-card__facts { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-      .fact { padding: 8px 9px; }
-      .fact__v { font-size: 13px; }
-      .btn { width: 100%; }
+      .take { padding: 24px 18px; border-radius: 16px; }
       .explain { padding: 40px 0 56px; }
       .footer { padding: 40px 16px 24px; }
     }
@@ -440,7 +426,7 @@
         <span class="nav__brand-name">Сергей Насыров</span>
         <span class="nav__brand-role">Калькулятор</span>
       </a>
-      <a class="nav__cta" href="/#contact" data-modal="contact">Обсудить проект</a>
+      <a class="nav__cta" href="#next">Забрать шаблоны</a>
     </div>
   </header>
 
@@ -546,6 +532,7 @@
               <div class="lever" id="lever-box" style="display:none;">
                 <div class="lever__label">Что сделать первым</div>
                 <div class="lever__text" id="verdict-lever"></div>
+                <a class="to-next" href="#next">Шаблон, чтобы посчитать это по&nbsp;своим цифрам&nbsp;↓</a>
               </div>
             </div>
 
@@ -733,47 +720,32 @@
       <!-- ── 5. What next ── -->
       <section class="block after-flow" id="next" aria-labelledby="b5-title">
         <div class="block__head" style="margin-bottom:14px;"><span class="block__num">5</span><h2 class="block__title" id="b5-title">Что дальше</h2></div>
-        <div class="next-grid">
-          <div class="audit-card">
-            <div class="audit-card__eyebrow">Аудит маркетинга</div>
-            <h3 class="audit-card__title">Разберу ваши цифры вместе с&nbsp;вами</h3>
-            <p class="audit-card__lead" id="cta-zone-text">Разберу, что тормозит рост и&nbsp;куда уходит бюджет.</p>
-            <ul class="audit-card__list">
-              <li><svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6l3 3 5-5" stroke="#F0902C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Что&nbsp;тормозит рост</b>&nbsp;— найдём узкое место, из-за&nbsp;которого бюджет тратится, а&nbsp;заявок нет</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6l3 3 5-5" stroke="#F0902C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Куда уходит бюджет</b>&nbsp;— разберём каждый канал и&nbsp;поймём, что&nbsp;работает, а&nbsp;что&nbsp;съедает деньги</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6l3 3 5-5" stroke="#F0902C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Конкретный план</b>&nbsp;— что&nbsp;запустить, в&nbsp;каком канале, с&nbsp;каким бюджетом и&nbsp;как&nbsp;измерить результат</span></li>
-            </ul>
-            <div class="audit-card__facts">
-              <div class="fact"><div class="fact__k">Время</div><div class="fact__v">2&nbsp;часа</div></div>
-              <div class="fact"><div class="fact__k">Цена</div><div class="fact__v">3&nbsp;500&nbsp;₽</div></div>
-              <div class="fact"><div class="fact__k">Итог</div><div class="fact__v">план на&nbsp;руках</div></div>
-            </div>
-            <a class="btn btn--accent" href="/#contact" data-modal="contact" data-goal="cta_audit_click">Заказать аудит за&nbsp;3 500 ₽</a>
-            <p class="note" style="color:#9A9A9A;">Без&nbsp;обязательств: после аудита решаете сами, работать дальше или&nbsp;нет.</p>
+        <div class="take">
+          <div>
+            <div class="take__eyebrow">Telegram или&nbsp;Max</div>
+            <h3 class="take__title">Забрать шаблоны и&nbsp;разборы</h3>
+            <p class="take__lead">В&nbsp;моём канале лежат шаблоны юнит-экономики и&nbsp;отчёта по&nbsp;маркетингу в&nbsp;Google Таблицах. И&nbsp;разборы рекламы малого бизнеса. Выбирайте, где удобнее.</p>
+            <p class="take__zone" id="cta-zone-text">Заполните поля выше&nbsp;— подскажу, с&nbsp;какого шаблона начать.</p>
           </div>
-
-          <div class="take">
-            <div class="take__label">Забрать шаблоны и&nbsp;разборы</div>
-            <p class="take__text">Таблицы для&nbsp;расчётов и&nbsp;разборы рекламы малого бизнеса&nbsp;— в&nbsp;канале, где удобнее.</p>
-            <div class="take__btns">
-              <a class="icon-btn" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener" data-goal="cta_tg_click" aria-label="Шаблоны и разборы в Telegram">
-                <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <circle cx="12" cy="12" r="12" fill="#27A6E5"/>
-                  <path d="M5.4 11.7l11.6-4.5c.54-.2 1 .13.83.95l-1.98 9.32c-.14.66-.54.82-1.1.51l-3-2.22-1.45 1.4c-.16.16-.3.3-.6.3l.21-3.05 5.55-5.01c.24-.21-.05-.33-.37-.12l-6.86 4.32-2.96-.92c-.64-.2-.66-.64.13-.95z" fill="#fff"/>
-                </svg>
-                Telegram
-              </a>
-              <a class="icon-btn js-max-link" href="https://max.ru/id360206536641_biz" target="_blank" rel="noopener" data-goal="cta_max_click" aria-label="Шаблоны и разборы в Max">
-                <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <defs><linearGradient id="maxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3FB4FF"/><stop offset="0.55" stop-color="#4D5BFF"/><stop offset="1" stop-color="#9B3DF5"/></linearGradient></defs>
-                  <rect width="24" height="24" rx="7" fill="url(#maxg)"/>
-                  <path d="M12.1 5.6c-3.6 0-6.3 2.6-6.3 6.3 0 1.5.4 2.9 1.1 3.9l-.5 2.6c-.1.4.3.7.6.5l2.1-1.2c.9.5 1.9.7 3 .7 3.6 0 6.3-2.7 6.3-6.4 0-3.7-2.7-6.4-6.3-6.4zm0 9.9c-2 0-3.5-1.5-3.5-3.6s1.5-3.6 3.5-3.6 3.5 1.5 3.5 3.6-1.5 3.6-3.5 3.6z" fill="#fff"/>
-                </svg>
-                Max
-              </a>
-            </div>
+          <div class="take__btns">
+            <a class="icon-btn" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener" data-goal="cta_tg_click" aria-label="Шаблоны и разборы в Telegram">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="12" fill="#27A6E5"/>
+                <path d="M5.4 11.7l11.6-4.5c.54-.2 1 .13.83.95l-1.98 9.32c-.14.66-.54.82-1.1.51l-3-2.22-1.45 1.4c-.16.16-.3.3-.6.3l.21-3.05 5.55-5.01c.24-.21-.05-.33-.37-.12l-6.86 4.32-2.96-.92c-.64-.2-.66-.64.13-.95z" fill="#fff"/>
+              </svg>
+              Telegram
+            </a>
+            <a class="icon-btn js-max-link" href="https://max.ru/id360206536641_biz" target="_blank" rel="noopener" data-goal="cta_max_click" aria-label="Шаблоны и разборы в Max">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <defs><linearGradient id="maxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3FB4FF"/><stop offset="0.55" stop-color="#4D5BFF"/><stop offset="1" stop-color="#9B3DF5"/></linearGradient></defs>
+                <rect width="24" height="24" rx="7" fill="url(#maxg)"/>
+                <path d="M12.1 5.6c-3.6 0-6.3 2.6-6.3 6.3 0 1.5.4 2.9 1.1 3.9l-.5 2.6c-.1.4.3.7.6.5l2.1-1.2c.9.5 1.9.7 3 .7 3.6 0 6.3-2.7 6.3-6.4 0-3.7-2.7-6.4-6.3-6.4zm0 9.9c-2 0-3.5-1.5-3.5-3.6s1.5-3.6 3.5-3.6 3.5 1.5 3.5 3.6-1.5 3.6-3.5 3.6z" fill="#fff"/>
+              </svg>
+              Max
+            </a>
           </div>
         </div>
+        <p class="audit-link">Нужен разбор вашей рекламы? <a href="/#contact" data-modal="contact" data-goal="cta_audit_click">Аудит&nbsp;за&nbsp;3&nbsp;500&nbsp;₽</a></p>
       </section>
     </div>
 
@@ -914,11 +886,11 @@
       bad: 'Реклама работает в минус'
     };
     var CTA_TEXT = {
-      bad: 'Разберу вашу рекламу и покажу, где теряются деньги. На выходе — план, что менять в первую очередь.',
-      warn: 'Разберу, как снизить цену клиента, пока запас не ушёл в минус.',
-      good: 'Разберу, куда масштабироваться, чтобы не потерять окупаемость.'
+      bad: 'Начните с шаблона юнит-экономики: подставите свои цифры и увидите, что поменять, чтобы выйти в плюс.',
+      warn: 'Начните с шаблона юнит-экономики: будете видеть, сколько запаса осталось, до того как подорожает клик.',
+      good: 'Начните с шаблона отчёта по маркетингу: каждый месяц видно, держится ли окупаемость, когда растёт бюджет.'
     };
-    var CTA_DEFAULT = 'Разберу, что тормозит рост и куда уходит бюджет.';
+    var CTA_DEFAULT = 'Заполните поля выше — подскажу, с какого шаблона начать.';
 
     // Reset every output to a dash so stale numbers never survive an invalid input
     function clearUnit() {
@@ -1434,7 +1406,7 @@
         }, { threshold: 0.2 }).observe(el('budget'));
       }
 
-      // CTA goals; the audit button also pre-fills the task field with the result
+      // CTA goals; the audit link also pre-fills the task field with the result
       document.querySelectorAll('[data-goal]').forEach(function (a) {
         a.addEventListener('click', function () {
           var name = a.getAttribute('data-goal');
