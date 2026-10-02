@@ -58,6 +58,8 @@ privacy.html         — personal data processing policy, served at /privacy
 resume.html          — CV page, served at /resume (has its own copy of the lead form)
 portfolio.html       — portfolio index, served at /portfolio (also has the lead form)
 portfolio/           — four managerial case pages
+calc.html           — unit-economics → media-plan calculator, served at /calc
+                      (branch `calc-wave2`, not merged or deployed yet)
   engagement.html, finance_model.html, low_season.html, no_cases.html
 sitemap.xml, robots.txt, favicon.ico, yandex_bbc7087061df6826.html
 blocks/             — individual Tilda Zero-block HTML files (reference; don't edit)
@@ -73,7 +75,8 @@ assets/
   fonts/*.woff2     — self-hosted Montserrat (see Conventions)
 ```
 **Nine HTML pages carry analytics/legal markup, not five** — `index`, `offer`, `privacy`,
-`resume`, `portfolio` and the four `portfolio/*` case pages. Any change to a `<head>` tag
+`resume`, `portfolio` and the four `portfolio/*` case pages (ten once `calc.html` from
+branch `calc-wave2` is merged). Any change to a `<head>` tag
 (counters, verification, icons) has to hit all nine; grep before assuming.
 
 Netlify serves clean paths (`/offer`, `/privacy`) for matching `.html` files automatically.
@@ -111,7 +114,9 @@ Netlify serves clean paths (`/offer`, `/privacy`) for matching `.html` files aut
 - `contact` — one field taking phone, email **or** a social/messenger link
 - `submittedAt` — added server-side
 
-The consent checkbox is mandatory; submission is blocked without it. Copies of the form
+The consent checkbox is mandatory; submission is blocked without it. Server-side,
+`send-lead.js` returns 400 for an empty payload or a blank `contact` (the forms send `'—'`
+for blank fields, so a dash-only value counts as blank) — on branch `calc-wave2`. Copies of the form
 live in `index.html` (twice — modal and inline), `resume.html` and `portfolio.html`.
 
 Backend, RF-only by design — `POST /.netlify/functions/send-lead`:
@@ -220,6 +225,11 @@ Mac, manually scp'd. Verify both sides after changing anything.
   filling a `docker run` with their own env vars) — that's fine.
 
 ## Open items
+- [ ] **Branch `calc-wave2`** (calculator `/calc`, homepage links to it, send-lead
+      validation) — review, merge to main, deploy to the VPS. Then create JS-event goals in
+      Metrika: `calc_start`, `calc_step2`, `calc_complete`, `cta_audit_click`,
+      `cta_tg_click`, `cta_max_click` — the page fires them, but Metrika ignores goals that
+      don't exist in the counter. Add `/calc` to Webmaster re-crawl.
 - [ ] **Only 1 of 9 pages is indexed by Yandex.** The real SEO problem. Crawl-by-counter
       helps only as fast as traffic arrives (3 visits/week). Инструменты → Переобход
       страниц with all nine URLs is more direct.
@@ -399,3 +409,26 @@ short version is that consent-gating would have fixed the wrong half of the prob
 
 **Webmaster.** Counter bound, crawl-by-counter enabled — both web-panel-only. Surfaced the
 finding that only 1 of 9 pages is indexed, which is now the main open item.
+
+## 2026-10-02 — deployed a8d4fab to VPS
+GA4 removal from 03.08 went live (until then it was only in the repo). Previous image kept
+as `sns:prev-20260713` for rollback.
+
+## 2026-10-02 — calculator lead magnet (branch `calc-wave2`, not deployed)
+Wave 2 of the lead-magnet plan (`/root/nasyrov-brand/lead-magnets/PLAN.md`), committed on a
+local branch only — not pushed (push to main auto-deploys Netlify) and not on the VPS.
+- `calc.html` → `/calc`: step 1 unit economics, step 2 media plan prefilled from step 1
+  (prefilled conversion makes the step-2 budget equal the step-1 ad budget; fields the
+  user typed into are left alone). Math from `lead-magnets/fixed/` — LTV/CAC and ROMI on
+  margin, never revenue. Verdict on top with one lever («что сделать первым»): overhead
+  per client if it alone exceeds the allowed CAC, conversion if the needed lift is ≤2×,
+  otherwise margin per client. Four presets incl. marketplace. CTA by zone: audit
+  3 500 ₽ (opens the same contact modal, pre-fills the task with the result), Telegram,
+  Max (`https://max.ru/id360206536641_biz`). Same nav/footer/modal/cookie banner and
+  consent-gated Metrika as `portfolio.html`; goals go through a guard so nothing breaks
+  without consent. The engine is a separate `<script id="calc-engine">` so
+  `lead-magnets/tests/calculators.test.js` can run it in a fake DOM.
+- Homepage: one text link under the hero CTA and one ghost button in the audit block.
+- `send-lead.js`: 400 on empty payload / blank contact; everything else unchanged.
+- `sitemap.xml`: `/calc` added.
+

@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <title>Калькулятор юнит-экономики онлайн — с выводом и медиапланом</title>
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="description" content="Калькулятор юнит-экономики онлайн: LTV, CAC, ROMI и окупаемость клиента по марже, а не по выручке. Вывод простыми словами, что поправить первым, и медиаплан под цель. Бесплатно, без регистрации.">
+  <link rel="canonical" href="https://nasyrov.pro/calc">
+  <meta property="og:title" content="Калькулятор юнит-экономики онлайн">
+  <meta property="og:description" content="Окупается ли клиент и что поправить первым. LTV, CAC, ROMI по марже плюс медиаплан под цель.">
+  <meta property="og:image" content="https://nasyrov.pro/assets/avatar.webp">
+  <meta property="og:url" content="https://nasyrov.pro/calc">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Калькулятор юнит-экономики онлайн",
+    "url": "https://nasyrov.pro/calc",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "inLanguage": "ru",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" },
+    "author": { "@type": "Person", "name": "Сергей Насыров", "url": "https://nasyrov.pro/" },
+    "description": "Считает LTV, CAC, ROMI и окупаемость клиента по марже, даёт вывод простыми словами и медиаплан под цель."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://nasyrov.pro/" },
+      { "@type": "ListItem", "position": 2, "name": "Калькулятор юнит-экономики", "item": "https://nasyrov.pro/calc" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Что такое юнит-экономика простыми словами?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Это ответ на вопрос, зарабатываете ли вы на одном клиенте. Сколько маржи он приносит за всё время и сколько стоит его привлечь. Если привлечь дороже, чем он принесёт, реклама работает в минус, сколько бы заявок ни было." } },
+      { "@type": "Question", "name": "Какой LTV/CAC считается нормальным?",
+        "acceptedAnswer": { "@type": "Answer", "text": "LTV считается по марже, не по выручке. Ниже 1 — каждый клиент приносит убыток. От 1 до 3 — в плюсе, но запаса мало: подорожает клик, и уйдёте в минус. От 3 — есть запас, чтобы наращивать рекламу." } },
+      { "@type": "Question", "name": "Как посчитать юнит-экономику для маркетплейса?",
+        "acceptedAnswer": { "@type": "Answer", "text": "В поле маржи укажите, что остаётся с продажи после себестоимости, комиссии площадки, логистики и возвратов. В рекламу — внутреннюю рекламу площадки и внешний трафик. Остальное считается так же." } },
+      { "@type": "Question", "name": "Что делать, если юнит-экономика не сходится?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Не наращивать рекламу: больше бюджета — больше убытка. Сначала поправить то, что калькулятор показывает первым: конверсию, повторные покупки, чек или маржу, постоянные затраты на привлечение." } }
+    ]
+  }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-cyrillic-ext.woff2') format('woff2');
+      unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+    }
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-cyrillic.woff2') format('woff2');
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-latin-ext.woff2') format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background: #F9F9F9; color: #333333; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    [id] { scroll-margin-top: 84px; }
+    button { font-family: inherit; }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Nav (same as portfolio) ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #F0F0F0;
+    }
+    .nav__inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .nav__brand { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .nav__brand-name { font-size: 15px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.01em; line-height: 1; }
+    .nav__brand-role { font-size: 10px; font-weight: 500; color: #AAAAAA; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1; }
+    .nav__cta {
+      display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff;
+      font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 100px; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .nav__cta:hover { background: #d97e20; }
+
+    /* ── Intro ── */
+    .intro { padding: 48px 0 24px; }
+    .intro__eyebrow { font-size: 12px; font-weight: 700; color: #F0902C; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .intro__title { font-size: clamp(26px, 3.4vw, 42px); font-weight: 800; letter-spacing: -0.025em; color: #1A1A1A; line-height: 1.15; margin-bottom: 14px; max-width: 760px; }
+    .intro__text { font-size: 16px; color: #555555; max-width: 640px; }
+
+    /* ── Presets + steps ── */
+    .controls { display: flex; flex-direction: column; gap: 16px; margin: 24px 0 20px; }
+    .presets { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .presets__label { font-size: 13px; font-weight: 600; color: #1A1A1A; margin-right: 4px; }
+    .chip {
+      border: 1.5px solid #E5E5E5; background: #fff; color: #1A1A1A; border-radius: 100px;
+      padding: 9px 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .chip:hover { border-color: #F0902C; }
+    .chip.is-active { background: #1A1A1A; border-color: #1A1A1A; color: #fff; }
+    .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: #EFEFEF; border-radius: 14px; padding: 5px; max-width: 520px; }
+    .step-tab {
+      border: none; background: transparent; border-radius: 10px; padding: 10px 12px; cursor: pointer;
+      font-size: 13px; font-weight: 600; color: #666666; text-align: left; line-height: 1.3;
+    }
+    .step-tab b { display: block; font-size: 11px; font-weight: 700; color: #AAAAAA; text-transform: uppercase; letter-spacing: 0.06em; }
+    .step-tab.is-active { background: #fff; color: #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .step-tab.is-active b { color: #F0902C; }
+
+    /* ── Calculator layout ── */
+    .calc { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 20px; align-items: start; padding-bottom: 56px; }
+    .calc[hidden] { display: none; }
+    .panel { background: #fff; border: 1px solid #EDEDED; border-radius: 20px; padding: 28px; }
+    .panel + .panel { margin-top: 16px; }
+    .panel__title { font-size: 15px; font-weight: 800; color: #1A1A1A; margin-bottom: 4px; }
+    .panel__sub { font-size: 13px; color: #777777; margin-bottom: 18px; }
+    .results { position: sticky; top: 84px; }
+
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 14px; }
+    .field { display: flex; flex-direction: column; }
+    /* label absorbs extra height so inputs in one row line up when labels wrap differently */
+    .field label { flex-grow: 1; font-size: 13px; font-weight: 600; color: #1A1A1A; margin-bottom: 6px; line-height: 1.35; }
+    .field input {
+      width: 100%; padding: 12px 14px; border: 1.5px solid #E8E8E8; border-radius: 12px;
+      font-family: inherit; font-size: 16px; font-weight: 600; color: #1A1A1A; background: #F9F9F9;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .field input:focus { border-color: #F0902C; background: #fff; }
+    .field__hint { font-size: 12px; color: #6B6B6B; margin-top: 5px; line-height: 1.4; }
+    .field--wide { grid-column: 1 / -1; }
+    .nowrap { white-space: nowrap; }
+
+    /* ── Verdict ── */
+    .verdict-card { border-radius: 16px; padding: 22px 22px 20px; background: #F4F4F4; border: 1.5px solid #E5E5E5; }
+    .verdict-card.good { background: #EDF8F1; border-color: #BFE5CD; }
+    .verdict-card.warn { background: #FFF5E8; border-color: #F7D3A6; }
+    .verdict-card.bad  { background: #FDEFEF; border-color: #F3C2C2; }
+    .verdict-card__badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 100px; background: #fff; margin-bottom: 10px; }
+    .verdict-card.good .verdict-card__badge { color: #1B7F45; }
+    .verdict-card.warn .verdict-card__badge { color: #A35F00; }
+    .verdict-card.bad  .verdict-card__badge { color: #C62828; }
+    .verdict-card__title { font-size: clamp(19px, 2vw, 23px); font-weight: 800; color: #1A1A1A; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 8px; }
+    .verdict { font-size: 14px; color: #333333; line-height: 1.6; }
+    .lever { margin-top: 14px; background: #fff; border-radius: 12px; padding: 14px 16px; }
+    .lever__label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #F0902C; margin-bottom: 4px; }
+    .lever__text { font-size: 14px; font-weight: 600; color: #1A1A1A; line-height: 1.5; }
+    .empty-note { font-size: 14px; color: #666666; }
+
+    /* ── Tiles ── */
+    .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+    .tile { background: #F9F9F9; border-radius: 14px; padding: 14px 16px; min-width: 0; }
+    .tile--wide { grid-column: 1 / -1; }
+    .res-label { font-size: 12px; font-weight: 600; color: #555555; line-height: 1.35; }
+    .res-val { font-size: 20px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.02em; margin: 4px 0 2px; overflow-wrap: anywhere; }
+    .res-val.good { color: #1B7F45; }
+    .res-val.warn { color: #B86A00; }
+    .res-val.bad  { color: #C62828; }
+    .res-hint { font-size: 12px; color: #6B6B6B; line-height: 1.4; }
+
+    .more { margin-top: 14px; border-top: 1px solid #EFEFEF; padding-top: 12px; }
+    .more summary { cursor: pointer; font-size: 13px; font-weight: 700; color: #1A1A1A; list-style: none; display: flex; align-items: center; gap: 8px; padding: 4px 0; }
+    .more summary::-webkit-details-marker { display: none; }
+    .more summary::before { content: '+'; display: inline-flex; width: 20px; height: 20px; border-radius: 50%; background: #F0F0F0; align-items: center; justify-content: center; font-size: 14px; }
+    .more[open] summary::before { content: '−'; }
+    .more .tiles { margin-top: 10px; }
+
+    /* ── CTA ── */
+    .cta-box { margin-top: 16px; background: #1A1A1A; color: #fff; border-radius: 16px; padding: 22px; }
+    .cta-box[hidden] { display: none; }
+    .cta-box__text { font-size: 14px; color: #E0E0E0; line-height: 1.6; margin-bottom: 14px; }
+    .cta-box__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 100px;
+      font-size: 14px; font-weight: 600; padding: 13px 22px; cursor: pointer; border: none; text-align: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .btn--accent { background: #F0902C; color: #fff; }
+    .btn--accent:hover { background: #d97e20; transform: translateY(-1px); }
+    .btn--ghost { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.3); }
+    .btn--ghost:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.07); }
+    .btn--ghost[hidden] { display: none; }
+    .btn--next { width: 100%; margin-top: 14px; background: #fff; color: #1A1A1A; border: 1.5px solid #E5E5E5; }
+    .btn--next:hover { border-color: #F0902C; color: #F0902C; }
+
+    /* ── Media plan ── */
+    .mode { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: #F2F2F2; border-radius: 12px; padding: 4px; margin-bottom: 18px; }
+    .mode-btn { border: none; background: transparent; border-radius: 9px; padding: 9px 10px; font-size: 13px; font-weight: 600; color: #666666; cursor: pointer; }
+    .mode-btn.active { background: #fff; color: #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .sub-head { font-size: 12px; font-weight: 700; color: #777777; text-transform: uppercase; letter-spacing: 0.06em; margin: 20px 0 10px; }
+    .prefill-note { font-size: 12px; color: #6B6B6B; margin-bottom: 14px; background: #F9F9F9; border-radius: 10px; padding: 10px 12px; }
+    .plan-summary { font-size: 15px; font-weight: 600; color: #1A1A1A; line-height: 1.55; }
+    .funnel-wrap { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .funnel-row { display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+    .funnel-label { font-size: 12px; font-weight: 600; color: #555555; }
+    .funnel-bar-wrap { background: #F4F4F4; border-radius: 6px; height: 26px; overflow: hidden; }
+    .funnel-bar { height: 100%; border-radius: 6px; background: #F0902C; }
+    .funnel-val { font-size: 13px; font-weight: 700; color: #1A1A1A; white-space: nowrap; }
+    .metric-value { font-size: 20px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.02em; margin: 4px 0 2px; overflow-wrap: anywhere; }
+    .metric-value.positive { color: #1B7F45; }
+    .metric-value.negative { color: #C62828; }
+    .note { font-size: 12px; color: #6B6B6B; margin-top: 10px; }
+
+    /* ── SEO text ── */
+    .explain { padding: 8px 0 72px; }
+    .explain__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .explain h2 { font-size: clamp(20px, 2.2vw, 26px); font-weight: 800; color: #1A1A1A; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .explain h3 { font-size: 15px; font-weight: 700; color: #1A1A1A; margin: 16px 0 6px; }
+    .explain p, .explain li { font-size: 14px; color: #444444; }
+    .explain ul { padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+
+    /* ── Footer (same as portfolio) ── */
+    .footer { background: #1A1A1A; padding: 56px 24px 32px; }
+    .footer__inner { max-width: 1200px; margin: 0 auto; }
+    .footer__top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; padding-bottom: 32px; border-bottom: 1px solid #333333; }
+    .footer__name { font-size: 16px; font-weight: 800; color: #fff; }
+    .footer__role { font-size: 12px; color: #888888; margin-top: 4px; }
+    .footer__nav { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .footer__nav-link { font-size: 13px; color: #AAAAAA; font-weight: 500; }
+    .footer__nav-link:hover { color: #fff; }
+    .footer__cta {
+      display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff;
+      font-size: 13px; font-weight: 600; padding: 12px 22px; border-radius: 100px;
+    }
+    .footer__bottom { padding-top: 24px; font-size: 12px; color: #777777; }
+
+    @media (max-width: 900px) {
+      .calc { grid-template-columns: 1fr; }
+      .results { position: static; }
+      .explain__grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .nav__inner { padding: 0 16px; }
+      .wrap { padding: 0 16px; }
+      .intro { padding: 32px 0 8px; }
+      .intro__text { font-size: 15px; }
+      .panel { padding: 20px 16px; border-radius: 16px; }
+      .fields { gap: 12px 10px; }
+      .field label { font-size: 12px; }
+      .field input { padding: 11px 12px; }
+      .tiles { gap: 8px; }
+      .tile { padding: 12px; }
+      .res-val, .metric-value { font-size: 17px; }
+      .verdict-card { padding: 18px 16px; }
+      .cta-box { padding: 18px 16px; }
+      .cta-box__actions .btn { width: 100%; }
+      .funnel-row { grid-template-columns: 92px minmax(0, 1fr) auto; gap: 8px; }
+      .footer { padding: 40px 16px 24px; }
+    }
+
+    /* ── Contact modal + form (same as portfolio) ── */
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-size: 13px; font-weight: 600; color: #1A1A1A; margin-bottom: 8px; display: block; }
+    .form-input, .form-textarea {
+      width: 100%; padding: 14px 18px; border: 1.5px solid #E8E8E8; border-radius: 12px;
+      font-family: 'Montserrat', sans-serif; font-size: 14px; color: #1A1A1A;
+      background: #F9F9F9; outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: #F0902C; background: #fff; }
+    .form-input::placeholder, .form-textarea::placeholder { color: #AAAAAA; }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-checkbox-wrap { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 28px; cursor: pointer; user-select: none; }
+    .form-checkbox-wrap input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .form-checkbox-box {
+      flex-shrink: 0; width: 18px; height: 18px; border: 1.5px solid #E8E8E8; border-radius: 4px;
+      background: #F9F9F9; display: flex; align-items: center; justify-content: center;
+      margin-top: 1px; transition: border-color 0.2s, background 0.2s;
+    }
+    .form-checkbox-box svg { opacity: 0; transition: opacity 0.15s; }
+    .form-checkbox-wrap input[type="checkbox"]:checked + .form-checkbox-box { background: #F0902C; border-color: #F0902C; }
+    .form-checkbox-wrap input[type="checkbox"]:checked + .form-checkbox-box svg { opacity: 1; }
+    .form-checkbox-text { font-size: 12px; font-weight: 400; line-height: 1.6; color: #666666; }
+    .form-checkbox-text a { color: #F0902C; text-decoration: none; }
+    .form-checkbox-text a:hover { text-decoration: underline; }
+    .btn-submit {
+      display: inline-block; width: 100%; background: #F0902C; color: #fff; border: none;
+      border-radius: 100px; padding: 16px 36px; font-family: 'Montserrat', sans-serif;
+      font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; text-align: center;
+    }
+    .btn-submit:hover { background: #d97d1e; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+    .form-success { display: none; text-align: center; padding: 40px 20px; }
+    .form-success__icon {
+      width: 64px; height: 64px; background: #F0902C; color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 28px;
+      font-weight: 700; margin: 0 auto 20px;
+    }
+    .form-success h3 { font-size: 22px; font-weight: 700; color: #1A1A1A; margin-bottom: 10px; }
+    .form-success p { font-size: 15px; color: #666666; }
+    .modal {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal.open { display: flex; }
+    .modal__inner {
+      background: #fff; border-radius: 20px; padding: 48px; max-width: 560px;
+      width: 100%; position: relative; max-height: 90vh; overflow-y: auto;
+    }
+    .modal__close {
+      position: absolute; top: 20px; right: 20px; width: 36px; height: 36px;
+      border: none; background: #F9F9F9; border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #666666; transition: background 0.2s, color 0.2s;
+    }
+    .modal__close:hover { background: #E8E8E8; color: #1A1A1A; }
+    .modal__title { font-size: clamp(20px, 2vw, 26px); font-weight: 800; letter-spacing: -0.02em; color: #1A1A1A; margin-bottom: 8px; }
+    .modal__sub { font-size: 14px; color: #666666; margin-bottom: 32px; line-height: 1.6; }
+    @media (max-width: 480px) { .modal__inner { padding: 32px 24px; } }
+
+    /* ── Cookie consent banner (same as portfolio) ── */
+    .cookie-banner {
+      position: fixed; left: 20px; right: 20px; bottom: 20px; z-index: 9999;
+      max-width: 640px; margin: 0 auto; background: #1A1A1A; color: #FFFFFF;
+      border-radius: 14px; padding: 20px 24px; display: flex; align-items: center;
+      gap: 20px; flex-wrap: wrap; box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+      transform: translateY(140%); transition: transform 0.4s ease;
+    }
+    .cookie-banner.is-visible { transform: translateY(0); }
+    .cookie-banner__text { flex: 1 1 260px; font-size: 13px; line-height: 1.6; color: #CCCCCC; }
+    .cookie-banner__text a { color: #F0902C; text-decoration: underline; }
+    .cookie-banner__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .cookie-banner__btn {
+      font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; padding: 10px 18px;
+      border-radius: 100px; border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .cookie-banner__btn--accept { background: #F0902C; color: #FFFFFF; }
+    .cookie-banner__btn--accept:hover { background: #d97e20; }
+    .cookie-banner__btn--decline { background: transparent; color: #999999; border: 1px solid #444444; }
+    .cookie-banner__btn--decline:hover { color: #FFFFFF; border-color: #666666; }
+    @media (max-width: 480px) { .cookie-banner { left: 12px; right: 12px; bottom: 12px; padding: 18px 20px; } }
+
+    @media (max-width: 560px) {
+      .modal__inner { padding: 20px 16px 18px; max-height: 88vh; }
+      .modal__title { padding-right: 44px; font-size: 19px; margin-bottom: 6px; }
+      .modal__sub { margin-bottom: 14px; }
+      .form-label { margin-bottom: 5px; }
+      .form-group { margin-bottom: 10px; }
+      .form-input, .form-textarea { padding: 10px 14px; }
+      .form-textarea { height: 60px; min-height: 60px; }
+      .form-checkbox-wrap { margin-bottom: 14px; }
+      .btn-submit { padding: 13px 30px; }
+      .modal__close { position: fixed; top: 14px; right: 14px; z-index: 1001; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="nav__brand-name">Сергей Насыров</span>
+        <span class="nav__brand-role">Калькулятор</span>
+      </a>
+      <a class="nav__cta" href="/#contact" data-modal="contact">Обсудить проект</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="wrap">
+        <div class="intro__eyebrow">Бесплатно, без регистрации</div>
+        <h1 class="intro__title">Калькулятор юнит-экономики онлайн</h1>
+        <p class="intro__text">Подставьте свои цифры&nbsp;— калькулятор покажет, зарабатываете&nbsp;ли вы на&nbsp;клиенте и&nbsp;что поправить первым. Вторым шагом посчитаете бюджет рекламы под&nbsp;цель. Всё считается от&nbsp;маржи, а&nbsp;не&nbsp;от&nbsp;выручки.</p>
+
+        <div class="controls">
+          <div class="presets" role="group" aria-label="Тип бизнеса">
+            <span class="presets__label">Ваш бизнес:</span>
+            <button class="chip is-active" type="button" data-preset="b2b">Услуги B2B</button>
+            <button class="chip" type="button" data-preset="shop">Магазин / e-commerce</button>
+            <button class="chip" type="button" data-preset="mp">Продавец на&nbsp;маркетплейсе</button>
+            <button class="chip" type="button" data-preset="custom">Свой вариант</button>
+          </div>
+          <div class="steps" role="tablist">
+            <button class="step-tab is-active" type="button" role="tab" data-step-tab="1"><b>Шаг 1</b>Юнит-экономика</button>
+            <button class="step-tab" type="button" role="tab" data-step-tab="2"><b>Шаг 2</b>Медиаплан под&nbsp;цель</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STEP 1: unit economics ── -->
+    <div class="wrap">
+      <section class="calc" id="step1" aria-label="Шаг 1. Юнит-экономика">
+        <div class="inputs" data-step="1">
+          <div class="panel">
+            <div class="panel__title">Клиент и&nbsp;деньги</div>
+            <div class="panel__sub">Сколько приносит один клиент</div>
+            <div class="fields">
+              <div class="field">
+                <label for="avg-check">Средний чек, ₽</label>
+                <input type="text" inputmode="decimal" autocomplete="off" id="avg-check" value="150000">
+              </div>
+              <div class="field">
+                <label for="freq">Покупок в&nbsp;год у&nbsp;одного клиента</label>
+                <input type="text" inputmode="decimal" autocomplete="off" id="freq" value="1">
+              </div>
+              <div class="field">
+                <label for="lifetime">Сколько лет клиент покупает</label>
+                <input type="text" inputmode="decimal" autocomplete="off" id="lifetime" value="3">
+              </div>
+              <div class="field">
+                <label for="margin">Маржа, %</label>
+                <input type="text" inputmode="decimal" autocomplete="off" id="margin" value="15">
+              </div>
+              <div class="field field--wide">
+                <div class="field__hint" id="hint-margin">Маржа&nbsp;— что остаётся с&nbsp;чека после себестоимости и&nbsp;прямых затрат на&nbsp;выполнение</div>
+              </div>
+              <div class="field field--wide">
+                <label for="mkt-share">Какую долю маржи готовы отдать на&nbsp;привлечение, %</label>
+                <input type="text" inputmode="decimal" autocomplete="off" id="mkt-share" value="30">
+                <div class="field__hint">Обычно 20–40%. Остальное&nbsp;— на&nbsp;зарплаты, аренду и&nbsp;прибыль</div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel__title">Привлечение за&nbsp;месяц</div>
+            <div class="panel__sub">Все суммы&nbsp;— в&nbsp;месяц</div>
+            <div class="fields">
+              <div class="field">
+                <label for="ad-budget">Реклама, <span class="nowrap">₽/мес</span></label>
+                <input type="text" inputmode="decimal" autocomplete="off" id="ad-budget" value="320000">
+              </div>
+              <div class="field">
+                <label for="new-clients">Новых клиентов за&nbsp;месяц</label>
+                <input type="text" inputmode="decimal" autocomplete="off" id="new-clients" value="5">
+              </div>
+              <div class="field">
+                <label for="salaries">Зарплаты на&nbsp;привлечение, <span class="nowrap">₽/мес</span></label>
+                <input type="text" inputmode="decimal" autocomplete="off" id="salaries" value="60000">
+              </div>
+              <div class="field">
+                <label for="tools">Сервисы и&nbsp;подрядчики, <span class="nowrap">₽/мес</span></label>
+                <input type="text" inputmode="decimal" autocomplete="off" id="tools" value="10000">
+              </div>
+              <div class="field field--wide">
+                <div class="field__hint">Зарплаты&nbsp;— только тех, кто занят привлечением: маркетолог, директолог, продажи. Не&nbsp;весь фонд оплаты труда</div>
+              </div>
+              <div class="field">
+                <label for="cpc">Цена клика, ₽</label>
+                <input type="text" inputmode="decimal" autocomplete="off" id="cpc" value="150">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="results" aria-live="polite">
+          <div class="panel">
+            <div class="verdict-card" id="verdict-card">
+              <div class="verdict-card__badge" id="verdict-badge">Итог</div>
+              <div class="verdict-card__title" id="verdict-title">Заполните поля слева</div>
+              <p class="verdict" id="verdict" style="display:none;"></p>
+              <div class="lever" id="lever-box" style="display:none;">
+                <div class="lever__label">Что сделать первым</div>
+                <div class="lever__text" id="verdict-lever"></div>
+              </div>
+            </div>
+
+            <div class="tiles">
+              <div class="tile">
+                <div class="res-label">Прибыль с&nbsp;клиента</div>
+                <div class="res-val" id="out-profit-per-client">—</div>
+                <div class="res-hint">маржа за&nbsp;всё время минус цена клиента</div>
+              </div>
+              <div class="tile">
+                <div class="res-label">LTV / CAC</div>
+                <div class="res-val" id="out-ratio">—</div>
+                <div class="res-hint">во&nbsp;сколько раз маржа с&nbsp;клиента больше его цены. Норма от&nbsp;3</div>
+              </div>
+              <div class="tile tile--wide">
+                <div class="res-label">Клиент стоит / можно платить</div>
+                <div class="res-val" id="out-cac-vs-max">—</div>
+                <div class="res-hint">цена клиента со&nbsp;всеми затратами (CAC) против допустимой</div>
+              </div>
+              <div class="tile tile--wide">
+                <div class="res-label">ROMI с&nbsp;первой покупки</div>
+                <div class="res-val" id="out-romi">—</div>
+                <div class="res-hint" id="hint-romi">(маржа с&nbsp;первых покупок − реклама) ÷ реклама</div>
+              </div>
+            </div>
+
+            <details class="more" id="more-details">
+              <summary>Все показатели</summary>
+              <div class="tiles">
+                <div class="tile">
+                  <div class="res-label">Выручка с&nbsp;клиента за&nbsp;всё время</div>
+                  <div class="res-val" id="out-ltv">—</div>
+                  <div class="res-hint">чек × покупок в&nbsp;год × лет</div>
+                </div>
+                <div class="tile">
+                  <div class="res-label">Маржа с&nbsp;клиента (LTV)</div>
+                  <div class="res-val" id="out-margin-ltv">—</div>
+                  <div class="res-hint">выручка с&nbsp;клиента × маржа</div>
+                </div>
+                <div class="tile">
+                  <div class="res-label">Можно платить за&nbsp;клиента</div>
+                  <div class="res-val" id="out-max-cac">—</div>
+                  <div class="res-hint">маржа с&nbsp;клиента × доля на&nbsp;привлечение</div>
+                </div>
+                <div class="tile">
+                  <div class="res-label">Цена клиента (CAC)</div>
+                  <div class="res-val" id="out-cac">—</div>
+                  <div class="res-hint">реклама, зарплаты и&nbsp;сервисы ÷ клиентов</div>
+                </div>
+                <div class="tile">
+                  <div class="res-label">Цена клиента только по&nbsp;рекламе (CPA)</div>
+                  <div class="res-val" id="out-cpa">—</div>
+                  <div class="res-hint">реклама ÷ клиентов</div>
+                </div>
+                <div class="tile">
+                  <div class="res-label">Выручка с&nbsp;клиента за&nbsp;год</div>
+                  <div class="res-val" id="out-yearly">—</div>
+                  <div class="res-hint">чек × покупок в&nbsp;год</div>
+                </div>
+                <div class="tile">
+                  <div class="res-label">Маржа с&nbsp;одной покупки</div>
+                  <div class="res-val" id="out-margin-check">—</div>
+                  <div class="res-hint">чек × маржа</div>
+                </div>
+                <div class="tile">
+                  <div class="res-label">Нужная конверсия из&nbsp;клика в&nbsp;клиента</div>
+                  <div class="res-val" id="out-min-conv">—</div>
+                  <div class="res-hint" id="hint-min-conv">чтобы цена клиента уложилась в&nbsp;допустимую</div>
+                </div>
+                <div class="tile">
+                  <div class="res-label">Окупаемость по&nbsp;рекламе</div>
+                  <div class="res-val" id="out-payback-cpa">—</div>
+                  <div class="res-hint" id="hint-payback-cpa">покупок до&nbsp;выхода в&nbsp;плюс</div>
+                </div>
+                <div class="tile">
+                  <div class="res-label">Окупаемость по&nbsp;всем затратам</div>
+                  <div class="res-val" id="out-payback-cac">—</div>
+                  <div class="res-hint" id="hint-payback-cac">покупок до&nbsp;выхода в&nbsp;плюс</div>
+                </div>
+                <div class="tile tile--wide">
+                  <div class="res-label">Маржа, при&nbsp;которой клиент хотя&nbsp;бы окупается</div>
+                  <div class="res-val" id="out-min-margin">—</div>
+                  <div class="res-hint">если вся маржа уйдёт на&nbsp;привлечение: CAC ÷ выручка с&nbsp;клиента</div>
+                </div>
+              </div>
+            </details>
+
+            <div class="cta-box" id="cta-box" hidden>
+              <p class="cta-box__text" id="cta-zone-text"></p>
+              <div class="cta-box__actions">
+                <a class="btn btn--accent" href="/#contact" data-modal="contact" data-goal="cta_audit_click">Заказать аудит за&nbsp;3 500 ₽</a>
+                <a class="btn btn--ghost" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener" data-goal="cta_tg_click">Разборы и&nbsp;шаблоны в&nbsp;Telegram</a>
+                <a class="btn btn--ghost js-max-link" href="#" target="_blank" rel="noopener" data-goal="cta_max_click" hidden>Канал в&nbsp;Max</a>
+              </div>
+            </div>
+
+            <button class="btn btn--next" type="button" data-go-step="2">Шаг 2: посчитать бюджет под&nbsp;цель →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 2: media plan ── -->
+      <section class="calc" id="mediaplan" aria-label="Шаг 2. Медиаплан" hidden>
+        <div class="inputs" data-step="2">
+          <div class="panel">
+            <div class="panel__title">Цель на&nbsp;месяц</div>
+            <div class="panel__sub">Считаю обратно: от&nbsp;нужного числа клиентов к&nbsp;бюджету</div>
+            <p class="prefill-note">Цифры подставлены из&nbsp;шага 1. Поменяйте цель&nbsp;— бюджет пересчитается.</p>
+            <div class="mode" role="group" aria-label="Кому продаёте">
+              <button class="mode-btn" id="btn-b2c" type="button" data-mode="b2c">Продаю людям</button>
+              <button class="mode-btn active" id="btn-b2b" type="button" data-mode="b2b">Продаю компаниям</button>
+            </div>
+
+            <div id="inputs-b2c" style="display:none;">
+              <div class="fields">
+                <div class="field"><label for="b2c-sales">Нужно продаж в&nbsp;месяц</label><input type="text" inputmode="decimal" autocomplete="off" id="b2c-sales" value="100"></div>
+                <div class="field"><label for="b2c-price">Средний чек, ₽</label><input type="text" inputmode="decimal" autocomplete="off" id="b2c-price" value="2500"></div>
+                <div class="field"><label for="b2c-conv">Конверсия из&nbsp;клика в&nbsp;покупку, %</label><input type="text" inputmode="decimal" autocomplete="off" id="b2c-conv" value="2"></div>
+                <div class="field"><label for="b2c-cpc">Цена клика, ₽</label><input type="text" inputmode="decimal" autocomplete="off" id="b2c-cpc" value="30"></div>
+                <div class="field"><label for="b2c-margin">Маржа, %</label><input type="text" inputmode="decimal" autocomplete="off" id="b2c-margin" value="40"></div>
+              </div>
+              <div class="sub-head">Другие затраты на&nbsp;привлечение, ₽/мес</div>
+              <div class="fields">
+                <div class="field"><label for="b2c-salary">Зарплаты</label><input type="text" inputmode="decimal" autocomplete="off" id="b2c-salary" value="0"></div>
+                <div class="field"><label for="b2c-tools">Сервисы</label><input type="text" inputmode="decimal" autocomplete="off" id="b2c-tools" value="0"></div>
+                <div class="field"><label for="b2c-agency">Агентство</label><input type="text" inputmode="decimal" autocomplete="off" id="b2c-agency" value="0"></div>
+              </div>
+            </div>
+
+            <div id="inputs-b2b">
+              <div class="fields">
+                <div class="field"><label for="b2b-clients">Нужно клиентов в&nbsp;месяц</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-clients" value="5"></div>
+                <div class="field"><label for="b2b-price">Средний чек, ₽</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-price" value="80000"></div>
+                <div class="field"><label for="b2b-conv-site">Из&nbsp;клика в&nbsp;заявку, %</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-conv-site" value="1"></div>
+                <div class="field"><label for="b2b-conv-call">Из&nbsp;заявки в&nbsp;разговор, %</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-conv-call" value="50"></div>
+                <div class="field"><label for="b2b-conv-kp">Из&nbsp;разговора в&nbsp;КП, %</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-conv-kp" value="50"></div>
+                <div class="field"><label for="b2b-conv-pay">Из&nbsp;КП в&nbsp;оплату, %</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-conv-pay" value="50"></div>
+                <div class="field"><label for="b2b-cpc">Цена клика, ₽</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-cpc" value="80"></div>
+                <div class="field"><label for="b2b-margin">Маржа, %</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-margin" value="40"></div>
+              </div>
+              <div class="sub-head">Другие затраты на&nbsp;привлечение, ₽/мес</div>
+              <div class="fields">
+                <div class="field"><label for="b2b-salary">Зарплаты</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-salary" value="60000"></div>
+                <div class="field"><label for="b2b-tools">Сервисы</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-tools" value="10000"></div>
+                <div class="field"><label for="b2b-agency">Агентство</label><input type="text" inputmode="decimal" autocomplete="off" id="b2b-agency" value="0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="results" aria-live="polite">
+          <div class="panel">
+            <p class="plan-summary" id="plan-summary">Заполните поля слева</p>
+            <div class="funnel-wrap" id="funnel"></div>
+            <div class="tiles">
+              <div class="tile tile--wide">
+                <div class="res-label">Бюджет на&nbsp;рекламу в&nbsp;месяц</div>
+                <div class="metric-value" id="out-budget">—</div>
+              </div>
+              <div class="tile">
+                <div class="res-label">Выручка</div>
+                <div class="metric-value" id="out-revenue">—</div>
+                <div class="res-hint">это не&nbsp;прибыль: до&nbsp;вычета себестоимости</div>
+              </div>
+              <div class="tile" id="tile-cpl">
+                <div class="res-label">Цена заявки</div>
+                <div class="metric-value" id="out-cpl">—</div>
+                <div class="res-hint">реклама ÷ заявок</div>
+              </div>
+              <div class="tile">
+                <div class="res-label">Цена клиента по&nbsp;рекламе</div>
+                <div class="metric-value" id="out-plan-cpa">—</div>
+                <div class="res-hint">только реклама</div>
+              </div>
+              <div class="tile">
+                <div class="res-label">Цена клиента со&nbsp;всеми затратами</div>
+                <div class="metric-value" id="out-plan-cac">—</div>
+                <div class="res-hint">плюс зарплаты, сервисы, агентство</div>
+              </div>
+              <div class="tile">
+                <div class="res-label">ROMI по&nbsp;марже</div>
+                <div class="metric-value" id="out-plan-romi">—</div>
+                <div class="res-hint">(маржа − реклама) ÷ реклама</div>
+              </div>
+              <div class="tile">
+                <div class="res-label">ROMI по&nbsp;всем затратам</div>
+                <div class="metric-value" id="out-romi-cac">—</div>
+                <div class="res-hint">(маржа − все затраты) ÷ все затраты</div>
+              </div>
+            </div>
+            <p class="note" id="cac-footnote" style="display:none;">* Других затрат нет, поэтому цена клиента равна цене по&nbsp;рекламе</p>
+            <p class="note">ROMI здесь только с&nbsp;первых продаж месяца. Повторные покупки учтены в&nbsp;шаге 1.</p>
+
+            <div class="cta-box" id="cta-box-2" hidden>
+              <p class="cta-box__text" id="cta2-zone-text"></p>
+              <div class="cta-box__actions">
+                <a class="btn btn--accent" href="/#contact" data-modal="contact" data-goal="cta_audit_click">Заказать аудит за&nbsp;3 500 ₽</a>
+                <a class="btn btn--ghost" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener" data-goal="cta_tg_click">Разборы и&nbsp;шаблоны в&nbsp;Telegram</a>
+                <a class="btn btn--ghost js-max-link" href="#" target="_blank" rel="noopener" data-goal="cta_max_click" hidden>Канал в&nbsp;Max</a>
+              </div>
+            </div>
+
+            <button class="btn btn--next" type="button" data-go-step="1">← Вернуться к&nbsp;юнит-экономике</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── SEO / explanation ── -->
+    <section class="explain">
+      <div class="wrap">
+        <div class="explain__grid">
+          <div class="panel">
+            <h2>Как считает калькулятор</h2>
+            <ul>
+              <li><b>Маржа с&nbsp;клиента (LTV)</b>&nbsp;= чек × покупок в&nbsp;год × лет × маржа.</li>
+              <li><b>Можно платить за&nbsp;клиента</b>&nbsp;= маржа с&nbsp;клиента × доля, которую вы готовы отдать на&nbsp;привлечение.</li>
+              <li><b>Цена клиента (CAC)</b>&nbsp;= (реклама + зарплаты + сервисы) ÷ новых клиентов за&nbsp;месяц.</li>
+              <li><b>LTV/CAC</b>&nbsp;= маржа с&nbsp;клиента ÷ CAC. Ниже 1&nbsp;— убыток, от&nbsp;3&nbsp;— есть запас для&nbsp;роста.</li>
+              <li><b>ROMI с&nbsp;первой покупки</b>&nbsp;= (маржа с&nbsp;первых покупок − реклама) ÷ реклама.</li>
+            </ul>
+            <h3>Почему от&nbsp;маржи, а&nbsp;не&nbsp;от&nbsp;выручки</h3>
+            <p>ROMI от&nbsp;выручки рисует плюс там, где бизнес теряет деньги. На&nbsp;цифрах по&nbsp;умолчанию (чек 150&nbsp;000&nbsp;₽, маржа 15%) он показал&nbsp;бы +134%, а&nbsp;по&nbsp;марже выходит −65%: каждый рубль рекламы возвращает 35&nbsp;копеек.</p>
+          </div>
+          <div class="panel">
+            <h2>Частые вопросы</h2>
+            <h3>Что такое юнит-экономика простыми словами?</h3>
+            <p>Это ответ на&nbsp;вопрос, зарабатываете&nbsp;ли вы на&nbsp;одном клиенте. Сколько маржи он приносит за&nbsp;всё время и&nbsp;сколько стоит его привлечь. Если привлечь дороже, чем он принесёт, реклама работает в&nbsp;минус, сколько&nbsp;бы заявок ни&nbsp;было.</p>
+            <h3>Какой LTV/CAC считается нормальным?</h3>
+            <p>LTV считается по&nbsp;марже, не&nbsp;по&nbsp;выручке. Ниже 1&nbsp;— каждый клиент приносит убыток. От&nbsp;1 до&nbsp;3&nbsp;— в&nbsp;плюсе, но&nbsp;запаса мало: подорожает клик, и&nbsp;уйдёте в&nbsp;минус. От&nbsp;3&nbsp;— есть запас, чтобы наращивать рекламу.</p>
+            <h3>Как посчитать юнит-экономику для&nbsp;маркетплейса?</h3>
+            <p>В&nbsp;поле маржи укажите, что остаётся с&nbsp;продажи после себестоимости, комиссии площадки, логистики и&nbsp;возвратов. В&nbsp;рекламу&nbsp;— внутреннюю рекламу площадки и&nbsp;внешний трафик. Остальное считается так&nbsp;же.</p>
+            <h3>Что делать, если юнит-экономика не&nbsp;сходится?</h3>
+            <p>Не&nbsp;наращивать рекламу: больше бюджета&nbsp;— больше убытка. Сначала поправить то, что калькулятор показывает первым: конверсию, повторные покупки, чек или маржу, постоянные затраты на&nbsp;привлечение.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div>
+          <div class="footer__name">Сергей Насыров</div>
+          <div class="footer__role">Маркетолог-практик · МСБ</div>
+        </div>
+        <nav class="footer__nav">
+          <a class="footer__nav-link" href="/">На главную</a>
+          <a class="footer__nav-link" href="/portfolio">Портфолио</a>
+          <a class="footer__nav-link" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener">Telegram</a>
+          <a class="footer__cta" href="/#contact" data-modal="contact">Написать</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">© 2026 ИП Насыров С.Д. · ОГРНИП 326366800063559 · <a class="footer__nav-link" href="/offer">Оферта</a> · <a class="footer__nav-link" href="/privacy">Политика конфиденциальности</a></div>
+    </div>
+  </footer>
+
+  <!-- Calculator engine: only reads/writes elements by id, so the test suite
+       (lead-magnets/tests/calculators.test.js) can run it in a fake DOM. -->
+  <script id="calc-engine">
+    // ===== Shared helpers =====
+    function el(id) { return document.getElementById(id); }
+    // Inputs are text fields with ru-RU grouping ("150 000", "2,5"); strip it before parsing
+    function n(id) {
+      var raw = String(el(id).value == null ? '' : el(id).value).replace(/[\s ]/g, '').replace(',', '.');
+      return parseFloat(raw) || 0;
+    }
+    function fmt(v) { return Math.round(v).toLocaleString('ru-RU') + ' ₽'; }
+    function dec(v, d) { return v.toFixed(d === undefined ? 1 : d).replace('.', ','); }
+    function fmtPct(v) { return dec(v) + '%'; }
+
+    // ===== Presets =====
+    var PRESETS = {
+      b2b:  { 'avg-check': 150000, freq: 1, lifetime: 3, margin: 15, 'mkt-share': 30, 'ad-budget': 320000, salaries: 60000, tools: 10000, 'new-clients': 5, cpc: 150, mode: 'b2b',
+              hint: 'Маржа — что остаётся с чека после себестоимости и прямых затрат на выполнение' },
+      shop: { 'avg-check': 3500, freq: 2, lifetime: 2, margin: 35, 'mkt-share': 30, 'ad-budget': 200000, salaries: 40000, tools: 10000, 'new-clients': 120, cpc: 25, mode: 'b2c',
+              hint: 'Маржа — что остаётся с чека после закупки товара, доставки и эквайринга' },
+      mp:   { 'avg-check': 1800, freq: 2, lifetime: 1, margin: 25, 'mkt-share': 30, 'ad-budget': 150000, salaries: 0, tools: 5000, 'new-clients': 300, cpc: 12, mode: 'b2c',
+              hint: 'Маржа — что остаётся с продажи после себестоимости, комиссии площадки, логистики и возвратов. В рекламу — внутреннюю рекламу площадки и внешний трафик' },
+    };
+    var CUSTOM_HINT = 'Маржа — что остаётся с чека после себестоимости и прямых затрат';
+    var UNIT_FIELDS = ['avg-check', 'freq', 'lifetime', 'margin', 'mkt-share', 'ad-budget', 'salaries', 'tools', 'new-clients', 'cpc'];
+
+    // ===== Step 1: unit economics (margin-based, from lead-magnets/fixed) =====
+    var unitState = null;     // 'good' | 'warn' | 'bad' | null when inputs are invalid
+    var unitSummary = '';     // one-line summary used to prefill the contact form
+    var unitActualConv = null;
+
+    function setVal(id, text, cls) {
+      var e = el(id);
+      e.textContent = text;
+      e.className = 'res-val' + (cls ? ' ' + cls : '');
+    }
+    function setHint(id, text) { el(id).textContent = text; }
+
+    var OUTPUT_IDS = [
+      'out-ltv', 'out-yearly', 'out-margin-ltv', 'out-max-cac', 'out-margin-check',
+      'out-cpa', 'out-cac', 'out-min-conv', 'out-min-margin',
+      'out-payback-cpa', 'out-payback-cac',
+      'out-ratio', 'out-romi', 'out-cac-vs-max', 'out-profit-per-client'
+    ];
+
+    var BADGES = { good: 'Сходится', warn: 'Запаса мало', bad: 'В минусе' };
+    var TITLES = {
+      good: 'Клиент окупается с запасом',
+      warn: 'В плюсе, но запаса почти нет',
+      bad: 'Реклама работает в минус'
+    };
+    var CTA_TEXT = {
+      bad: 'Разберу вашу рекламу и покажу, где теряются деньги. На выходе — план, что менять в первую очередь. Аудит — 3 500 ₽.',
+      warn: 'Разберу, как снизить цену клиента, пока запас не ушёл в минус. Аудит — 3 500 ₽.',
+      good: 'Разберу, куда масштабироваться, чтобы не потерять окупаемость. Аудит — 3 500 ₽.'
+    };
+
+    // Reset every output to a dash so stale numbers never survive an invalid input
+    function clearUnit() {
+      OUTPUT_IDS.forEach(function (id) { setVal(id, '—'); });
+      setHint('hint-min-conv', 'чтобы цена клиента уложилась в допустимую');
+      setHint('hint-payback-cpa', 'покупок до выхода в плюс');
+      setHint('hint-payback-cac', 'покупок до выхода в плюс');
+      setHint('hint-romi', '(маржа с первых покупок − реклама) ÷ реклама');
+      var v = el('verdict');
+      v.style.display = 'none';
+      v.className = 'verdict';
+      v.textContent = '';
+      el('verdict-card').className = 'verdict-card';
+      el('verdict-badge').textContent = 'Итог';
+      el('verdict-title').textContent = 'Заполните все поля: числа больше нуля, проценты до 100';
+      el('lever-box').style.display = 'none';
+      el('verdict-lever').textContent = '';
+      el('cta-zone-text').textContent = '';
+      el('cta-box').hidden = true;
+      unitState = null;
+      unitSummary = '';
+      unitActualConv = null;
+    }
+
+    function purchasesWord(x) {
+      return x < 1 ? '< 1 покупки' : dec(x) + ' покупок';
+    }
+
+    // Pick one lever. Conversion is offered when the needed lift is realistic (up to 2x);
+    // otherwise the gap has to be closed on the revenue side (repeat purchases, check, margin).
+    function pickLever(f) {
+      if (f.state === 'good') {
+        return 'Можно поднимать рекламный бюджет шагами по 20–30% в месяц. Следите, чтобы клиент не стал дороже ' +
+          fmt(f.maxCac) + ' — это ваш потолок.';
+      }
+      // Target: within the ceiling and LTV/CAC at least 3
+      var targetCac = Math.min(f.maxCac, f.marginLtv / 3);
+      var adRoom = targetCac - f.overheadPerClient;
+      if (adRoom <= 0) {
+        return 'Зарплаты и сервисы на одного клиента (' + fmt(f.overheadPerClient) + ') уже больше, чем можно платить за клиента (' +
+          fmt(targetCac) + '). Реклама тут не поможет: нужно больше клиентов при той же команде или дешевле команда и сервисы.';
+      }
+      var ltvFactor = f.cac / targetCac;
+      var needConvT = f.cpc > 0 ? (f.cpc / adRoom) * 100 : null;
+      var convFactor = needConvT !== null && f.actualConv ? needConvT / f.actualConv : Infinity;
+      if (convFactor <= 2) {
+        return 'Поднимите конверсию из клика в клиента с ' + fmtPct(f.actualConv) + ' до ' + fmtPct(needConvT) +
+          ': посадочная, предложение, скорость ответа на заявку. Тогда клиент уложится в ' + fmt(targetCac) + '.';
+      }
+      return 'Поднимите маржу с одного клиента в ' + dec(ltvFactor) + ' раза: повторные покупки, допродажи, чек выше или маржа выше. ' +
+        'Сейчас она ' + fmt(f.marginLtv) + ', при нынешней цене клиента нужно от ' + fmt(f.marginLtv * ltvFactor) + '.';
+    }
+
+    function calcUnit() {
+      var avgCheck = n('avg-check');
+      var freq     = n('freq');
+      var lifetime = n('lifetime');
+      var margin   = n('margin');
+      var mktShare = n('mkt-share');
+      var adBudget = n('ad-budget');
+      var salaries = n('salaries');
+      var tools    = n('tools');
+      var clients  = n('new-clients');
+      var cpc      = n('cpc');
+
+      var invalid =
+        avgCheck <= 0 || freq <= 0 || lifetime <= 0 || clients <= 0 ||
+        margin <= 0 || margin > 100 || mktShare < 0 || mktShare > 100 ||
+        adBudget < 0 || salaries < 0 || tools < 0 || cpc < 0 ||
+        adBudget + salaries + tools <= 0;
+      if (invalid) { clearUnit(); return; }
+
+      var ltv         = avgCheck * freq * lifetime;
+      var yearly      = avgCheck * freq;
+      var marginLtv   = ltv * (margin / 100);
+      var maxCac      = marginLtv * (mktShare / 100);
+      var marginCheck = avgCheck * (margin / 100);
+      var purchases   = freq * lifetime;
+
+      var totalCost = adBudget + salaries + tools;
+      var cpa       = adBudget / clients;
+      var cac       = totalCost / clients;
+      var minMargin = (cac / ltv) * 100;
+
+      // Conversion needed so that CAC fits the allowed ceiling:
+      // ad money left per client = allowed CAC - non-ad costs per client; conv = CPC / that
+      var overheadPerClient = (salaries + tools) / clients;
+      var adRoomPerClient   = maxCac - overheadPerClient;
+      var needConv   = cpc > 0 && adRoomPerClient > 0 ? (cpc / adRoomPerClient) * 100 : null;
+      var actualConv = cpc > 0 && adBudget > 0 ? (clients / (adBudget / cpc)) * 100 : null;
+
+      var paybackCpa = cpa / marginCheck;
+      var paybackCac = cac / marginCheck;
+
+      var ratio = marginLtv / cac;
+      var profitPerClient = marginLtv - cac;
+      var firstMargin = clients * marginCheck;
+      var romi = adBudget > 0 ? ((firstMargin - adBudget) / adBudget) * 100 : null;
+      var mktSpentPct = (cac / marginLtv) * 100;
+
+      // Three states, every tile is colored from the same facts
+      var profitable = profitPerClient > 0;
+      var withinCeiling = cac <= maxCac;
+      var state = !profitable ? 'bad' : (withinCeiling && ratio >= 3) ? 'good' : 'warn';
+
+      setVal('out-ltv', fmt(ltv));
+      setVal('out-yearly', fmt(yearly));
+      setVal('out-margin-ltv', fmt(marginLtv));
+      setVal('out-max-cac', fmt(maxCac));
+      setVal('out-margin-check', fmt(marginCheck));
+
+      // CAC tile: green under ceiling, orange above ceiling but still profitable, red when losing
+      var cacCls = !profitable ? 'bad' : !withinCeiling ? 'warn' : cac > maxCac * 0.8 ? 'warn' : 'good';
+      setVal('out-cpa', fmt(cpa));
+      setVal('out-cac', fmt(cac), cacCls);
+
+      if (cpc <= 0) {
+        setVal('out-min-conv', '—');
+        setHint('hint-min-conv', 'укажите цену клика');
+      } else if (needConv === null) {
+        setVal('out-min-conv', 'недостижимо', 'bad');
+        setHint('hint-min-conv', 'зарплаты и сервисы на клиента уже выше допустимой цены клиента');
+      } else {
+        var convOk = actualConv !== null && actualConv >= needConv;
+        setVal('out-min-conv', fmtPct(needConv) + (needConv > 100 ? ' — недостижимо' : ''),
+          convOk ? 'good' : profitable ? 'warn' : 'bad');
+        setHint('hint-min-conv', 'чтобы цена клиента уложилась в допустимую' +
+          (actualConv !== null ? '; сейчас ' + fmtPct(actualConv) : ''));
+      }
+      setVal('out-min-margin', fmtPct(minMargin));
+
+      // Payback is compared with the number of purchases over the client lifetime
+      var pbCacText = purchasesWord(paybackCac);
+      var pbCls = function (x) { return x <= 1 ? 'good' : x < purchases ? 'warn' : 'bad'; };
+      var pbHint = 'покупок до выхода в плюс, за жизнь клиента ' + dec(purchases);
+      setVal('out-payback-cpa', purchasesWord(paybackCpa), pbCls(paybackCpa));
+      setVal('out-payback-cac', pbCacText, pbCls(paybackCac));
+      setHint('hint-payback-cpa', pbHint);
+      setHint('hint-payback-cac', pbHint);
+
+      setVal('out-ratio', dec(ratio) + 'x', ratio >= 3 ? 'good' : ratio >= 1 ? 'warn' : 'bad');
+      if (romi === null) {
+        setVal('out-romi', '—');
+      } else {
+        // Negative first-purchase ROMI is only a warning if repeat purchases still make the client profitable
+        setVal('out-romi', (romi > 0 ? '+' : '') + fmtPct(romi), romi >= 0 ? 'good' : profitable ? 'warn' : 'bad');
+        setHint('hint-romi', romi >= 0
+          ? 'реклама окупается уже с первой покупки'
+          : profitable ? 'с первой покупки в минусе, окупается на повторных'
+                       : 'не окупается ни с первой покупки, ни за всё время');
+      }
+      setVal('out-cac-vs-max', fmt(cac) + ' / ' + fmt(maxCac), cacCls);
+      setVal('out-profit-per-client', (profitPerClient > 0 ? '+' : '') + fmt(profitPerClient),
+        profitable ? 'good' : 'bad');
+
+      // Verdict
+      var v = el('verdict');
+      v.style.display = '';
+      v.className = 'verdict ' + state;
+      if (state === 'good') {
+        v.textContent = 'Вы зарабатываете ' + fmt(profitPerClient) +
+          ' на клиенте: маржа с клиента перекрывает его цену в ' + dec(ratio) +
+          ' раза, клиент окупается за ' + pbCacText + '.';
+      } else if (state === 'warn') {
+        var reason = !withinCeiling
+          ? 'но на привлечение уходит ' + Math.round(mktSpentPct) + '% маржи вместо ' +
+            Math.round(mktShare) + '%. Клиент стоит ' + fmt(cac) + ', это выше допустимого (' + fmt(maxCac) + ')'
+          : 'но LTV/CAC = ' + dec(ratio) + 'x, ниже нормы 3';
+        v.textContent = 'Вы зарабатываете ' + fmt(profitPerClient) + ' на клиенте, ' + reason +
+          '. Подорожает клик — уйдёте в минус.';
+      } else {
+        var lossText = profitPerClient === 0
+          ? 'Каждый клиент выходит в ноль: '
+          : 'На каждом клиенте вы теряете ' + fmt(-profitPerClient) + ': ';
+        v.textContent = lossText + 'клиент стоит ' + fmt(cac) +
+          ', а маржи за всё время приносит ' + fmt(marginLtv) + '. Больше бюджета — больше убытка.';
+      }
+
+      el('verdict-card').className = 'verdict-card ' + state;
+      el('verdict-badge').textContent = BADGES[state];
+      el('verdict-title').textContent = TITLES[state];
+      el('verdict-lever').textContent = pickLever({
+        state: state, maxCac: maxCac, marginLtv: marginLtv, cac: cac, cpc: cpc,
+        overheadPerClient: overheadPerClient, actualConv: actualConv
+      });
+      el('lever-box').style.display = '';
+      el('cta-zone-text').textContent = CTA_TEXT[state];
+      el('cta-box').hidden = false;
+
+      unitState = state;
+      unitActualConv = actualConv;
+      unitSummary = 'Из калькулятора: прибыль с клиента ' + (profitPerClient > 0 ? '+' : '') + fmt(profitPerClient) +
+        ', клиент стоит ' + fmt(cac) + ' при допустимых ' + fmt(maxCac) + ', LTV/CAC ' + dec(ratio) + 'x.';
+    }
+
+    // ===== Step 2: media plan (margin-based, from lead-magnets/fixed) =====
+    var mode = 'b2b';
+    var planDirty = {};   // step-2 fields the user typed into; prefill leaves them alone
+
+    function setMode(m) {
+      mode = m;
+      el('inputs-b2c').style.display = m === 'b2c' ? '' : 'none';
+      el('inputs-b2b').style.display = m === 'b2b' ? '' : 'none';
+      el('btn-b2c').className = 'mode-btn' + (m === 'b2c' ? ' active' : '');
+      el('btn-b2b').className = 'mode-btn' + (m === 'b2b' ? ' active' : '');
+      calcPlan();
+    }
+
+    function markPlanDirty(id) { planDirty[id] = true; }
+
+    function put(id, v, digits) {
+      if (planDirty[id] || v === null || !isFinite(v)) return;
+      var k = Math.pow(10, digits || 2);
+      el(id).value = String(Math.round(v * k) / k);
+    }
+
+    // Copy shared numbers from step 1 so step 2 starts from the current situation:
+    // with the prefilled conversion, the step-2 budget equals the step-1 ad budget.
+    function prefillPlan() {
+      if (unitState === null) return;
+      var clients = n('new-clients'), check = n('avg-check'), cpc = n('cpc'), margin = n('margin');
+      var sal = n('salaries'), tools = n('tools');
+      put('b2c-sales', clients); put('b2c-price', check); put('b2c-cpc', cpc); put('b2c-margin', margin);
+      put('b2c-salary', sal); put('b2c-tools', tools);
+      put('b2b-clients', clients); put('b2b-price', check); put('b2b-cpc', cpc); put('b2b-margin', margin);
+      put('b2b-salary', sal); put('b2b-tools', tools);
+      if (unitActualConv !== null && unitActualConv > 0 && unitActualConv <= 100) {
+        put('b2c-conv', unitActualConv, 6);
+        // B2B: keep the later funnel steps, solve the first one so the overall rate matches
+        var rest = (n('b2b-conv-call') / 100) * (n('b2b-conv-kp') / 100) * (n('b2b-conv-pay') / 100);
+        if (rest > 0) {
+          var site = unitActualConv / rest;
+          if (site > 0 && site <= 100) put('b2b-conv-site', site, 6);
+        }
+      }
+    }
+
+    function renderFunnel(steps) {
+      var max = steps[0].value;
+      var html = '';
+      steps.forEach(function (s) {
+        var pct = Math.max(Math.round((s.value / max) * 1000) / 10, 1.5);
+        html += '<div class="funnel-row"><div class="funnel-label">' + s.label + '</div>' +
+          '<div class="funnel-bar-wrap"><div class="funnel-bar" style="width:' + pct + '%"></div></div>' +
+          '<div class="funnel-val">' + Math.round(s.value).toLocaleString('ru-RU') + '</div></div>';
+      });
+      el('funnel').innerHTML = html;
+    }
+
+    function setMetric(id, text, colorClass) {
+      var e = el(id);
+      e.textContent = text;
+      e.className = 'metric-value' + (colorClass ? ' ' + colorClass : '');
+    }
+
+    var METRIC_IDS = ['out-budget', 'out-revenue', 'out-cpl', 'out-plan-cpa', 'out-plan-cac', 'out-plan-romi', 'out-romi-cac'];
+    var planState = null;
+
+    function clearPlan() {
+      el('funnel').innerHTML = '';
+      METRIC_IDS.forEach(function (id) { setMetric(id, '—'); });
+      el('cac-footnote').style.display = 'none';
+      el('plan-summary').textContent = 'Заполните все поля: числа больше нуля, проценты до 100';
+      el('cta2-zone-text').textContent = '';
+      el('cta-box-2').hidden = true;
+      planState = null;
+    }
+
+    function badPct(p) { return p <= 0 || p > 100; }
+
+    function calcPlan() {
+      var budget, revenue, units, extra, margin, visitors, leads = null;
+
+      if (mode === 'b2c') {
+        var sales = n('b2c-sales'), price = n('b2c-price');
+        var conv = n('b2c-conv'), cpc = n('b2c-cpc');
+        margin = n('b2c-margin');
+        if (sales <= 0 || price <= 0 || cpc <= 0 || badPct(conv) || badPct(margin)) { clearPlan(); return; }
+        visitors = sales / (conv / 100);
+        budget  = visitors * cpc;
+        revenue = sales * price;
+        units   = sales;
+        renderFunnel([
+          { label: 'Переходы', value: visitors },
+          { label: 'Покупки',  value: sales },
+        ]);
+        extra = n('b2c-salary') + n('b2c-tools') + n('b2c-agency');
+      } else {
+        var clients = n('b2b-clients'), priceB = n('b2b-price');
+        var cS = n('b2b-conv-site'), cC = n('b2b-conv-call');
+        var cK = n('b2b-conv-kp'),   cP = n('b2b-conv-pay');
+        var cpcB = n('b2b-cpc');
+        margin = n('b2b-margin');
+        if (clients <= 0 || priceB <= 0 || cpcB <= 0 || badPct(margin) ||
+            badPct(cS) || badPct(cC) || badPct(cK) || badPct(cP)) { clearPlan(); return; }
+        var kp    = clients / (cP / 100);
+        var calls = kp      / (cK / 100);
+        leads     = calls   / (cC / 100);
+        visitors  = leads   / (cS / 100);
+        budget  = visitors * cpcB;
+        revenue = clients * priceB;
+        units   = clients;
+        renderFunnel([
+          { label: 'Переходы',  value: visitors },
+          { label: 'Заявки',    value: leads },
+          { label: 'Разговоры', value: calls },
+          { label: 'КП',        value: kp },
+          { label: 'Клиенты',   value: clients },
+        ]);
+        extra = n('b2b-salary') + n('b2b-tools') + n('b2b-agency');
+      }
+
+      var cpa = budget / units;
+      var totalCost = budget + extra;
+      var cac = totalCost / units;
+      // ROMI is margin-based: gross margin from the sales, not revenue
+      var grossMargin = revenue * (margin / 100);
+      var romi    = ((grossMargin - budget) / budget) * 100;
+      var romiCac = ((grossMargin - totalCost) / totalCost) * 100;
+
+      setMetric('out-budget', fmt(budget));
+      setMetric('out-revenue', fmt(revenue));
+      setMetric('out-cpl', leads ? fmt(budget / leads) : '—');
+      el('tile-cpl').style.display = leads ? '' : 'none';
+      setMetric('out-plan-cpa', fmt(cpa));
+      setMetric('out-plan-cac', extra > 0 ? fmt(cac) : fmt(cpa) + ' *');
+      el('cac-footnote').style.display = extra > 0 ? 'none' : '';
+      setMetric('out-plan-romi', Math.round(romi) + '%', romi >= 0 ? 'positive' : 'negative');
+      setMetric('out-romi-cac', Math.round(romiCac) + '%', romiCac >= 0 ? 'positive' : 'negative');
+
+      var unitWord = mode === 'b2c' ? 'продаж' : 'клиентов';
+      var summary = 'Чтобы получить ' + Math.round(units).toLocaleString('ru-RU') + ' ' + unitWord + ' в месяц, нужно около ' +
+        Math.round(visitors).toLocaleString('ru-RU') + ' переходов и ' + fmt(budget) + ' на рекламу. ';
+      summary += romiCac >= 0
+        ? 'Маржа с первых продаж (' + fmt(grossMargin) + ') покрывает все затраты на привлечение.'
+        : 'Маржа с первых продаж (' + fmt(grossMargin) + ') меньше затрат на привлечение (' + fmt(totalCost) +
+          '): план держится только на повторных покупках.';
+      el('plan-summary').textContent = summary;
+
+      planState = romiCac >= 0 ? 'good' : 'bad';
+      el('cta2-zone-text').textContent = planState === 'good'
+        ? 'Разберу медиаплан до запуска, чтобы цифры выдержали реальность. Аудит — 3 500 ₽.'
+        : 'План в минусе с первых продаж. Разберу, что поменять в воронке до запуска. Аудит — 3 500 ₽.';
+      el('cta-box-2').hidden = false;
+    }
+
+    // Apply a business-type preset to step 1 and re-sync step 2 from it
+    function applyPreset(key) {
+      var p = PRESETS[key];
+      if (p) {
+        UNIT_FIELDS.forEach(function (id) { el(id).value = String(p[id]); });
+        el('hint-margin').textContent = p.hint;
+        planDirty = {};
+        mode = p.mode;
+      } else {
+        el('hint-margin').textContent = CUSTOM_HINT;
+      }
+      calcUnit();
+      prefillPlan();
+      setMode(mode);
+    }
+
+    calcUnit();
+    prefillPlan();
+    calcPlan();
+  </script>
+
+  <script>
+    // ── Calculator UI: input formatting, presets, steps, Metrika goals ──
+    (function () {
+      var METRIKA_ID = 110507843;
+      // Max channel; the buttons stay hidden whenever this is empty
+      var MAX_CHANNEL_URL = 'https://max.ru/id360206536641_biz';
+
+      // Goals must never break the page: Metrika is absent until cookie consent
+      var sentOnce = {};
+      function goal(name, params, once) {
+        if (once) { if (sentOnce[name]) return; sentOnce[name] = true; }
+        try {
+          if (typeof window.ym === 'function') window.ym(METRIKA_ID, 'reachGoal', name, params || {});
+        } catch (e) { /* analytics is optional */ }
+      }
+
+      if (MAX_CHANNEL_URL) {
+        document.querySelectorAll('.js-max-link').forEach(function (a) { a.href = MAX_CHANNEL_URL; a.hidden = false; });
+      }
+
+      // ru-RU grouping in inputs on blur; the engine strips it when parsing
+      function formatInput(input) {
+        var raw = String(input.value).replace(/[\s ]/g, '').replace(',', '.');
+        if (raw === '' || isNaN(Number(raw))) return;
+        var num = Number(raw);
+        input.value = num.toLocaleString('ru-RU', { maximumFractionDigits: 6 });
+      }
+      function formatAll(scope) {
+        document.querySelectorAll(scope + ' input').forEach(function (i) {
+          if (i !== document.activeElement) formatInput(i);
+        });
+      }
+
+      var activePreset = 'b2b';
+      function setActiveChip(key) {
+        activePreset = key;
+        document.querySelectorAll('[data-preset]').forEach(function (c) {
+          c.classList.toggle('is-active', c.getAttribute('data-preset') === key);
+        });
+      }
+
+      // calc_complete: a valid result that stayed unchanged for 2 s after the user's last edit
+      var completeTimer = null;
+      function userChanged() {
+        goal('calc_start', { preset: activePreset }, true);
+        clearTimeout(completeTimer);
+        completeTimer = setTimeout(function () {
+          if (unitState) goal('calc_complete', { zone: unitState, preset: activePreset }, true);
+        }, 2000);
+      }
+
+      document.querySelectorAll('[data-step="1"] input').forEach(function (input) {
+        input.addEventListener('input', function () {
+          if (activePreset !== 'custom') { setActiveChip('custom'); el('hint-margin').textContent = CUSTOM_HINT; }
+          calcUnit(); prefillPlan(); calcPlan();
+          formatAll('[data-step="2"]');
+          userChanged();
+        });
+        input.addEventListener('blur', function () { formatInput(input); });
+      });
+      document.querySelectorAll('[data-step="2"] input').forEach(function (input) {
+        input.addEventListener('input', function () { markPlanDirty(input.id); calcPlan(); userChanged(); });
+        input.addEventListener('blur', function () { formatInput(input); });
+      });
+      document.querySelectorAll('[data-mode]').forEach(function (b) {
+        b.addEventListener('click', function () { setMode(b.getAttribute('data-mode')); });
+      });
+
+      document.querySelectorAll('[data-preset]').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var key = chip.getAttribute('data-preset');
+          setActiveChip(key);
+          applyPreset(key);
+          formatAll('.calc');
+          userChanged();
+          if (key === 'custom') el('avg-check').focus();
+        });
+      });
+
+      // Steps
+      function showStep(s, scroll) {
+        el('step1').hidden = s !== 1;
+        el('mediaplan').hidden = s !== 2;
+        document.querySelectorAll('[data-step-tab]').forEach(function (t) {
+          var on = t.getAttribute('data-step-tab') === String(s);
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        if (s === 2) goal('calc_step2', { zone: unitState || 'none', preset: activePreset }, true);
+        if (scroll) document.querySelector('.steps').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      document.querySelectorAll('[data-step-tab]').forEach(function (t) {
+        t.addEventListener('click', function () { showStep(Number(t.getAttribute('data-step-tab')), false); });
+      });
+      document.querySelectorAll('[data-go-step]').forEach(function (b) {
+        b.addEventListener('click', function () { showStep(Number(b.getAttribute('data-go-step')), true); });
+      });
+      if (location.hash === '#mediaplan') showStep(2, false);
+
+      // Desktop: show all metrics by default; mobile keeps them folded under the verdict
+      if (window.matchMedia('(min-width: 901px)').matches) el('more-details').open = true;
+
+      // CTA goals; the audit button also pre-fills the task field with the result
+      document.querySelectorAll('[data-goal]').forEach(function (a) {
+        a.addEventListener('click', function () {
+          var name = a.getAttribute('data-goal');
+          goal(name, { zone: unitState || 'none', step: el('mediaplan').hidden ? 1 : 2 });
+          if (name === 'cta_audit_click') {
+            var task = document.getElementById('modal-task');
+            if (task && !task.value.trim()) task.value = 'Хочу аудит за 3 500 ₽. ' + unitSummary;
+          }
+        });
+      });
+
+      formatAll('.calc');
+    })();
+  </script>
+
+  <div class="modal" id="modal-contact">
+    <div class="modal__inner">
+      <button class="modal__close" onclick="closeContactModal()" aria-label="Закрыть">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <h2 class="modal__title">Давайте обсудим вашу задачу</h2>
+      <p class="modal__sub">Напишите — отвечу в&nbsp;течение рабочего дня</p>
+      <form id="form-contact-modal" onsubmit="handleSubmit(event, this)" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="modal-name">Как&nbsp;вас зовут?</label>
+          <input class="form-input" type="text" id="modal-name" name="name" placeholder="Иван Петров">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modal-task">Какая у&nbsp;вас задача?</label>
+          <textarea class="form-textarea" id="modal-task" name="task" rows="4" placeholder="Расскажите в двух словах…"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modal-contact-field">Как&nbsp;с&nbsp;вами связаться?</label>
+          <input class="form-input" type="text" id="modal-contact-field" name="contact" placeholder="Телефон, email или ссылка на соцсеть">
+        </div>
+        <div class="form-group">
+          <label class="form-checkbox-wrap">
+            <input type="checkbox" class="consent-checkbox">
+            <span class="form-checkbox-box">
+              <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                <path d="M1 4L3.5 6.5L9 1" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="form-checkbox-text">
+              Соглашаюсь на сбор и&nbsp;обработку персональных данных по <a href="/privacy">политике конфиденциальности</a>
+            </span>
+          </label>
+        </div>
+        <button class="btn-submit" type="submit">Отправить</button>
+      </form>
+      <div class="form-success" id="success-modal">
+        <div class="form-success__icon">✓</div>
+        <h3>Заявка отправлена</h3>
+        <p>Отвечу в&nbsp;течение рабочего дня</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-banner__text">
+      Мы используем cookie для&nbsp;аналитики и&nbsp;улучшения сайта. Подробнее — в <a href="/privacy#analytics">политике конфиденциальности</a>.
+    </div>
+    <div class="cookie-banner__actions">
+      <button class="cookie-banner__btn cookie-banner__btn--decline" id="cookieDecline" type="button">Отклонить</button>
+      <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept" type="button">Принять</button>
+    </div>
+  </div>
+
+  <script>
+    function openContactModal() {
+      document.getElementById('modal-contact').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeContactModal() {
+      document.getElementById('modal-contact').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('modal-contact').addEventListener('click', function(e) {
+      if (e.target === this) closeContactModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeContactModal();
+    });
+    document.querySelectorAll('[data-modal="contact"]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        openContactModal();
+      });
+    });
+    function showFormSuccess(formEl) {
+      formEl.style.display = 'none';
+      document.getElementById('success-modal').style.display = 'block';
+    }
+    async function submitContactForm(formEl) {
+      const data = new FormData(formEl);
+      const name = data.get('name') || '—';
+      const task = data.get('task') || '—';
+      const contact = data.get('contact') || '—';
+      try {
+        await fetch('/.netlify/functions/send-lead', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({name, task, contact})
+        });
+      } catch (e) {}
+      showFormSuccess(formEl);
+    }
+    function handleSubmit(e, formEl) {
+      e.preventDefault();
+      const data = new FormData(formEl);
+      const empty = ['name','task','contact'].some(f => !(data.get(f)||'').trim());
+      const consent = formEl.querySelector('.consent-checkbox').checked;
+      let errEl = formEl.querySelector('.form-error');
+      if (!errEl) {
+        errEl = document.createElement('p');
+        errEl.className = 'form-error';
+        errEl.style.cssText = 'color:#e53935;font-size:13px;margin-bottom:12px;margin-top:-8px;font-weight:600;';
+        formEl.querySelector('.btn-submit').before(errEl);
+      }
+      if (empty || !consent) {
+        formEl.querySelectorAll('.form-input,.form-textarea').forEach(el => {
+          el.style.borderColor = el.value.trim() ? '' : '#e53935';
+        });
+        if (!consent) formEl.querySelector('.form-checkbox-box').style.borderColor = '#e53935';
+        errEl.textContent = !consent ? 'Подтвердите согласие на обработку данных' : 'Заполните все поля';
+        return;
+      }
+      errEl.textContent = '';
+      submitContactForm(formEl);
+    }
+  </script>
+
+  <script>
+    // ── Cookie consent + gated analytics ──
+    var YANDEX_METRIKA_ID = 110507843;
+    function loadYandexMetrika() {
+      if (!YANDEX_METRIKA_ID) return;
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + YANDEX_METRIKA_ID, 'ym');
+      window.ym(YANDEX_METRIKA_ID, 'init', {
+        ssr: true, webvisor: true, clickmap: true, ecommerce: 'dataLayer',
+        referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true,
+      });
+    }
+    var CONSENT_KEY = 'cookie_consent';
+    var cookieBanner = document.getElementById('cookieBanner');
+    var savedConsent = localStorage.getItem(CONSENT_KEY);
+    if (savedConsent === 'accepted') {
+      loadYandexMetrika();
+    } else if (savedConsent !== 'declined') {
+      requestAnimationFrame(function () { cookieBanner.classList.add('is-visible'); });
+    }
+    document.getElementById('cookieAccept').addEventListener('click', function () {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      cookieBanner.classList.remove('is-visible');
+      loadYandexMetrika();
+    });
+    document.getElementById('cookieDecline').addEventListener('click', function () {
+      localStorage.setItem(CONSENT_KEY, 'declined');
+      cookieBanner.classList.remove('is-visible');
+    });
+  </script>
+</body>
+</html>
