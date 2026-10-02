@@ -201,6 +201,21 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: 'Invalid JSON' };
   }
 
+  // Reject empty submissions before touching storage. The site's forms send
+  // { name, task, contact } and substitute '—' for blank fields client-side,
+  // so a dash-only value counts as empty. A contact is the one field a lead
+  // is useless without.
+  const isBlank = (v) => typeof v !== 'string' || /^[\s—–-]*$/.test(v);
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return { statusCode: 400, body: 'Empty payload' };
+  }
+  if (['name', 'task', 'contact'].every((f) => isBlank(payload[f]))) {
+    return { statusCode: 400, body: 'Empty payload' };
+  }
+  if (isBlank(payload.contact)) {
+    return { statusCode: 400, body: 'Contact is required' };
+  }
+
   const clean = (v) => String(v ?? '—').slice(0, 500).trim() || '—';
   const name = clean(payload.name);
   const task = clean(payload.task);
