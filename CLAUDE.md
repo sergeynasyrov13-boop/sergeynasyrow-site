@@ -227,7 +227,7 @@ Mac, manually scp'd. Verify both sides after changing anything.
 ## Open items
 - [ ] **Branch `calc-wave2`** (calculator `/calc`, homepage links to it, send-lead
       validation) — review, merge to main, deploy to the VPS. Then create JS-event goals in
-      Metrika: `calc_start`, `calc_step2`, `calc_complete`, `cta_audit_click`,
+      Metrika: `calc_start`, `calc_budget_view`, `calc_complete`, `cta_audit_click`,
       `cta_tg_click`, `cta_max_click` — the page fires them, but Metrika ignores goals that
       don't exist in the counter. Add `/calc` to Webmaster re-crawl.
 - [ ] **Only 1 of 9 pages is indexed by Yandex.** The real SEO problem. Crawl-by-counter
@@ -432,3 +432,14 @@ local branch only — not pushed (push to main auto-deploys Netlify) and not on 
 - `send-lead.js`: 400 on empty payload / blank contact; everything else unchanged.
 - `sitemap.xml`: `/calc` added.
 
+## 2026-10-02 — /calc reworked into one flow (branch `calc-wave2`, not deployed)
+After a client-perspective review: tabs replaced by five numbered blocks down the page
+(business → acquisition spend → verdict → budget for N clients → what next); verdict sticks
+in the right column on desktop, a bottom bar carries the result on mobile until block 3.
+Three main tiles, the rest folded; jargon only in small print. «Что сделать первым» is now
+one step with a number: repeat purchases, conversion or fixed acquisition costs, each solved
+for break-even (losing) or the allowed client price (thin), weighted by what is realistic
+(conversion ×2, the other two ±50%), smallest change wins. Seven presets with illustrative
+numbers and different verdicts. Goal `calc_step2` replaced by `calc_budget_view`. The
+"header mid-page" seen in old full-page screenshots was a capture artifact (full-page
+capture renders sticky elements at the scroll position); real scrolling keeps it on top.
