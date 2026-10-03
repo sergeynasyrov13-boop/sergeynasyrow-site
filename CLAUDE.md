@@ -58,8 +58,7 @@ privacy.html         — personal data processing policy, served at /privacy
 resume.html          — CV page, served at /resume (has its own copy of the lead form)
 portfolio.html       — portfolio index, served at /portfolio (also has the lead form)
 portfolio/           — four managerial case pages
-calc.html           — unit-economics → media-plan calculator, served at /calc
-                      (branch `calc-wave2`, not merged or deployed yet)
+calc.html           — unit-economics → media-plan calculator, served at /calc (live)
   engagement.html, finance_model.html, low_season.html, no_cases.html
 sitemap.xml, robots.txt, favicon.ico, yandex_bbc7087061df6826.html
 blocks/             — individual Tilda Zero-block HTML files (reference; don't edit)
@@ -74,10 +73,9 @@ assets/
   avatar.webp       — actual deployed hero image (94KB, resized from the 2.4MB png)
   fonts/*.woff2     — self-hosted Montserrat (see Conventions)
 ```
-**Nine HTML pages carry analytics/legal markup, not five** — `index`, `offer`, `privacy`,
-`resume`, `portfolio` and the four `portfolio/*` case pages (ten once `calc.html` from
-branch `calc-wave2` is merged). Any change to a `<head>` tag
-(counters, verification, icons) has to hit all nine; grep before assuming.
+**Ten HTML pages carry analytics/legal markup** — `index`, `offer`, `privacy`, `resume`,
+`portfolio`, the four `portfolio/*` case pages and `calc`. Any change to a `<head>` tag
+(counters, verification, icons) has to hit all ten; grep before assuming.
 
 Netlify serves clean paths (`/offer`, `/privacy`) for matching `.html` files automatically.
 
@@ -116,7 +114,7 @@ Netlify serves clean paths (`/offer`, `/privacy`) for matching `.html` files aut
 
 The consent checkbox is mandatory; submission is blocked without it. Server-side,
 `send-lead.js` returns 400 for an empty payload or a blank `contact` (the forms send `'—'`
-for blank fields, so a dash-only value counts as blank) — on branch `calc-wave2`. Copies of the form
+for blank fields, so a dash-only value counts as blank). Copies of the form
 live in `index.html` (twice — modal and inline), `resume.html` and `portfolio.html`.
 
 Backend, RF-only by design — `POST /.netlify/functions/send-lead`:
@@ -225,11 +223,8 @@ Mac, manually scp'd. Verify both sides after changing anything.
   filling a `docker run` with their own env vars) — that's fine.
 
 ## Open items
-- [ ] **Branch `calc-wave2`** (calculator `/calc`, homepage links to it, send-lead
-      validation) — review, merge to main, deploy to the VPS. Then create JS-event goals in
-      Metrika: `calc_start`, `calc_budget_view`, `calc_complete`, `cta_audit_click`,
-      `cta_tg_click`, `cta_max_click` — the page fires them, but Metrika ignores goals that
-      don't exist in the counter. Add `/calc` to Webmaster re-crawl.
+- [ ] **/calc funnel review** around 2026-10-27: Metrika goals calc_start → calc_complete →
+      cta_tg_click / cta_max_click / calc_pdf; decide on gating by these numbers.
 - [ ] **Only 1 of 9 pages is indexed by Yandex.** The real SEO problem. Crawl-by-counter
       helps only as fast as traffic arrives (3 visits/week). Инструменты → Переобход
       страниц with all nine URLs is more direct.
@@ -465,3 +460,6 @@ is also built on `beforeprint`, so Ctrl+P gives the same layout. `document.title
 verdict, first step, three main numbers, all indicators; page 2 — block 4 and the channel
 footer. Goal `calc_pdf` fires through the guarded helper — it still has to be created in
 Metrika 110507843 after deploy.
+
+## 2026-10-03 — PDF export deployed
+`calc-pdf` merged into `main` (ee8ee65) and deployed; long decimals in prefilled fields are rounded to 2 places on print only (502606e). Rollback image `sns:prev-calc-nopdf`. Metrika goal `calc_pdf` created (668389450).
