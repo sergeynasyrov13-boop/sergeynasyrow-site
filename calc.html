@@ -1494,7 +1494,15 @@
         var l = document.querySelector('label[for="' + id + '"]');
         return l ? l.textContent.replace(/ /g, ' ').replace(/\s+/g, ' ').trim() : id;
       }
-      function valOf(id) { var e = el(id); return e ? String(e.value).trim() || '—' : '—'; }
+      function valOf(id) {
+        var e = el(id);
+        var v = e ? String(e.value).trim() : '';
+        if (!v) return '—';
+        // Prefilled fields keep 6 decimals so block 4 matches block 2 exactly; print rounds to 2.
+        var m = v.match(/^(-?\d+)[.,](\d{3,})$/);
+        if (m) return (Math.round(parseFloat(m[1] + '.' + m[2]) * 100) / 100).toString().replace('.', ',');
+        return v;
+      }
       function node(tag, cls, text) {
         var e = document.createElement(tag);
         if (cls) e.className = cls;
