@@ -454,3 +454,14 @@ contact modal and firing `cta_audit_click`. Nav CTA on this page points to block
 
 ## 2026-10-02 — /calc opened publicly
 `calc-wave2` merged into `main` (6e78176) and deployed from `/root/sergeynasyrow-site`; nginx password gate removed (backup with gate: `/root/nasyrov.pro.sites-enabled.bak-gated-20261002`). Rollback image `sns:prev-calc-preview`. Metrika goals created on counter 110507843: calc_start 667037651, calc_complete 667037652, calc_budget_view 667037653, cta_tg_click 667037654, cta_max_click 667037655, cta_audit_click 667037656. `/calc` and `/` queued for Yandex recrawl. Funnel goal is channel subscription (Telegram/Max), the audit is a quiet secondary link — Sergey has no time for consultations.
+
+## 2026-10-03 — /calc «Скачать мой расчёт в PDF» (branch `calc-pdf`, not deployed)
+Two buttons (under the verdict in block 3, a small one in block 5) build a hidden print-only
+sheet `#print-sheet` from the numbers on screen and call `window.print()`; the user picks
+«Сохранить как PDF». No library, no server, nothing leaves the browser (152-ФЗ). The sheet
+is also built on `beforeprint`, so Ctrl+P gives the same layout. `document.title` is set to
+«Расчёт юнит-экономики — <тип бизнеса> — <дата>» for the file name and restored on
+`afterprint` (or the next tap, for mobile browsers that skip it). A4, 2 pages: inputs,
+verdict, first step, three main numbers, all indicators; page 2 — block 4 and the channel
+footer. Goal `calc_pdf` fires through the guarded helper — it still has to be created in
+Metrika 110507843 after deploy.
