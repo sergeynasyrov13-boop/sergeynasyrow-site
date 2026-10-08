@@ -58,7 +58,9 @@ privacy.html         — personal data processing policy, served at /privacy
 resume.html          — CV page, served at /resume (has its own copy of the lead form)
 portfolio.html       — portfolio index, served at /portfolio (also has the lead form)
 portfolio/           — four managerial case pages
-calc.html           — unit-economics → media-plan calculator, served at /calc (live)
+calc.html           — unit-economics → media-plan calculator, served at /calc (live);
+                      reads ?margin= (from /nacenka) into block 1
+nacenka.html        — markup & margin calculator, served at /nacenka (branch calc-markup)
   engagement.html, finance_model.html, low_season.html, no_cases.html
 sitemap.xml, robots.txt, favicon.ico, yandex_bbc7087061df6826.html
 blocks/             — individual Tilda Zero-block HTML files (reference; don't edit)
@@ -73,9 +75,9 @@ assets/
   avatar.webp       — actual deployed hero image (94KB, resized from the 2.4MB png)
   fonts/*.woff2     — self-hosted Montserrat (see Conventions)
 ```
-**Ten HTML pages carry analytics/legal markup** — `index`, `offer`, `privacy`, `resume`,
-`portfolio`, the four `portfolio/*` case pages and `calc`. Any change to a `<head>` tag
-(counters, verification, icons) has to hit all ten; grep before assuming.
+**Eleven HTML pages carry analytics/legal markup** — `index`, `offer`, `privacy`, `resume`,
+`portfolio`, the four `portfolio/*` case pages, `calc` and `nacenka`. Any change to a
+`<head>` tag (counters, verification, icons) has to hit all eleven; grep before assuming.
 
 Netlify serves clean paths (`/offer`, `/privacy`) for matching `.html` files automatically.
 
@@ -223,6 +225,9 @@ Mac, manually scp'd. Verify both sides after changing anything.
   filling a `docker run` with their own env vars) — that's fine.
 
 ## Open items
+- [ ] **/nacenka** (branch `calc-markup`, not merged/deployed): after deploy create Metrika
+      goals markup_start, markup_complete, markup_to_calc, markup_pdf on 110507843
+      (cta_tg_click / cta_max_click already exist), add /nacenka to Webmaster recrawl.
 - [ ] **/calc funnel review** around 2026-10-27: Metrika goals calc_start → calc_complete →
       cta_tg_click / cta_max_click / calc_pdf; decide on gating by these numbers.
 - [ ] **Only 1 of 9 pages is indexed by Yandex.** The real SEO problem. Crawl-by-counter
@@ -463,3 +468,26 @@ Metrika 110507843 after deploy.
 
 ## 2026-10-03 — PDF export deployed
 `calc-pdf` merged into `main` (ee8ee65) and deployed; long decimals in prefilled fields are rounded to 2 places on print only (502606e). Rollback image `sns:prev-calc-nopdf`. Metrika goal `calc_pdf` created (668389450).
+
+## 2026-10-08 — /nacenka markup & margin calculator (branch `calc-markup`, not deployed)
+Why: Wordstat RU Sep 2026 — «калькулятор наценки» 1 242/mo and «калькулятор маржинальности»
+855/mo, both above «калькулятор юнит экономики» (663). Audience: small shops, sellers,
+service businesses; funnel goal is the Telegram/Max channel, no consultation CTA at all.
+- `nacenka.html` → `/nacenka`: three modes in one form (знаю наценку / знаю цену / нужна
+  маржа), optional commission % (taken from the shelf price), delivery ₽/unit and a VAT
+  toggle (off by default, 22%; markup and margin are on the price without VAT, cost is
+  entered without input VAT). In «нужна маржа» the target margin is kept *after*
+  commission and delivery; ≥100% and margin+commission ≥100% are rejected. One-line verdict
+  «после комиссии и доставки остаётся X ₽ — это Y% от цены», the 25/50/100/200% markup ↔
+  margin table next to the result, «Куда уходит цена» breakdown, PDF via the same
+  print-sheet pattern as /calc, channel card, 4-question FAQ. Engine is
+  `<script id="markup-engine">` (pure `calcMarkup()`), tested by
+  `lead-magnets/tests/markup.test.js`.
+- Bridge: «Знаете маржу — посчитайте, окупается ли реклама» → `/calc?margin=<net margin>`;
+  `calc.html` got `marginFromQuery()` in its engine and applies it to block 1 (chip
+  switches to «Свой вариант»), plus a small «Не знаете маржу?» link to /nacenka.
+- Homepage: one footer link «Калькулятор наценки». `sitemap.xml`: /nacenka added.
+- Goals (guarded helper): markup_start, markup_complete, markup_to_calc, markup_pdf,
+  cta_tg_click, cta_max_click — the first four still have to be created in Metrika.
+- Screenshot note: a declined cookie banner sits translated just below the viewport, so
+  full-page captures can show it mid-page; hide it in the capture script, not the page.
