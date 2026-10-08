@@ -60,7 +60,7 @@ portfolio.html       — portfolio index, served at /portfolio (also has the lea
 portfolio/           — four managerial case pages
 calc.html           — unit-economics → media-plan calculator, served at /calc (live);
                       reads ?margin= (from /nacenka) into block 1
-nacenka.html        — markup & margin calculator, served at /nacenka (branch calc-markup)
+nacenka.html        — markup & margin calculator, served at /nacenka
   engagement.html, finance_model.html, low_season.html, no_cases.html
 sitemap.xml, robots.txt, favicon.ico, yandex_bbc7087061df6826.html
 blocks/             — individual Tilda Zero-block HTML files (reference; don't edit)
@@ -225,9 +225,7 @@ Mac, manually scp'd. Verify both sides after changing anything.
   filling a `docker run` with their own env vars) — that's fine.
 
 ## Open items
-- [ ] **/nacenka** (branch `calc-markup`, not merged/deployed): after deploy create Metrika
-      goals markup_start, markup_complete, markup_to_calc, markup_pdf on 110507843
-      (cta_tg_click / cta_max_click already exist), add /nacenka to Webmaster recrawl.
+- [x] **/nacenka** deployed 2026-10-08 (main dd15b91); goals created, recrawl queued.
 - [ ] **/calc funnel review** around 2026-10-27: Metrika goals calc_start → calc_complete →
       cta_tg_click / cta_max_click / calc_pdf; decide on gating by these numbers.
 - [ ] **Only 1 of 9 pages is indexed by Yandex.** The real SEO problem. Crawl-by-counter
@@ -469,7 +467,7 @@ Metrika 110507843 after deploy.
 ## 2026-10-03 — PDF export deployed
 `calc-pdf` merged into `main` (ee8ee65) and deployed; long decimals in prefilled fields are rounded to 2 places on print only (502606e). Rollback image `sns:prev-calc-nopdf`. Metrika goal `calc_pdf` created (668389450).
 
-## 2026-10-08 — /nacenka markup & margin calculator (branch `calc-markup`, not deployed)
+## 2026-10-08 — /nacenka markup & margin calculator
 Why: Wordstat RU Sep 2026 — «калькулятор наценки» 1 242/mo and «калькулятор маржинальности»
 855/mo, both above «калькулятор юнит экономики» (663). Audience: small shops, sellers,
 service businesses; funnel goal is the Telegram/Max channel, no consultation CTA at all.
@@ -488,6 +486,9 @@ service businesses; funnel goal is the Telegram/Max channel, no consultation CTA
   switches to «Свой вариант»), plus a small «Не знаете маржу?» link to /nacenka.
 - Homepage: one footer link «Калькулятор наценки». `sitemap.xml`: /nacenka added.
 - Goals (guarded helper): markup_start, markup_complete, markup_to_calc, markup_pdf,
-  cta_tg_click, cta_max_click — the first four still have to be created in Metrika.
+  cta_tg_click, cta_max_click. Created in Metrika: markup_start 671058623, markup_complete
+  671058628, markup_to_calc 671058629, markup_pdf 671058630.
 - Screenshot note: a declined cookie banner sits translated just below the viewport, so
   full-page captures can show it mid-page; hide it in the capture script, not the page.
+
+Deployed 2026-10-08: `calc-markup` merged into `main` (dd15b91), live image `sns:dd15b91`, rollback image `sns:prev-pdf-ee8ee65`. /nacenka queued for Webmaster recrawl.
