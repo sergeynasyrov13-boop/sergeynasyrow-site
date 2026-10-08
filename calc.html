@@ -158,6 +158,8 @@
     .field:has(> input + .field__hint) label { flex-grow: 0; }
     .field:has(> input + .field__hint) .field__hint { flex-grow: 1; }
     .field--wide { grid-column: 1 / -1; }
+    .field__link { align-self: flex-start; margin-top: 6px; font-size: 12px; font-weight: 600; color: #1A1A1A; border-bottom: 1px solid #F0902C; }
+    .field__link:hover { color: #F0902C; }
     .nowrap { white-space: nowrap; }
 
     .tune { margin-top: 18px; border-top: 1px solid #EFEFEF; padding-top: 12px; }
@@ -525,6 +527,7 @@
               </div>
               <div class="field field--wide">
                 <div class="field__hint" id="hint-margin">Маржа&nbsp;— что остаётся с&nbsp;чека после материалов, расходников и&nbsp;оплаты мастеру или врачу</div>
+                <a class="field__link" href="/nacenka">Не&nbsp;знаете маржу? Посчитайте от&nbsp;себестоимости и&nbsp;цены&nbsp;→</a>
               </div>
               <div class="field">
                 <label for="freq">Сколько раз в&nbsp;год клиент покупает</label>
@@ -909,6 +912,18 @@
     function clientsWord(x) {
       var r = Math.round(x), m10 = r % 10, m100 = r % 100;
       return m10 === 1 && m100 !== 11 ? 'клиента' : 'клиентов';
+    }
+
+    // Margin passed from /nacenka as ?margin=27.5 (or 27,5); null unless 0 < margin <= 100
+    function marginFromQuery(search) {
+      var m = /[?&]margin=([^&#]*)/.exec(String(search || ''));
+      if (!m) return null;
+      var raw;
+      try { raw = decodeURIComponent(m[1]); } catch (e) { return null; }
+      raw = raw.replace(/[\s\u00a0]/g, '').replace(',', '.');
+      if (!/^\d+(\.\d+)?$/.test(raw)) return null;
+      var v = Number(raw);
+      return v > 0 && v <= 100 ? Math.round(v * 10) / 10 : null;
     }
 
     // ===== Presets (example numbers, the page says they are illustrative) =====
@@ -1648,6 +1663,15 @@
           }, 0);
         });
       });
+
+      // Arrived from /nacenka with a margin: put it into block 1, other numbers stay as the example
+      var qMargin = marginFromQuery(location.search);
+      if (qMargin !== null) {
+        el('margin').value = String(qMargin);
+        setActiveChip('custom');
+        el('hint-margin').textContent = 'Маржа подставлена из калькулятора наценки: что остаётся с продажи после себестоимости, комиссии и доставки. Остальные цифры — пример, поправьте под себя';
+        calcUnit(); prefillPlan(); calcPlan();
+      }
 
       formatAll('[data-unit]'); formatAll('[data-plan]');
     })();

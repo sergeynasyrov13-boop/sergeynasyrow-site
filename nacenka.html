@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <title>Калькулятор наценки и маржинальности онлайн — цена, маржа, прибыль с товара</title>
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="description" content="Калькулятор наценки и маржинальности онлайн: цена от себестоимости и наценки, наценка и маржа по цене, цена под нужную маржу. С комиссией маркетплейса, доставкой и НДС 22%. Бесплатно, без регистрации.">
+  <link rel="canonical" href="https://nasyrov.pro/nacenka">
+  <meta property="og:title" content="Калькулятор наценки и маржинальности онлайн">
+  <meta property="og:description" content="Сколько остаётся с каждой продажи после комиссии, доставки и НДС. Наценка, маржа и цена под нужную маржу.">
+  <meta property="og:image" content="https://nasyrov.pro/assets/avatar.webp">
+  <meta property="og:url" content="https://nasyrov.pro/nacenka">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Калькулятор наценки и маржинальности онлайн",
+    "url": "https://nasyrov.pro/nacenka",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "inLanguage": "ru",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" },
+    "author": { "@type": "Person", "name": "Сергей Насыров", "url": "https://nasyrov.pro/" },
+    "description": "Считает цену, наценку, маржу и то, что остаётся с продажи после комиссии площадки, доставки и НДС."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://nasyrov.pro/" },
+      { "@type": "ListItem", "position": 2, "name": "Калькулятор наценки и маржи", "item": "https://nasyrov.pro/nacenka" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Чем наценка отличается от маржи?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Наценка считается от себестоимости, маржа — от цены. Купили за 1 000 ₽, продаёте за 1 500 ₽: наценка 50%, а маржа 33%. Поэтому наценка 100% — это маржа 50%, а не 100%." } },
+      { "@type": "Question", "name": "Как посчитать цену, если знаю нужную маржу?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Цена = себестоимость ÷ (1 − маржа). Себестоимость 700 ₽, нужна маржа 30%: 700 ÷ 0,7 = 1 000 ₽. Наценка при этом около 42,9%. Если есть комиссия площадки и доставка, калькулятор подберёт цену так, чтобы маржа осталась уже после них." } },
+      { "@type": "Question", "name": "Какую наценку ставить на товар?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Одной правильной цифры нет. Смотрите не на наценку, а на то, что остаётся с продажи после комиссии, доставки и налогов. Из этого остатка вы платите за рекламу, аренду и зарплаты. Сколько из него можно отдать на рекламу, показывает калькулятор юнит-экономики." } },
+      { "@type": "Question", "name": "Как учитывать НДС в наценке и марже?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Если вы плательщик НДС, считайте наценку и маржу от цены без НДС: налог вы перечисляете в бюджет, это не ваши деньги. Калькулятор берёт основную ставку 22%, действующую с 2026 года. Если НДС не платите, галочку не ставьте." } }
+    ]
+  }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-cyrillic-ext.woff2') format('woff2');
+      unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+    }
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-cyrillic.woff2') format('woff2');
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-latin-ext.woff2') format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Montserrat'; font-style: normal; font-weight: 400 800; font-display: swap;
+      src: url('/assets/fonts/montserrat-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background: #F9F9F9; color: #333333; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    [id] { scroll-margin-top: 84px; }
+    button { font-family: inherit; }
+
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Nav (same as calc) ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #F0F0F0;
+    }
+    .nav__inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .nav__brand { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .nav__brand-name { font-size: 15px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.01em; line-height: 1; }
+    .nav__brand-role { font-size: 10px; font-weight: 500; color: #AAAAAA; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1; }
+    .nav__cta {
+      display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff;
+      font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 100px; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .nav__cta:hover { background: #d97e20; }
+
+    /* ── Intro ── */
+    .intro { padding: 48px 0 28px; }
+    .intro__eyebrow { font-size: 12px; font-weight: 700; color: #F0902C; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+    .intro__title { font-size: clamp(26px, 3.4vw, 42px); font-weight: 800; letter-spacing: -0.025em; color: #1A1A1A; line-height: 1.15; margin-bottom: 14px; max-width: 900px; }
+    .intro__text { font-size: 16px; color: #555555; max-width: 680px; }
+
+    /* ── Panels ── */
+    .panel { background: #fff; border: 1px solid #EDEDED; border-radius: 20px; padding: 28px; }
+    .panel__title { font-size: clamp(18px, 1.8vw, 21px); font-weight: 800; color: #1A1A1A; letter-spacing: -0.015em; line-height: 1.25; margin-bottom: 16px; }
+
+    .flow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 20px; align-items: start; }
+    .flow__side { position: sticky; top: 84px; }
+
+    /* ── Mode switch ── */
+    .mode { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; background: #F2F2F2; border-radius: 12px; padding: 4px; margin-bottom: 20px; }
+    .mode-btn { border: none; background: transparent; border-radius: 9px; padding: 10px 8px; font-size: 13px; font-weight: 600; color: #666666; cursor: pointer; line-height: 1.3; }
+    .mode-btn.active { background: #fff; color: #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+    /* ── Fields ── */
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field { display: flex; flex-direction: column; }
+    .field[hidden] { display: none; }
+    .field label { font-size: 13px; font-weight: 600; color: #1A1A1A; margin-bottom: 6px; line-height: 1.35; }
+    .field input[type="text"] {
+      width: 100%; padding: 12px 14px; border: 1.5px solid #E8E8E8; border-radius: 12px;
+      font-family: inherit; font-size: 16px; font-weight: 600; color: #1A1A1A; background: #F9F9F9;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .field input[type="text"]:focus { border-color: #F0902C; background: #fff; }
+    .field__hint { font-size: 12px; color: #6B6B6B; margin-top: 5px; line-height: 1.4; }
+    .field--wide { grid-column: 1 / -1; }
+    .nowrap { white-space: nowrap; }
+    .sub-head { font-size: 12px; font-weight: 700; color: #777777; text-transform: uppercase; letter-spacing: 0.06em; margin: 22px 0 10px; border-top: 1px solid #EFEFEF; padding-top: 16px; }
+
+    .vat { display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; cursor: pointer; user-select: none; }
+    .vat input { width: 18px; height: 18px; margin-top: 2px; accent-color: #F0902C; flex-shrink: 0; cursor: pointer; }
+    .vat__label { font-size: 13px; font-weight: 600; color: #1A1A1A; line-height: 1.45; }
+    .vat__note { display: block; font-size: 12px; font-weight: 400; color: #6B6B6B; margin-top: 3px; }
+
+    /* ── Result ── */
+    .verdict-card { border-radius: 16px; padding: 18px 20px; background: #F4F4F4; border: 1.5px solid #E5E5E5; }
+    .verdict-card.ok  { background: #EDF8F1; border-color: #BFE5CD; }
+    .verdict-card.bad { background: #FDEFEF; border-color: #F3C2C2; }
+    .verdict { font-size: 16px; font-weight: 700; color: #1A1A1A; line-height: 1.5; }
+    .verdict-sub { font-size: 13px; color: #555555; margin-top: 6px; line-height: 1.5; }
+
+    .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+    .tile { background: #F9F9F9; border-radius: 14px; padding: 14px; min-width: 0; }
+    .tile.is-calc { background: #FFF5E8; }
+    .res-label { font-size: 12px; font-weight: 600; color: #555555; line-height: 1.35; }
+    .res-val { font-size: 22px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.02em; margin: 4px 0 2px; overflow-wrap: anywhere; line-height: 1.25; }
+    .res-val.good { color: #1B7F45; }
+    .res-val.bad  { color: #C62828; }
+    .res-hint { font-size: 11.5px; color: #6B6B6B; line-height: 1.4; }
+
+    .breakdown { margin-top: 14px; border-top: 1px solid #EFEFEF; padding-top: 10px; }
+    .fold summary { cursor: pointer; font-size: 13px; font-weight: 700; color: #1A1A1A; list-style: none; display: flex; align-items: center; gap: 8px; padding: 4px 0; }
+    .fold summary::-webkit-details-marker { display: none; }
+    .fold summary::before { content: '+'; flex-shrink: 0; display: inline-flex; width: 20px; height: 20px; border-radius: 50%; background: #F0F0F0; align-items: center; justify-content: center; font-size: 14px; }
+    .fold[open] summary::before { content: '−'; }
+    .btable { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+    .btable td { padding: 6px 0; border-bottom: 1px solid #F0F0F0; }
+    .btable td:last-child { text-align: right; font-weight: 700; color: #1A1A1A; white-space: nowrap; padding-left: 12px; }
+    .btable tr.total td { border-bottom: none; font-weight: 800; color: #1A1A1A; }
+
+    /* Markup vs margin explainer, right under the numbers */
+    .confuse { margin-top: 14px; background: #F9F9F9; border-radius: 14px; padding: 16px; }
+    .confuse__title { font-size: 14px; font-weight: 800; color: #1A1A1A; margin-bottom: 4px; }
+    .confuse__text { font-size: 13px; color: #444444; line-height: 1.5; }
+    .confuse__pair { font-size: 13px; font-weight: 700; color: #1A1A1A; margin-top: 8px; }
+    .ctable { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; background: #fff; border-radius: 10px; overflow: hidden; }
+    .ctable th, .ctable td { padding: 7px 10px; text-align: center; border-bottom: 1px solid #F0F0F0; }
+    .ctable th { font-size: 11px; font-weight: 700; color: #777777; text-transform: uppercase; letter-spacing: 0.05em; background: #fff; }
+    .ctable td { font-weight: 700; color: #1A1A1A; }
+    .ctable tr:last-child td { border-bottom: none; }
+    .ctable tr.is-near td { background: #FFF5E8; }
+
+    .bridge {
+      display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 16px;
+      background: #F0902C; color: #fff; border-radius: 100px; padding: 13px 18px; font-size: 14px; font-weight: 700;
+      line-height: 1.35; text-align: center; transition: background 0.2s;
+    }
+    .bridge:hover { background: #d97e20; }
+    .bridge-note { font-size: 12px; color: #6B6B6B; text-align: center; margin-top: 6px; }
+
+    .pdf-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 10px;
+      background: #fff; color: #1A1A1A; border: 1.5px solid #1A1A1A; border-radius: 100px;
+      padding: 11px 18px; font-size: 14px; font-weight: 700; cursor: pointer; line-height: 1.3;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pdf-btn:hover { border-color: #F0902C; color: #F0902C; }
+    .pdf-btn svg { flex-shrink: 0; }
+
+    /* ── Channel card (same as calc block 5) ── */
+    .next { margin-top: 20px; }
+    .take {
+      background: #1A1A1A; color: #fff; border-radius: 20px; padding: 32px;
+      display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 28px; align-items: center;
+    }
+    .take__eyebrow { font-size: 12px; font-weight: 700; color: #F0902C; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+    .take__title { font-size: clamp(22px, 2.4vw, 28px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px; }
+    .take__lead { font-size: 15px; color: #E0E0E0; line-height: 1.6; }
+    .take__btns { display: flex; flex-direction: column; gap: 12px; }
+    .icon-btn {
+      display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 60px; padding: 14px 20px;
+      background: #fff; border: 2px solid #fff; border-radius: 16px; font-size: 17px; font-weight: 800; color: #1A1A1A;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .icon-btn:hover { border-color: #F0902C; transform: translateY(-1px); }
+    .icon-btn svg { flex-shrink: 0; }
+
+    /* ── SEO text ── */
+    .explain { padding: 48px 0 72px; }
+    .explain__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .explain h2 { font-size: clamp(20px, 2.2vw, 26px); font-weight: 800; color: #1A1A1A; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .explain h3 { font-size: 15px; font-weight: 700; color: #1A1A1A; margin: 16px 0 6px; }
+    .explain p, .explain li { font-size: 14px; color: #444444; }
+    .explain ul { padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+    .explain a { color: #1A1A1A; font-weight: 600; border-bottom: 1px solid #F0902C; }
+    .explain a:hover { color: #F0902C; }
+
+    /* ── Footer (same as calc) ── */
+    .footer { background: #1A1A1A; padding: 56px 24px 32px; }
+    .footer__inner { max-width: 1200px; margin: 0 auto; }
+    .footer__top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; padding-bottom: 32px; border-bottom: 1px solid #333333; }
+    .footer__name { font-size: 16px; font-weight: 800; color: #fff; }
+    .footer__role { font-size: 12px; color: #888888; margin-top: 4px; }
+    .footer__nav { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .footer__nav-link { font-size: 13px; color: #AAAAAA; font-weight: 500; }
+    .footer__nav-link:hover { color: #fff; }
+    .footer__cta {
+      display: inline-flex; align-items: center; gap: 8px; background: #F0902C; color: #fff;
+      font-size: 13px; font-weight: 600; padding: 12px 22px; border-radius: 100px;
+    }
+    .footer__bottom { padding-top: 24px; font-size: 12px; color: #777777; }
+
+    @media (max-width: 900px) {
+      .flow { grid-template-columns: 1fr; }
+      .flow__side { position: static; }
+      .explain__grid { grid-template-columns: 1fr; }
+      .take { grid-template-columns: 1fr; gap: 22px; }
+    }
+    @media (max-width: 560px) {
+      .nav__inner { padding: 0 16px; }
+      .nav__cta { padding: 9px 14px; font-size: 12px; }
+      .wrap { padding: 0 16px; }
+      .intro { padding: 28px 0 18px; }
+      .intro__text { font-size: 15px; }
+      .panel { padding: 20px 16px; border-radius: 16px; }
+      .mode-btn { font-size: 12px; padding: 9px 4px; }
+      .fields { gap: 12px 10px; }
+      .field label { font-size: 12px; }
+      .field input[type="text"] { padding: 11px 12px; }
+      .tiles { gap: 8px; }
+      .tile { padding: 12px; }
+      .res-val { font-size: 18px; }
+      .verdict { font-size: 15px; }
+      .take { padding: 24px 18px; border-radius: 16px; }
+      .explain { padding: 40px 0 56px; }
+      .footer { padding: 40px 16px 24px; }
+    }
+
+    /* ── Cookie consent banner (same as calc) ── */
+    .cookie-banner {
+      position: fixed; left: 20px; right: 20px; bottom: 20px; z-index: 9999;
+      max-width: 640px; margin: 0 auto; background: #1A1A1A; color: #FFFFFF;
+      border-radius: 14px; padding: 20px 24px; display: flex; align-items: center;
+      gap: 20px; flex-wrap: wrap; box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+      transform: translateY(140%); transition: transform 0.4s ease;
+    }
+    .cookie-banner.is-visible { transform: translateY(0); }
+    .cookie-banner__text { flex: 1 1 260px; font-size: 13px; line-height: 1.6; color: #CCCCCC; }
+    .cookie-banner__text a { color: #F0902C; text-decoration: underline; }
+    .cookie-banner__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .cookie-banner__btn {
+      font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; padding: 10px 18px;
+      border-radius: 100px; border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .cookie-banner__btn--accept { background: #F0902C; color: #FFFFFF; }
+    .cookie-banner__btn--accept:hover { background: #d97e20; }
+    .cookie-banner__btn--decline { background: transparent; color: #999999; border: 1px solid #444444; }
+    .cookie-banner__btn--decline:hover { color: #FFFFFF; border-color: #666666; }
+    @media (max-width: 480px) { .cookie-banner { left: 12px; right: 12px; bottom: 12px; padding: 18px 20px; } }
+
+    /* ── Print sheet: filled from the page right before printing, shown only on paper ── */
+    .ps { display: none; }
+    @page { size: A4 portrait; margin: 14mm 14mm 12mm; }
+    @media print {
+      html, body { background: #fff !important; }
+      body > *:not(.ps) { display: none !important; }
+      .ps {
+        display: block; color: #1A1A1A; font-family: 'Montserrat', sans-serif; font-size: 10.5pt; line-height: 1.45;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact;
+      }
+      .ps__head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; border-bottom: 2.5pt solid #F0902C; padding-bottom: 7pt; margin-bottom: 12pt; }
+      .ps__brand { font-size: 13pt; font-weight: 800; letter-spacing: -0.01em; }
+      .ps__brand span { color: #F0902C; }
+      .ps__date { font-size: 9.5pt; color: #6B6B6B; white-space: nowrap; }
+      .ps__h { font-size: 8.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #F0902C; margin: 14pt 0 6pt; break-after: avoid; page-break-after: avoid; }
+      .ps__table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+      .ps__table td { padding: 3.5pt 0; border-bottom: 0.5pt solid #E3E3E3; vertical-align: top; }
+      .ps__table td:last-child { text-align: right; font-weight: 700; white-space: nowrap; padding-left: 12pt; }
+      .ps__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22pt; align-items: start; }
+      .ps__verdict { border-radius: 8pt; padding: 11pt 13pt; background: #F4F4F4; border: 1pt solid #E5E5E5; break-inside: avoid; page-break-inside: avoid; font-size: 11.5pt; font-weight: 700; }
+      .ps__verdict.ok  { background: #EDF8F1; border-color: #BFE5CD; }
+      .ps__verdict.bad { background: #FDEFEF; border-color: #F3C2C2; }
+      .ps__note { font-size: 8.5pt; color: #6B6B6B; margin-top: 5pt; }
+      .ps__foot { margin-top: 16pt; padding-top: 7pt; border-top: 1pt solid #E3E3E3; font-size: 9pt; color: #333333; break-inside: avoid; page-break-inside: avoid; }
+      .ps__foot b { color: #1A1A1A; }
+      .ps__disclaimer { font-size: 8pt; color: #888888; margin-top: 3pt; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">
+        <span class="nav__brand-name">Сергей Насыров</span>
+        <span class="nav__brand-role">Калькулятор наценки</span>
+      </a>
+      <a class="nav__cta" href="#next">Забрать шаблоны</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="wrap">
+        <div class="intro__eyebrow">Калькулятор наценки и&nbsp;маржинальности онлайн</div>
+        <h1 class="intro__title">Сколько вы на&nbsp;самом деле зарабатываете с&nbsp;товара: наценка и&nbsp;маржа</h1>
+        <p class="intro__text">Введите себестоимость и&nbsp;то, что знаете: наценку, цену или нужную маржу. Остальное посчитается сразу&nbsp;— с&nbsp;комиссией площадки, доставкой и&nbsp;НДС, если они есть. Бесплатно, без&nbsp;регистрации, цифры никуда не&nbsp;отправляются.</p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <div class="flow">
+        <!-- ── Form ── -->
+        <section class="panel" id="form" aria-labelledby="form-title" data-markup>
+          <h2 class="panel__title" id="form-title">Что вы знаете</h2>
+          <div class="mode" role="group" aria-label="Что считаем">
+            <button class="mode-btn active" type="button" id="mode-markup" data-mode="markup" aria-pressed="true">Знаю наценку</button>
+            <button class="mode-btn" type="button" id="mode-price" data-mode="price" aria-pressed="false">Знаю цену</button>
+            <button class="mode-btn" type="button" id="mode-margin" data-mode="margin" aria-pressed="false">Нужна маржа</button>
+          </div>
+
+          <div class="fields">
+            <div class="field">
+              <label for="cost">Себестоимость единицы,&nbsp;₽</label>
+              <input type="text" inputmode="decimal" autocomplete="off" id="cost" value="1000">
+            </div>
+            <div class="field" id="field-markup">
+              <label for="markup">Наценка, %</label>
+              <input type="text" inputmode="decimal" autocomplete="off" id="markup" value="50">
+            </div>
+            <div class="field" id="field-price" hidden>
+              <label for="price">Цена продажи,&nbsp;₽</label>
+              <input type="text" inputmode="decimal" autocomplete="off" id="price" value="1500">
+            </div>
+            <div class="field" id="field-margin" hidden>
+              <label for="target-margin">Нужная маржа, %</label>
+              <input type="text" inputmode="decimal" autocomplete="off" id="target-margin" value="30">
+            </div>
+            <div class="field field--wide">
+              <div class="field__hint" id="hint-mode">Себестоимость&nbsp;— сколько стоит вам одна единица: закупка или производство, упаковка. Цену посчитаем от&nbsp;неё и&nbsp;наценки.</div>
+            </div>
+          </div>
+
+          <div class="sub-head">Если есть&nbsp;— можно оставить 0</div>
+          <div class="fields">
+            <div class="field">
+              <label for="commission">Комиссия площадки или&nbsp;эквайринг, %</label>
+              <input type="text" inputmode="decimal" autocomplete="off" id="commission" value="0">
+              <div class="field__hint">от&nbsp;цены продажи</div>
+            </div>
+            <div class="field">
+              <label for="delivery">Доставка и&nbsp;логистика, <span class="nowrap">₽ за&nbsp;единицу</span></label>
+              <input type="text" inputmode="decimal" autocomplete="off" id="delivery" value="0">
+              <div class="field__hint">которую платите вы, а&nbsp;не&nbsp;покупатель</div>
+            </div>
+          </div>
+          <label class="vat">
+            <input type="checkbox" id="vat">
+            <span class="vat__label">Я плательщик НДС (22%)
+              <span class="vat__note">Отмечайте, только если вы плательщик НДС. Тогда цена продажи&nbsp;— с&nbsp;НДС, а&nbsp;наценка и&nbsp;маржа считаются от&nbsp;цены без&nbsp;НДС. Себестоимость вводите без&nbsp;входящего НДС.</span>
+            </span>
+          </label>
+        </section>
+
+        <!-- ── Result ── -->
+        <aside class="flow__side" aria-live="polite">
+          <section class="panel" id="result" aria-labelledby="result-title">
+            <h2 class="panel__title" id="result-title">Результат</h2>
+            <div class="verdict-card" id="verdict-card">
+              <p class="verdict" id="verdict">Заполните поля</p>
+              <p class="verdict-sub" id="verdict-sub"></p>
+            </div>
+
+            <div class="tiles">
+              <div class="tile" id="tile-price">
+                <div class="res-label">Цена продажи</div>
+                <div class="res-val" id="out-price">—</div>
+                <div class="res-hint" id="hint-price">для покупателя</div>
+              </div>
+              <div class="tile" id="tile-profit">
+                <div class="res-label">Остаётся с&nbsp;продажи</div>
+                <div class="res-val" id="out-profit">—</div>
+                <div class="res-hint" id="hint-profit">после себестоимости</div>
+              </div>
+              <div class="tile" id="tile-markup">
+                <div class="res-label">Наценка</div>
+                <div class="res-val" id="out-markup">—</div>
+                <div class="res-hint">от&nbsp;себестоимости</div>
+              </div>
+              <div class="tile" id="tile-margin">
+                <div class="res-label">Маржа</div>
+                <div class="res-val" id="out-margin">—</div>
+                <div class="res-hint" id="hint-margin">от&nbsp;цены</div>
+              </div>
+            </div>
+
+            <details class="fold breakdown">
+              <summary>Куда уходит цена</summary>
+              <table class="btable" id="breakdown"></table>
+            </details>
+
+            <div class="confuse">
+              <div class="confuse__title">Наценка и&nbsp;маржа&nbsp;— не&nbsp;одно и&nbsp;то&nbsp;же</div>
+              <p class="confuse__text">Наценка считается от&nbsp;себестоимости, маржа&nbsp;— от&nbsp;цены. Поэтому наценка 100% даёт маржу 50%, а&nbsp;не&nbsp;100%.</p>
+              <p class="confuse__pair" id="pair-line"></p>
+              <table class="ctable" aria-label="Наценка и маржа: соответствие">
+                <thead><tr><th>Наценка</th><th>Маржа</th></tr></thead>
+                <tbody>
+                  <tr data-markup="25"><td>25%</td><td>20%</td></tr>
+                  <tr data-markup="50"><td>50%</td><td>33,3%</td></tr>
+                  <tr data-markup="100"><td>100%</td><td>50%</td></tr>
+                  <tr data-markup="200"><td>200%</td><td>66,7%</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <a class="bridge" id="to-calc" href="/calc" data-goal="markup_to_calc">Знаете маржу&nbsp;— посчитайте, окупается&nbsp;ли реклама&nbsp;→</a>
+            <p class="bridge-note" id="to-calc-note">Маржа подставится в&nbsp;калькулятор юнит-экономики</p>
+            <button class="pdf-btn js-pdf" type="button">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M8 1.5v8.5M4.5 6.8L8 10.3l3.5-3.5M2 12.5v2h12v-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Скачать расчёт в&nbsp;PDF
+            </button>
+          </section>
+        </aside>
+      </div>
+
+      <!-- ── Channel ── -->
+      <section class="next" id="next" aria-labelledby="next-title">
+        <div class="take">
+          <div>
+            <div class="take__eyebrow">Telegram или&nbsp;Max</div>
+            <h2 class="take__title" id="next-title">Забрать шаблоны и&nbsp;разборы</h2>
+            <p class="take__lead">В&nbsp;моём канале лежат шаблоны юнит-экономики и&nbsp;отчёта по&nbsp;маркетингу в&nbsp;Google Таблицах. И&nbsp;разборы рекламы малого бизнеса. Выбирайте, где удобнее.</p>
+          </div>
+          <div class="take__btns">
+            <a class="icon-btn" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener" data-goal="cta_tg_click" aria-label="Шаблоны и разборы в Telegram">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="12" fill="#27A6E5"/>
+                <path d="M5.4 11.7l11.6-4.5c.54-.2 1 .13.83.95l-1.98 9.32c-.14.66-.54.82-1.1.51l-3-2.22-1.45 1.4c-.16.16-.3.3-.6.3l.21-3.05 5.55-5.01c.24-.21-.05-.33-.37-.12l-6.86 4.32-2.96-.92c-.64-.2-.66-.64.13-.95z" fill="#fff"/>
+              </svg>
+              Telegram
+            </a>
+            <a class="icon-btn js-max-link" href="https://max.ru/id360206536641_biz" target="_blank" rel="noopener" data-goal="cta_max_click" aria-label="Шаблоны и разборы в Max">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <defs><linearGradient id="maxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3FB4FF"/><stop offset="0.55" stop-color="#4D5BFF"/><stop offset="1" stop-color="#9B3DF5"/></linearGradient></defs>
+                <rect width="24" height="24" rx="7" fill="url(#maxg)"/>
+                <path d="M12.1 5.6c-3.6 0-6.3 2.6-6.3 6.3 0 1.5.4 2.9 1.1 3.9l-.5 2.6c-.1.4.3.7.6.5l2.1-1.2c.9.5 1.9.7 3 .7 3.6 0 6.3-2.7 6.3-6.4 0-3.7-2.7-6.4-6.3-6.4zm0 9.9c-2 0-3.5-1.5-3.5-3.6s1.5-3.6 3.5-3.6 3.5 1.5 3.5 3.6-1.5 3.6-3.5 3.6z" fill="#fff"/>
+              </svg>
+              Max
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── SEO / explanation ── -->
+    <section class="explain">
+      <div class="wrap">
+        <div class="explain__grid">
+          <div class="panel">
+            <h2>Как считает калькулятор</h2>
+            <ul>
+              <li><b>Цена</b>&nbsp;= себестоимость × (1 + наценка).</li>
+              <li><b>Наценка</b>&nbsp;= (цена − себестоимость) ÷ себестоимость.</li>
+              <li><b>Маржа</b>&nbsp;= (цена − себестоимость) ÷ цена.</li>
+              <li><b>Цена под&nbsp;нужную маржу</b>&nbsp;= себестоимость ÷ (1 − маржа). Если указаны комиссия и&nbsp;доставка, цена подбирается так, чтобы эта маржа осталась уже после них.</li>
+              <li><b>Остаётся с&nbsp;продажи</b>&nbsp;= цена без&nbsp;НДС − себестоимость − комиссия − доставка. Комиссия берётся от&nbsp;цены, которую платит покупатель.</li>
+            </ul>
+            <h3>Что дальше делать с&nbsp;маржой</h3>
+            <p>Из&nbsp;того, что остаётся с&nbsp;продажи, вы платите за&nbsp;рекламу, аренду и&nbsp;зарплаты. Окупается&nbsp;ли с&nbsp;этого реклама, покажет <a href="/calc">калькулятор юнит-экономики</a>: маржа из&nbsp;этой страницы подставится туда по&nbsp;кнопке.</p>
+          </div>
+          <div class="panel">
+            <h2>Частые вопросы</h2>
+            <h3>Чем наценка отличается от&nbsp;маржи?</h3>
+            <p>Наценка считается от&nbsp;себестоимости, маржа&nbsp;— от&nbsp;цены. Купили за&nbsp;1&nbsp;000&nbsp;₽, продаёте за&nbsp;1&nbsp;500&nbsp;₽: наценка 50%, а&nbsp;маржа 33%. Поэтому наценка 100%&nbsp;— это маржа 50%, а&nbsp;не&nbsp;100%.</p>
+            <h3>Как посчитать цену, если знаю нужную маржу?</h3>
+            <p>Цена&nbsp;= себестоимость ÷ (1 − маржа). Себестоимость 700&nbsp;₽, нужна маржа 30%: 700&nbsp;÷&nbsp;0,7&nbsp;= 1&nbsp;000&nbsp;₽. Наценка при&nbsp;этом около 42,9%. Если есть комиссия площадки и&nbsp;доставка, калькулятор подберёт цену так, чтобы маржа осталась уже после них.</p>
+            <h3>Какую наценку ставить на&nbsp;товар?</h3>
+            <p>Одной правильной цифры нет. Смотрите не&nbsp;на&nbsp;наценку, а&nbsp;на&nbsp;то, что остаётся с&nbsp;продажи после комиссии, доставки и&nbsp;налогов. Из&nbsp;этого остатка вы платите за&nbsp;рекламу, аренду и&nbsp;зарплаты. Сколько из&nbsp;него можно отдать на&nbsp;рекламу, показывает <a href="/calc">калькулятор юнит-экономики</a>.</p>
+            <h3>Как учитывать НДС в&nbsp;наценке и&nbsp;марже?</h3>
+            <p>Если вы плательщик НДС, считайте наценку и&nbsp;маржу от&nbsp;цены без&nbsp;НДС: налог вы перечисляете в&nbsp;бюджет, это не&nbsp;ваши деньги. Калькулятор берёт основную ставку 22%, действующую с&nbsp;2026&nbsp;года. Если НДС не&nbsp;платите, галочку не&nbsp;ставьте.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div>
+          <div class="footer__name">Сергей Насыров</div>
+          <div class="footer__role">Маркетолог-практик · МСБ</div>
+        </div>
+        <nav class="footer__nav">
+          <a class="footer__nav-link" href="/">На главную</a>
+          <a class="footer__nav-link" href="/calc">Калькулятор юнит-экономики</a>
+          <a class="footer__nav-link" href="/portfolio">Портфолио</a>
+          <a class="footer__cta" href="https://t.me/sergeynasyrov" target="_blank" rel="noopener">Написать</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">© 2026 ИП Насыров С.Д. · ОГРНИП 326366800063559 · <a class="footer__nav-link" href="/offer">Оферта</a> · <a class="footer__nav-link" href="/privacy">Политика конфиденциальности</a></div>
+    </div>
+  </footer>
+
+  <!-- Print-only sheet for «Скачать расчёт в PDF»: filled in the browser from the
+       numbers on screen right before printing; nothing is sent anywhere. -->
+  <div class="ps" id="print-sheet" aria-hidden="true"></div>
+
+  <!-- Markup engine: pure calcMarkup() plus renderMarkup() that only reads/writes elements
+       by id, so lead-magnets/tests/markup.test.js can run it in a fake DOM. -->
+  <script id="markup-engine">
+    var VAT_RATE = 22;   // Russia, standard rate from 2026
+    var mode = 'markup'; // 'markup' | 'price' | 'margin'
+    var lastResult = null;
+
+    function el(id) { return document.getElementById(id); }
+    // Text inputs carry ru-RU grouping ("1 500", "2,5"); '' -> null, garbage -> NaN
+    function parseNum(v) {
+      var raw = String(v == null ? '' : v).replace(/[\s  ]/g, '').replace(',', '.');
+      if (raw === '') return null;
+      var x = Number(raw);
+      return isFinite(x) ? x : NaN;
+    }
+    function round(v, d) { var k = Math.pow(10, d); return Math.round(v * k) / k; }
+    function rub(v) {
+      var r = round(v, 2);
+      return (r < 0 ? '−' : '') + Math.abs(r).toLocaleString('ru-RU', { maximumFractionDigits: 2 }) + ' ₽';
+    }
+    function pct(v) {
+      var r = round(v, 1);
+      return (r < 0 ? '−' : '') + String(Math.abs(r)).replace('.', ',') + '%';
+    }
+
+    // o: { mode, cost, markup, price, margin, commission, delivery, vat }
+    // Prices: shelf = what the buyer pays (with VAT when vat is on), net = without VAT.
+    // Markup and margin are on the net price; commission is taken from the shelf price.
+    function calcMarkup(o) {
+      var cost = o.cost, comm = o.commission, del = o.delivery;
+      var v = o.vat ? VAT_RATE / 100 : 0;
+      if (cost === null || cost === undefined || isNaN(cost) || cost <= 0) return { ok: false, error: 'Укажите себестоимость больше нуля' };
+      if (comm === null || comm === undefined) comm = 0;
+      if (del === null || del === undefined) del = 0;
+      if (isNaN(comm) || comm < 0 || comm >= 100) return { ok: false, error: 'Комиссия — от 0 до 100%' };
+      if (isNaN(del) || del < 0) return { ok: false, error: 'Доставка не может быть меньше нуля' };
+      var c = comm / 100, net;
+
+      if (o.mode === 'markup') {
+        var k = o.markup;
+        if (k === null || k === undefined || isNaN(k)) return { ok: false, error: 'Укажите наценку' };
+        if (k < 0) return { ok: false, error: 'Наценка — от 0%' };
+        net = cost * (1 + k / 100);
+      } else if (o.mode === 'price') {
+        var s = o.price;
+        if (s === null || s === undefined || isNaN(s) || s <= 0) return { ok: false, error: 'Укажите цену продажи больше нуля' };
+        net = s / (1 + v);
+      } else if (o.mode === 'margin') {
+        var m = o.margin;
+        if (m === null || m === undefined || isNaN(m)) return { ok: false, error: 'Укажите нужную маржу' };
+        if (m < 0) return { ok: false, error: 'Маржа — от 0%' };
+        if (m >= 100) return { ok: false, error: 'Маржа не бывает 100% и больше: это значило бы, что товар достался даром' };
+        // Margin is kept after commission and delivery: net − cost − shelf·c − del = m·net
+        var denom = 1 - m / 100 - (1 + v) * c;
+        if (denom <= 1e-9) return { ok: false, error: 'С такой комиссией маржа ' + pct(m) + ' недостижима: комиссия и маржа вместе забирают всю цену' };
+        net = (cost + del) / denom;
+      } else {
+        return { ok: false, error: 'Неизвестный режим' };
+      }
+
+      var shelf = net * (1 + v);
+      var gross = net - cost;
+      var commRub = shelf * c;
+      var vatRub = shelf - net;
+      var profit = gross - commRub - del;
+      return {
+        ok: true, mode: o.mode, vat: !!o.vat,
+        cost: cost, price: shelf, priceNet: net,
+        markup: gross / cost * 100, margin: gross / net * 100,
+        gross: gross, commission: commRub, commissionPct: comm, delivery: del, vatAmount: vatRub,
+        extras: commRub + del,
+        profit: profit, netMargin: profit / net * 100
+      };
+    }
+
+    // Plain-language line for the result; profit share is of the price without VAT
+    function verdictText(r) {
+      var of = r.vat ? 'от цены без НДС' : 'от цены';
+      if (r.profit < 0) {
+        return r.gross < 0
+          ? 'Цена ниже себестоимости: каждая продажа в минус на ' + rub(-r.profit) + '.'
+          : 'Каждая продажа в минус на ' + rub(-r.profit) + ': комиссия и доставка съедают больше, чем даёт наценка.';
+      }
+      if (r.profit === 0) return 'Продажа выходит в ноль: после всех вычетов не остаётся ничего.';
+      var after = r.extras > 0 ? (r.vat ? 'После комиссии, доставки и НДС' : 'После комиссии и доставки')
+                               : (r.vat ? 'После НДС' : 'После себестоимости');
+      return after + ' с каждой продажи остаётся ' + rub(r.profit) + ' — это ' + pct(r.netMargin) + ' ' + of + '.';
+    }
+
+    // Link to /calc with the margin left after commission and delivery
+    function calcLink(r) {
+      if (!r || !r.ok || r.netMargin <= 0) return '/calc';
+      return '/calc?margin=' + String(round(r.netMargin, 1));
+    }
+
+    function readInputs() {
+      return {
+        mode: mode,
+        cost: parseNum(el('cost').value),
+        markup: parseNum(el('markup').value),
+        price: parseNum(el('price').value),
+        margin: parseNum(el('target-margin').value),
+        commission: parseNum(el('commission').value),
+        delivery: parseNum(el('delivery').value),
+        vat: !!el('vat').checked
+      };
+    }
+
+    function setVal(id, text, cls) {
+      var e = el(id);
+      e.textContent = text;
+      e.className = 'res-val' + (cls ? ' ' + cls : '');
+    }
+
+    var MODE_HINTS = {
+      markup: 'Себестоимость — сколько стоит вам одна единица: закупка или производство, упаковка. Цену посчитаем от неё и наценки.',
+      price: 'Цена — сколько платит покупатель. Посчитаем наценку, маржу и то, что остаётся вам.',
+      margin: 'Маржа — какая доля цены должна оставаться вам. Если указаны комиссия и доставка, цена подберётся так, чтобы маржа осталась после них.'
+    };
+    // The tile(s) a mode computes get the accent background
+    var CALC_TILES = { markup: ['tile-price'], price: ['tile-markup', 'tile-margin'], margin: ['tile-price', 'tile-markup'] };
+
+    function setMode(m) {
+      mode = m;
+      ['markup', 'price', 'margin'].forEach(function (k) {
+        el('field-' + k).hidden = k !== m;
+        el('mode-' + k).className = 'mode-btn' + (k === m ? ' active' : '');
+        if (el('mode-' + k).setAttribute) el('mode-' + k).setAttribute('aria-pressed', k === m ? 'true' : 'false');
+      });
+      el('hint-mode').textContent = MODE_HINTS[m];
+      renderMarkup();
+    }
+
+    function renderBreakdown(r) {
+      var rows = [['Себестоимость', rub(r.cost)]];
+      if (r.commission > 0) rows.push(['Комиссия ' + pct(r.commissionPct), rub(r.commission)]);
+      if (r.delivery > 0) rows.push(['Доставка', rub(r.delivery)]);
+      if (r.vat) rows.push(['НДС ' + VAT_RATE + '%', rub(r.vatAmount)]);
+      rows.push(['Остаётся вам', rub(r.profit)]);
+      var html = '<tr><td>Цена для покупателя</td><td>' + rub(r.price) + '</td></tr>';
+      rows.forEach(function (row, i) {
+        var total = i === rows.length - 1;
+        html += '<tr' + (total ? ' class="total"' : '') + '><td>' + (total ? '' : '− ') + row[0] + '</td><td>' + row[1] + '</td></tr>';
+      });
+      el('breakdown').innerHTML = html;
+    }
+
+    function clearMarkup(error) {
+      ['out-price', 'out-profit', 'out-markup', 'out-margin'].forEach(function (id) { setVal(id, '—'); });
+      el('hint-price').textContent = 'для покупателя';
+      el('hint-profit').textContent = 'после себестоимости';
+      el('hint-margin').textContent = 'от цены';
+      el('verdict-card').className = 'verdict-card';
+      el('verdict').textContent = error || 'Заполните поля';
+      el('verdict-sub').textContent = '';
+      el('pair-line').textContent = '';
+      el('breakdown').innerHTML = '';
+      el('to-calc').href = '/calc';
+      el('to-calc-note').textContent = 'Посчитайте, окупается ли реклама при вашей марже';
+      lastResult = null;
+    }
+
+    function renderMarkup() {
+      var r = calcMarkup(readInputs());
+      ['tile-price', 'tile-profit', 'tile-markup', 'tile-margin'].forEach(function (id) {
+        el(id).className = 'tile' + (r.ok && CALC_TILES[mode].indexOf(id) >= 0 ? ' is-calc' : '');
+      });
+      if (!r.ok) { clearMarkup(r.error); return r; }
+
+      setVal('out-price', rub(r.price));
+      el('hint-price').textContent = r.vat ? 'с НДС; без НДС — ' + rub(r.priceNet) : 'для покупателя';
+      setVal('out-profit', rub(r.profit), r.profit > 0 ? 'good' : r.profit < 0 ? 'bad' : '');
+      el('hint-profit').textContent = pct(r.netMargin) + (r.vat ? ' от цены без НДС' : ' от цены') +
+        (r.extras > 0 ? ', после комиссии и доставки' : '');
+      setVal('out-markup', pct(r.markup), r.markup < 0 ? 'bad' : '');
+      setVal('out-margin', pct(r.margin), r.margin < 0 ? 'bad' : '');
+      el('hint-margin').textContent = r.extras > 0 ? 'от цены, до комиссии и доставки' : (r.vat ? 'от цены без НДС' : 'от цены');
+
+      el('verdict-card').className = 'verdict-card ' + (r.profit < 0 ? 'bad' : r.profit > 0 ? 'ok' : '');
+      el('verdict').textContent = verdictText(r);
+      el('verdict-sub').textContent = r.profit > 0
+        ? 'Из этой суммы ещё платить за рекламу, аренду и зарплаты.'
+        : 'Поднимите цену или найдите, где срезать комиссию и доставку.';
+      el('pair-line').textContent = 'У вас: наценка ' + pct(r.markup) + ' = маржа ' + pct(r.margin) + '.';
+      renderBreakdown(r);
+
+      el('to-calc').href = calcLink(r);
+      el('to-calc-note').textContent = r.netMargin > 0
+        ? 'Маржа ' + pct(r.netMargin) + ' подставится в калькулятор юнит-экономики'
+        : 'Посчитайте, окупается ли реклама при вашей марже';
+      lastResult = r;
+      return r;
+    }
+
+    renderMarkup();
+  </script>
+  <script>
+    // ── UI: input formatting, mode switch, Metrika goals, print-to-PDF ──
+    (function () {
+      var METRIKA_ID = 110507843;
+
+      // Goals must never break the page: Metrika is absent until cookie consent
+      var sentOnce = {};
+      function goal(name, params, once) {
+        if (once) { if (sentOnce[name]) return; sentOnce[name] = true; }
+        try {
+          if (typeof window.ym === 'function') window.ym(METRIKA_ID, 'reachGoal', name, params || {});
+        } catch (e) { /* analytics is optional */ }
+      }
+      function goalParams() {
+        return { mode: mode, zone: lastResult ? (lastResult.profit < 0 ? 'loss' : 'profit') : 'none' };
+      }
+
+      function formatInput(input) {
+        var x = parseNum(input.value);
+        if (x === null || isNaN(x)) return;
+        input.value = x.toLocaleString('ru-RU', { maximumFractionDigits: 6 });
+      }
+
+      // markup_complete: a valid result unchanged for 2 s after the user's last edit
+      var completeTimer = null;
+      function userChanged() {
+        goal('markup_start', goalParams(), true);
+        clearTimeout(completeTimer);
+        completeTimer = setTimeout(function () {
+          if (lastResult) goal('markup_complete', goalParams(), true);
+        }, 2000);
+      }
+
+      document.querySelectorAll('[data-markup] input[type="text"]').forEach(function (input) {
+        input.addEventListener('input', function () { renderMarkup(); userChanged(); });
+        input.addEventListener('blur', function () { formatInput(input); });
+        formatInput(input);
+      });
+      el('vat').addEventListener('change', function () { renderMarkup(); userChanged(); });
+
+      document.querySelectorAll('[data-mode]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var m = b.getAttribute('data-mode');
+          // Carry the current result into the newly opened field, so switching keeps the numbers
+          if (lastResult) {
+            if (m === 'price') el('price').value = round(lastResult.price, 2).toLocaleString('ru-RU', { maximumFractionDigits: 2 });
+            if (m === 'markup') el('markup').value = round(lastResult.markup, 1).toLocaleString('ru-RU', { maximumFractionDigits: 1 });
+            if (m === 'margin') el('target-margin').value = round(lastResult.netMargin, 1).toLocaleString('ru-RU', { maximumFractionDigits: 1 });
+          }
+          setMode(m);
+          userChanged();
+        });
+      });
+
+      document.querySelectorAll('[data-goal]').forEach(function (a) {
+        a.addEventListener('click', function () { goal(a.getAttribute('data-goal'), goalParams()); });
+      });
+
+      // ── «Скачать расчёт в PDF»: print layout + window.print(), all in the browser ──
+      function node(tag, cls, text) {
+        var e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (text != null) e.textContent = text;
+        return e;
+      }
+      function table(rows) {
+        var t = node('table', 'ps__table');
+        rows.forEach(function (r) {
+          var tr = node('tr');
+          tr.appendChild(node('td', '', r[0]));
+          tr.appendChild(node('td', '', r[1]));
+          t.appendChild(tr);
+        });
+        return t;
+      }
+      var MODE_NAMES = { markup: 'Цена от себестоимости и наценки', price: 'Наценка и маржа по цене', margin: 'Цена под нужную маржу' };
+
+      function buildPrintSheet() {
+        var ps = el('print-sheet');
+        ps.textContent = '';
+        var now = new Date();
+        var head = node('div', 'ps__head');
+        var brand = node('div', 'ps__brand', 'Сергей Насыров ');
+        brand.appendChild(node('span', '', '· расчёт наценки и маржи'));
+        head.appendChild(brand);
+        head.appendChild(node('div', 'ps__date', now.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })));
+        ps.appendChild(head);
+
+        var i = readInputs();
+        var inRows = [['Что считали', MODE_NAMES[mode]], ['Себестоимость единицы', i.cost ? rub(i.cost) : '—']];
+        if (mode === 'markup') inRows.push(['Наценка', i.markup === null || isNaN(i.markup) ? '—' : pct(i.markup)]);
+        if (mode === 'price') inRows.push(['Цена продажи', i.price ? rub(i.price) : '—']);
+        if (mode === 'margin') inRows.push(['Нужная маржа', i.margin === null || isNaN(i.margin) ? '—' : pct(i.margin)]);
+        inRows.push(['Комиссия площадки или эквайринг', pct(i.commission || 0)], ['Доставка за единицу', rub(i.delivery || 0)],
+          ['НДС', i.vat ? 'плательщик, ' + VAT_RATE + '%' : 'не учитывается']);
+        ps.appendChild(node('div', 'ps__h', 'Ваши цифры'));
+        ps.appendChild(table(inRows));
+
+        ps.appendChild(node('div', 'ps__h', 'Результат'));
+        var r = lastResult;
+        ps.appendChild(node('div', 'ps__verdict ' + (r ? (r.profit < 0 ? 'bad' : 'ok') : ''), el('verdict').textContent));
+        if (r) {
+          var cols = node('div', 'ps__cols');
+          cols.appendChild(table([
+            ['Цена для покупателя', rub(r.price)],
+            ['Наценка (от себестоимости)', pct(r.markup)],
+            ['Маржа (от цены' + (r.vat ? ' без НДС' : '') + ')', pct(r.margin)],
+            ['Остаётся с продажи', rub(r.profit) + ' · ' + pct(r.netMargin)]
+          ]));
+          var br = [['Себестоимость', rub(r.cost)]];
+          if (r.commission > 0) br.push(['Комиссия', rub(r.commission)]);
+          if (r.delivery > 0) br.push(['Доставка', rub(r.delivery)]);
+          if (r.vat) br.push(['НДС', rub(r.vatAmount)]);
+          br.push(['Остаётся вам', rub(r.profit)]);
+          cols.appendChild(table(br));
+          ps.appendChild(cols);
+        }
+        ps.appendChild(node('div', 'ps__h', 'Наценка и маржа — не одно и то же'));
+        ps.appendChild(table([['Наценка 25%', 'маржа 20%'], ['Наценка 50%', 'маржа 33,3%'], ['Наценка 100%', 'маржа 50%'], ['Наценка 200%', 'маржа 66,7%']]));
+        ps.appendChild(node('div', 'ps__note', 'Наценка считается от себестоимости, маржа — от цены. Окупается ли реклама при вашей марже, покажет nasyrov.pro/calc'));
+
+        var foot = node('div', 'ps__foot');
+        var line = node('div');
+        line.appendChild(node('b', '', 'Шаблоны и разборы: '));
+        line.appendChild(document.createTextNode('Telegram t.me/sergeynasyrov · Max max.ru/id360206536641_biz · nasyrov.pro/nacenka'));
+        foot.appendChild(line);
+        foot.appendChild(node('div', 'ps__disclaimer', 'Расчёт сделан в калькуляторе на nasyrov.pro/nacenka по цифрам, которые вы ввели. Данные никуда не отправлялись.'));
+        ps.appendChild(foot);
+        return now;
+      }
+      window.addEventListener('beforeprint', buildPrintSheet);
+
+      var savedTitle = null;
+      function restoreTitle() { if (savedTitle !== null) { document.title = savedTitle; savedTitle = null; } }
+      window.addEventListener('afterprint', restoreTitle);
+      // Mobile browsers may not fire afterprint: restore on the next interaction instead
+      ['pointerdown', 'keydown'].forEach(function (t) { document.addEventListener(t, function () { if (savedTitle !== null) setTimeout(restoreTitle, 0); }, true); });
+
+      document.querySelectorAll('.js-pdf').forEach(function (b) {
+        b.addEventListener('click', function () {
+          goal('markup_pdf', goalParams());
+          var now = buildPrintSheet();
+          var d = ('0' + now.getDate()).slice(-2) + '.' + ('0' + (now.getMonth() + 1)).slice(-2) + '.' + now.getFullYear();
+          if (savedTitle === null) savedTitle = document.title;
+          // The saved PDF takes its file name from the page title
+          document.title = 'Расчёт наценки и маржи — ' + d;
+          setTimeout(function () { try { window.print(); } catch (e) { restoreTitle(); } }, 0);
+        });
+      });
+    })();
+  </script>
+
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-banner__text">
+      Мы используем cookie для&nbsp;аналитики и&nbsp;улучшения сайта. Подробнее — в <a href="/privacy#analytics">политике конфиденциальности</a>.
+    </div>
+    <div class="cookie-banner__actions">
+      <button class="cookie-banner__btn cookie-banner__btn--decline" id="cookieDecline" type="button">Отклонить</button>
+      <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept" type="button">Принять</button>
+    </div>
+  </div>
+
+  <script>
+    // ── Cookie consent + gated analytics ──
+    var YANDEX_METRIKA_ID = 110507843;
+    function loadYandexMetrika() {
+      if (!YANDEX_METRIKA_ID) return;
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + YANDEX_METRIKA_ID, 'ym');
+      window.ym(YANDEX_METRIKA_ID, 'init', {
+        ssr: true, webvisor: true, clickmap: true, ecommerce: 'dataLayer',
+        referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true,
+      });
+    }
+    var CONSENT_KEY = 'cookie_consent';
+    var cookieBanner = document.getElementById('cookieBanner');
+    var savedConsent = localStorage.getItem(CONSENT_KEY);
+    if (savedConsent === 'accepted') {
+      loadYandexMetrika();
+    } else if (savedConsent !== 'declined') {
+      requestAnimationFrame(function () { cookieBanner.classList.add('is-visible'); });
+    }
+    document.getElementById('cookieAccept').addEventListener('click', function () {
+      localStorage.setItem(CONSENT_KEY, 'accepted');
+      cookieBanner.classList.remove('is-visible');
+      loadYandexMetrika();
+    });
+    document.getElementById('cookieDecline').addEventListener('click', function () {
+      localStorage.setItem(CONSENT_KEY, 'declined');
+      cookieBanner.classList.remove('is-visible');
+    });
+  </script>
+</body>
+</html>
