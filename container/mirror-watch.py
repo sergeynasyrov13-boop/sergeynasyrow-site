@@ -7,6 +7,7 @@
 
 Usage: mirror-watch.py            # one tick (systemd timer, every minute)
        mirror-watch.py --cert     # only refresh the certificate on Frankfurt
+       mirror-watch.py --drill-on / --drill-off   # serve nasyrov.pro on Frankfurt without DNS change
        mirror-watch.py --status
 """
 import json
@@ -27,7 +28,7 @@ CERT_ID = "fpqb0ubpkao29alcqvdc"
 KEY = "/root/.ssh/frankfurt_bot"
 HOST = "root@38.54.84.115"
 STATE = pathlib.Path("/root/.config/nasyrov-mirror/state.json")
-CF_ENV = "/root/.config/cloudflare/.env"
+CF_TOKEN = "/root/.config/cloudflare/nasyrov-dns-token"  # Zone+DNS edit, given by Sergey 08.11
 FAIL_N, OK_N = 3, 5
 
 
@@ -40,7 +41,7 @@ def up(url):
 
 
 def cf(method, path, body=None):
-    tok = next(l.split("=", 1)[1].strip().strip('"') for l in open(CF_ENV) if l.startswith("CLOUDFLARE_API_TOKEN"))
+    tok = open(CF_TOKEN).read().strip()
     req = urllib.request.Request("https://api.cloudflare.com/client/v4" + path,
                                  json.dumps(body).encode() if body else None,
                                  {"Authorization": f"Bearer {tok}", "Content-Type": "application/json"}, method=method)
@@ -60,6 +61,30 @@ def set_dns(to_mirror):
             cf("PUT", f"/zones/{zone}/dns_records/{rec[0]['id']}", body)
         else:
             cf("POST", f"/zones/{zone}/dns_records", body)
+
+
+SITE_BLOCK = """nasyrov.pro, www.nasyrov.pro {
+\t{tls}
+\t@www host www.nasyrov.pro
+\tredir @www https://nasyrov.pro{uri} 301
+\troot * /mirror/site
+\ttry_files {path} {path}.html {path}/index.html
+\tfile_server
+}
+"""
+
+
+def caddy_site(on):
+    """Serve nasyrov.pro on Frankfurt only while DNS points there. With a certificate exported from
+    Yandex it is ready at once; without one Caddy gets its own over HTTP-01 a minute or two after DNS moves."""
+    if on:
+        have = subprocess.run(["ssh", "-i", KEY, HOST, "test -s /root/nasyrov-mirror/certs/key.pem"]).returncode == 0
+        tls = "tls /mirror/certs/fullchain.pem /mirror/certs/key.pem" if have else ""
+        cmd = "cat > /root/nasyrov-mirror/live/nasyrov.caddy"
+        subprocess.run(["ssh", "-i", KEY, HOST, cmd], input=SITE_BLOCK.replace("{tls}", tls), text=True, check=True)
+    else:
+        subprocess.run(["ssh", "-i", KEY, HOST, "rm -f /root/nasyrov-mirror/live/nasyrov.caddy"], check=True)
+    subprocess.run(["ssh", "-i", KEY, HOST, "docker exec medbook-web caddy reload --config /etc/caddy/Caddyfile"], check=True)
 
 
 def tg(text):
@@ -88,6 +113,10 @@ def main():
     st = json.loads(STATE.read_text()) if STATE.exists() else {"mode": "primary", "fails": 0, "oks": 0, "cert_day": ""}
     if "--status" in sys.argv:
         return print(st)
+    if "--drill-on" in sys.argv:  # test the Frankfurt site block without touching DNS
+        return caddy_site(True)
+    if "--drill-off" in sys.argv:
+        return caddy_site(False)
     if "--cert" in sys.argv:
         return refresh_cert()
     today = time.strftime("%Y-%m-%d")
@@ -99,8 +128,11 @@ def main():
             print("cert refresh failed:", e)
     ok = up(PRIMARY)
     st["fails"], st["oks"] = (0, st["oks"] + 1) if ok else (st["fails"] + 1, 0)
-    if st["mode"] == "primary" and st["fails"] >= FAIL_N:
+    if st["mode"] == "primary" and st["fails"] >= FAIL_N and cf("GET", "/zones?name=nasyrov.pro")[0]["status"] != "active":
+        print("primary down, but Cloudflare zone is not active yet (NS still at Yandex) - nothing to switch")
+    elif st["mode"] == "primary" and st["fails"] >= FAIL_N:
         if up(MIRROR):
+            caddy_site(True)
             set_dns(True)
             st["mode"] = "mirror"
             tg("⚠️ nasyrov.pro: Яндекс Облако не отвечает 3 минуты, переключил сайт на запасную копию во Франкфурте (без формы заявок).")
@@ -109,6 +141,8 @@ def main():
             st["mirror_alerted"] = True
     elif st["mode"] == "mirror" and st["oks"] >= OK_N:
         set_dns(False)
+        time.sleep(300)  # let resolvers holding the 60 s record drain before the copy stops answering
+        caddy_site(False)
         st["mode"], st["mirror_alerted"] = "primary", False
         tg("✅ nasyrov.pro: Яндекс Облако снова отвечает, вернул сайт на основной адрес.")
     if ok:

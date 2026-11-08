@@ -41,6 +41,8 @@ returns as a second site). Now:
 - Admin access: service account `site-admin` (editor on the folder), key in
   `/root/.config/yandex-cloud/`, IAM via `/root/.claude/tools/yc-iam.py`.
 
+**Failover (since 2026-11-08, Sergey's choice: no RKN amendment, stripped copy).** DNS for nasyrov.pro moves to Cloudflare (zone cb0911fc…, DNS-only, token `/root/.config/cloudflare/nasyrov-dns-token`). `container/mirror-publish.py` (run by yc-publish.py) syncs a copy with forms replaced by a Telegram link and Metrika off to Frankfurt `/root/nasyrov-mirror/site`, served by the medbook Caddy (no access log). `container/mirror-watch.py` (systemd timer on Istanbul, every minute) exports the Yandex certificate daily, and after 3 failed checks of the gateway points apex and www A records at 38.54.84.115 and writes the Caddy site block; after 5 OKs switches back. Test host: https://mirror.38-54-84-115.sslip.io; drill without DNS: `mirror-watch.py --drill-on/--drill-off`.
+
 **Old setup (until 2026-11-01): `nasyrov.pro` was served from the VPS, not Netlify.** nginx on `bot-server`
 (`45.12.239.15`, Beget) proxies `nasyrov.pro` and `www.nasyrov.pro` to a Docker container
 named `sns` on `127.0.0.1:8080`, built from `container/Dockerfile` in this repo. The
