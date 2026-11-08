@@ -24,7 +24,22 @@ Domain spellings, all three real and all different:
   notes referring to *this* project, that's a leftover mistake.
 
 ## Hosting and deploy
-**`nasyrov.pro` is served from the VPS, not Netlify.** nginx on `bot-server`
+**Since 2026-11-08: Yandex Cloud, folder `default` (b1gj85k9hfcaccqc1npi).** Beget's SPb VPS was
+wiped by the 1–2.11.2026 attack (the section below describes that old setup, kept until a RU VPS
+returns as a second site). Now:
+- pages: Object Storage bucket `nasyrov.pro`, uploaded by `container/yc-publish.py` (also writes
+  extensionless copies for clean URLs); run it after every merge to main;
+- API Gateway `nasyrov-pro` (`d5dpjm73r03uq9ukal8j.764nr5vy.apigw.yandexcloud.net`): `/` and
+  `/{file+}` → bucket, `POST /.netlify/functions/send-lead` → Cloud Function `send-lead`
+  (same `send-lead.js`, wrapper `index.js`), env in the function version; leads-writer got a new
+  static key (old one died with the VPS); MAX token is `pending` until Sergey re-issues it —
+  leads still land in `nasyrov-leads`, only the MAX notice fails;
+- DNS: Cloud DNS zone `nasyrov-pro` (ns1/ns2.yandexcloud.net), ANAME apex + CNAME www → gateway,
+  MX/SPF still Beget; certificate `nasyrov-pro` (Let's Encrypt, DNS challenge) in Certificate Manager.
+- Admin access: service account `site-admin` (editor on the folder), key in
+  `/root/.config/yandex-cloud/`, IAM via `/root/.claude/tools/yc-iam.py`.
+
+**Old setup (until 2026-11-01): `nasyrov.pro` was served from the VPS, not Netlify.** nginx on `bot-server`
 (`45.12.239.15`, Beget) proxies `nasyrov.pro` and `www.nasyrov.pro` to a Docker container
 named `sns` on `127.0.0.1:8080`, built from `container/Dockerfile` in this repo. The
 Netlify project still exists and the repo still auto-deploys there, which makes it easy to
