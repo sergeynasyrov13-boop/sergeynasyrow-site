@@ -34,7 +34,9 @@ returns as a second site). Now:
   (same `send-lead.js`, wrapper `index.js`), env in the function version; leads-writer got a new
   static key (old one died with the VPS); MAX token is `pending` until Sergey re-issues it —
   leads still land in `nasyrov-leads`, only the MAX notice fails;
-- DNS: Cloud DNS zone `nasyrov-pro` (ns1/ns2.yandexcloud.net), ANAME apex + CNAME www → gateway,
+- `www`: the gateway takes only one custom domain (quota `serverless.apiGatewaysDomains.count` = 1),
+  so `www.nasyrov.pro` is a separate bucket that 301-redirects to https://nasyrov.pro (same cert);
+- DNS: Cloud DNS zone `nasyrov-pro` (ns1/ns2.yandexcloud.net), ANAME apex → gateway, CNAME www → www bucket website,
   MX/SPF still Beget; certificate `nasyrov-pro` (Let's Encrypt, DNS challenge) in Certificate Manager.
 - Admin access: service account `site-admin` (editor on the folder), key in
   `/root/.config/yandex-cloud/`, IAM via `/root/.claude/tools/yc-iam.py`.
