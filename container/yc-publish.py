@@ -54,6 +54,9 @@ def main(dry):
         if got < n:
             raise SystemExit(f"bucket has {got} objects, expected ≥ {n}")
         print(f"bucket check: {got} objects")
+        # Frankfurt standby copy must not drift from the live site (mirror-publish.py, 08.11.2026)
+        import subprocess
+        subprocess.run([sys.executable, str(pathlib.Path(__file__).with_name("mirror-publish.py"))], check=True)
 
 
 if __name__ == "__main__":
