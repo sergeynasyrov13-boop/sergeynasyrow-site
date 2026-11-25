@@ -1141,7 +1141,7 @@
     .case-card__tags {
       display: flex;
       gap: 8px;
-      margin-bottom: 28px;
+      margin-bottom: 14px;
       flex-wrap: wrap;
     }
 
@@ -1156,6 +1156,25 @@
     }
 
     .case-card__tag--niche { color: #888888; background: #F2F2F2; }
+
+    .case-card__headline {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #1A1A1A;
+      margin-bottom: 24px;
+    }
+
+    .case-card__more {
+      margin-top: auto;
+      padding-top: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #F0902C;
+      text-decoration: none;
+    }
+
+    .case-card__more:hover { text-decoration: underline; }
 
     .case-card__situation {
       font-size: 13px;
@@ -2391,90 +2410,93 @@
 
             <article class="case-card">
               <div class="case-card__tags">
-                <span class="case-card__tag">Email-маркетинг</span>
-                <span class="case-card__tag case-card__tag--niche">Онлайн-образование</span>
+                <span class="case-card__tag case-card__tag--niche">B2B, сельхозтехника</span>
               </div>
-              <div class="case-card__situation">Email-канал работал без&nbsp;системы: только продающие письма в&nbsp;окно продаж, без&nbsp;сегментации и&nbsp;онбординга</div>
+              <div class="case-card__headline">Как&nbsp;я&nbsp;выстроил сквозную аналитику у&nbsp;производителя сельхозтехники и&nbsp;поднял долю звонков с&nbsp;известным источником с&nbsp;58% до&nbsp;94%</div>
+              <div class="case-card__metric" data-count="94" data-prefix="" data-suffix="%">94%</div>
+              <div class="case-card__metric-label">звонков с&nbsp;видимым источником</div>
+              <div class="case-card__metric-desc">Было 58%. Теперь каждый рекламный канал оцениваю по&nbsp;обращениям, интересам и&nbsp;закрытым сделкам в&nbsp;CRM.</div>
+              <a class="case-card__more" href="/portfolio#skvoznaya-analitika">Подробнее в&nbsp;портфолио →</a>
+            </article>
+            <article class="case-card">
+              <div class="case-card__tags">
+                <span class="case-card__tag case-card__tag--niche">B2B, сельхозтехника</span>
+              </div>
+              <div class="case-card__headline">Одна строка в&nbsp;почтовых настройках съедала 68% заявок с&nbsp;сайта: как&nbsp;я&nbsp;нашёл и&nbsp;закрыл потерю</div>
+              <div class="case-card__metric" data-count="68" data-prefix="" data-suffix="%">68%</div>
+              <div class="case-card__metric-label">заявок с&nbsp;сайта не&nbsp;доходили до&nbsp;продаж</div>
+              <div class="case-card__metric-desc">Нашёл причину в&nbsp;почтовых настройках, вернул потерянные заявки в&nbsp;отдел продаж и&nbsp;поставил ежедневную сверку сайта с&nbsp;CRM.</div>
+              <a class="case-card__more" href="/portfolio#poteri-zayavok">Подробнее в&nbsp;портфолио →</a>
+            </article>
+            <article class="case-card">
+              <div class="case-card__tags">
+                <span class="case-card__tag case-card__tag--niche">B2B, сельхозтехника</span>
+              </div>
+              <div class="case-card__headline">Как&nbsp;я&nbsp;перезапустил Яндекс.Директ для&nbsp;производителя сельхозтехники: обращение на&nbsp;21% дешевле, клик на&nbsp;73% дешевле</div>
+              <div class="case-card__metric" data-count="21" data-prefix="−" data-suffix="%">−21%</div>
+              <div class="case-card__metric-label">цена обращения с&nbsp;поиска</div>
+              <div class="case-card__metric-desc">Октябрь–ноябрь против июня. Клик на&nbsp;поиске подешевел на&nbsp;73%, кликов стало в&nbsp;2,8 раза больше при&nbsp;расходе на&nbsp;четверть меньше.</div>
+              <a class="case-card__more" href="/portfolio#direct-b2b">Подробнее в&nbsp;портфолио →</a>
+            </article>
+            <article class="case-card">
+              <div class="case-card__tags">
+                <span class="case-card__tag case-card__tag--niche">Foodtech, B2C</span>
+              </div>
+              <div class="case-card__headline">Как&nbsp;я&nbsp;выстроил инфлюенс-маркетинг на&nbsp;ИИ-инструментах для&nbsp;foodtech-сервиса: 21 интеграция, 586 тыс. просмотров и&nbsp;оплаты в&nbsp;8 раз чаще, чем с&nbsp;Директа</div>
+              <div class="case-card__metric" data-count="8" data-prefix="×" data-suffix="">×8</div>
+              <div class="case-card__metric-label">во&nbsp;столько раз чаще визит заканчивался оплатой, чем с&nbsp;Директа</div>
+              <div class="case-card__metric-desc">В&nbsp;пилоте из&nbsp;трёх роликов. С&nbsp;сентября по&nbsp;17 ноября вышла 21 интеграция, около 586 тыс. просмотров.</div>
+              <a class="case-card__more" href="/portfolio#blogery-foodtech">Подробнее в&nbsp;портфолио →</a>
+            </article>
+            <article class="case-card">
+              <div class="case-card__tags">
+                <span class="case-card__tag case-card__tag--niche">Фитнес-приложение</span>
+              </div>
+              <div class="case-card__headline">Письма уходили только в&nbsp;окно продаж: как&nbsp;я&nbsp;выстроил email-цепочки для&nbsp;фитнес-приложения с&nbsp;открываемостью 54% и&nbsp;удержанием клиентов 85%</div>
               <div class="case-card__metric" data-count="54" data-prefix="" data-suffix="%">54%</div>
               <div class="case-card__metric-label">открываемость писем</div>
               <div class="case-card__metric-desc">При&nbsp;среднем по&nbsp;рынку 20%. Retention клиентов вырос до&nbsp;85% — из&nbsp;десяти начавших занятия восемь-девять продолжали</div>
+              <a class="case-card__more" href="/portfolio#email-fitnes">Подробнее в&nbsp;портфолио →</a>
             </article>
-
             <article class="case-card">
               <div class="case-card__tags">
-                <span class="case-card__tag">SMM</span>
                 <span class="case-card__tag case-card__tag--niche">HoReCa</span>
               </div>
-              <div class="case-card__situation">Аккаунт вели без&nbsp;стратегии, охваты стагнировали на 20–45 тысяч в&nbsp;месяц, SMM-специалиста не&nbsp;было</div>
+              <div class="case-card__headline">Охваты стояли на&nbsp;20–45 тыс. в&nbsp;месяц: как&nbsp;я&nbsp;перезапустил SMM ресторана и&nbsp;вывел охват до&nbsp;180 тыс., а&nbsp;ER —&nbsp;в&nbsp;7,6 раза выше рынка</div>
               <div class="case-card__metric" data-count="4" data-prefix="×" data-suffix="">×4</div>
               <div class="case-card__metric-label">рост месячного охвата</div>
               <div class="case-card__metric-desc">С&nbsp;45 до&nbsp;180 тысяч. ER 5,1% при&nbsp;среднем по&nbsp;рынку 0,67% — аудитория реагировала в&nbsp;7,6 раза активнее конкурентов</div>
+              <a class="case-card__more" href="/portfolio#smm-restoran">Подробнее в&nbsp;портфолио →</a>
             </article>
-
             <article class="case-card">
               <div class="case-card__tags">
-                <span class="case-card__tag">Яндекс Директ</span>
                 <span class="case-card__tag case-card__tag--niche">HoReCa</span>
               </div>
-              <div class="case-card__situation">Реклама работала, но&nbsp;стоимость привлечения гостя держалась на уровне 770 ₽ за&nbsp;бронирование</div>
+              <div class="case-card__headline">Как&nbsp;я&nbsp;снизил цену бронирования из&nbsp;Директа для&nbsp;ресторана с&nbsp;770 до&nbsp;450 ₽ и&nbsp;удвоил число бронирований при&nbsp;бюджете на&nbsp;20% меньше</div>
               <div class="case-card__metric" data-count="42" data-prefix="−" data-suffix="%">−42%</div>
               <div class="case-card__metric-label">снижение стоимости заявки</div>
               <div class="case-card__metric-desc">CPA упал с&nbsp;770 до&nbsp;450 ₽. Количество бронирований удвоилось при&nbsp;бюджете, который сократился на&nbsp;20%</div>
+              <a class="case-card__more" href="/portfolio#direct-restoran">Подробнее в&nbsp;портфолио →</a>
             </article>
-
             <article class="case-card">
               <div class="case-card__tags">
-                <span class="case-card__tag">Конверсия сайта</span>
-                <span class="case-card__tag case-card__tag--niche">Онлайн-образование</span>
+                <span class="case-card__tag case-card__tag--niche">Фитнес-приложение</span>
               </div>
-              <div class="case-card__situation">Лендинг получал стабильный трафик, но&nbsp;конверсия держалась около 1% — люди уходили, не&nbsp;понимая ценности</div>
+              <div class="case-card__headline">Посетители уходили, не&nbsp;поняв продукт: как&nbsp;я&nbsp;пересобрал лендинг фитнес-приложения и&nbsp;поднял конверсию в&nbsp;заявку с&nbsp;1% до&nbsp;3%</div>
               <div class="case-card__metric" data-count="3" data-prefix="×" data-suffix="">×3</div>
               <div class="case-card__metric-label">рост конверсии в&nbsp;заявку</div>
               <div class="case-card__metric-desc">С&nbsp;1% до&nbsp;3% — втрое больше людей из&nbsp;тех, кто зашёл на сайт, оставляли заявку. Без&nbsp;увеличения бюджета на трафик</div>
+              <a class="case-card__more" href="/portfolio#lending-fitnes">Подробнее в&nbsp;портфолио →</a>
             </article>
-
             <article class="case-card">
               <div class="case-card__tags">
-                <span class="case-card__tag">VK Ads</span>
                 <span class="case-card__tag case-card__tag--niche">HoReCa</span>
               </div>
-              <div class="case-card__situation">Реклама в&nbsp;VK работала только на подписчиков и&nbsp;анонсы афиш — конкретные продукты не&nbsp;продвигались</div>
+              <div class="case-card__headline">Как&nbsp;я&nbsp;снизил цену клика во&nbsp;VK Ads для&nbsp;ресторана на&nbsp;64% и&nbsp;получил на&nbsp;31% больше кликов при&nbsp;бюджете на&nbsp;53% меньше</div>
               <div class="case-card__metric" data-count="64" data-prefix="−" data-suffix="%">−64%</div>
               <div class="case-card__metric-label">снижение стоимости клика</div>
               <div class="case-card__metric-desc">При&nbsp;бюджете, который сократился на 53%. Количество кликов выросло на 31%, кликабельность объявлений удвоилась</div>
-            </article>
-
-            <article class="case-card">
-              <div class="case-card__tags">
-                <span class="case-card__tag">Маркетинговая стратегия</span>
-                <span class="case-card__tag case-card__tag--niche">Фитнес</span>
-              </div>
-              <div class="case-card__situation">Клиент масштабировался без&nbsp;стратегии: каждый канал жил отдельно, бюджет распылялся, непонятно что&nbsp;работает</div>
-              <div class="case-card__metric">×2</div>
-              <div class="case-card__metric-label">рост выручки за&nbsp;6 месяцев</div>
-              <div class="case-card__metric-desc">После разработки стратегии — чёткое позиционирование, единая воронка, фокус на двух каналах вместо пяти</div>
-            </article>
-
-            <article class="case-card">
-              <div class="case-card__tags">
-                <span class="case-card__tag">Инфлюенс-маркетинг</span>
-                <span class="case-card__tag case-card__tag--niche">Beauty</span>
-              </div>
-              <div class="case-card__situation">Бренд размещался у&nbsp;крупных блогеров и&nbsp;получал охваты, но&nbsp;продаж почти не&nbsp;было — аудитория не&nbsp;совпадала</div>
-              <div class="case-card__metric">−68%</div>
-              <div class="case-card__metric-label">снижение стоимости привлечения</div>
-              <div class="case-card__metric-desc">Переориентировались на микроблогеров с&nbsp;целевой аудиторией: конверсия в&nbsp;покупку выросла в&nbsp;4 раза при&nbsp;вдвое меньшем бюджете</div>
-            </article>
-
-            <article class="case-card">
-              <div class="case-card__tags">
-                <span class="case-card__tag">Программа лояльности</span>
-                <span class="case-card__tag case-card__tag--niche">HoReCa</span>
-              </div>
-              <div class="case-card__situation">Гости приходили один раз и&nbsp;не&nbsp;возвращались — не&nbsp;было системы работы с&nbsp;базой и&nbsp;повторных касаний</div>
-              <div class="case-card__metric">+38%</div>
-              <div class="case-card__metric-label">рост повторных визитов</div>
-              <div class="case-card__metric-desc">Запустили программу лояльности с&nbsp;триггерными коммуникациями — средний чек вырос на 22%, гости стали возвращаться втрое чаще</div>
+              <a class="case-card__more" href="/portfolio#vk-restoran-2">Подробнее в&nbsp;портфолио →</a>
             </article>
 
           </div>
@@ -2487,16 +2509,7 @@
         </button>
       </div>
 
-      <div class="cases__dots">
-        <div class="cases__dot active"></div>
-        <div class="cases__dot"></div>
-        <div class="cases__dot"></div>
-        <div class="cases__dot"></div>
-        <div class="cases__dot"></div>
-        <div class="cases__dot"></div>
-        <div class="cases__dot"></div>
-        <div class="cases__dot"></div>
-      </div>
+      <div class="cases__dots" id="casesDots"></div>
     </section>
   </div>
 
@@ -2830,9 +2843,24 @@
       const cards    = Array.from(document.querySelectorAll('.case-card'));
       const prevBtn  = document.getElementById('casesPrev');
       const nextBtn  = document.getElementById('casesNext');
-      const dotEls   = Array.from(document.querySelectorAll('.cases__dot'));
-      const VISIBLE  = 3;
-      const MAX_IDX  = cards.length - VISIBLE;
+      const dotsBox  = document.getElementById('casesDots');
+      let VISIBLE = 3, MAX_IDX = 0, dotEls = [];
+      function layout() {
+        VISIBLE = window.innerWidth <= 768 ? 1 : 3;
+        MAX_IDX = Math.max(0, cards.length - VISIBLE);
+        if (dotEls.length !== MAX_IDX + 1) {
+          dotsBox.innerHTML = '';
+          dotEls = [];
+          for (let i = 0; i <= MAX_IDX; i++) {
+            const d = document.createElement('div');
+            d.className = 'cases__dot';
+            d.addEventListener('click', function() { go(i); });
+            dotsBox.appendChild(d);
+            dotEls.push(d);
+          }
+        }
+      }
+      layout();
       let idx = 0;
 
       function stepW() { return cards[0] ? cards[0].offsetWidth + 20 : 0; }
@@ -2850,7 +2878,6 @@
 
       prevBtn.addEventListener('click', function() { go(idx - 1); });
       nextBtn.addEventListener('click', function() { go(idx + 1); });
-      dotEls.forEach(function(d, i) { d.addEventListener('click', function() { go(i); }); });
 
       var animatedCards = new Set();
       function triggerMetric(card) {
@@ -2877,7 +2904,7 @@
         }
       }, { threshold: 0.2 }).observe(document.querySelector('.cases'));
 
-      window.addEventListener('resize', function() { go(idx); });
+      window.addEventListener('resize', function() { layout(); go(idx); });
 
       // Touch swipe for mobile
       const vp = document.querySelector('.cases__viewport');
